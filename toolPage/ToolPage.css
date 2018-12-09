@@ -183,8 +183,10 @@ header button:hover:not(.active){
   position: fixed;
   left: 12em;
   top:3.365em;
-  width: 100%;
+  width: 0;
+  height: 100%;
   z-index: 3;
+  color: #000000;
 }
 
 /*Select Navigation Bars*/
