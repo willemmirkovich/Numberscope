@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, intial-scale=1.0">
+    <title>NUMBERSCOPE</title>
+    <link rel="stylesheet" type="text/css" href="ToolPage.css">
+  </head>
+
+  <body>
+    <header>
+      <div>
+      <a id="title1"> Click 1. to get started </a>
+      <button id = "Download" type="button"> Download </button>
+      <button id = "Upload" type="button"> Upload </button>
+      </div>
+    </header>
+
+    <div id="exampleNav" class="exNav">
+      <a id="exCloseBtn" href="javascript:void(0)"class="closebtn" onclick="closeExNav()">&#187; </a>
+      <a href="#">Example 1</a>
+      <a href="#">Example 2</a>
+    </div>
+
+    <div id="sideNav" class="sideNav">
+        <a id="logo" href=""> <img src="logo.png" alt="Logo" width="167" height="34"> </a>
+        <span id="exNavBtn" style="font-size:30px;cursor:pointer"onclick="openExNav()"> &#9776; Examples </span>
+        <a id="step1"> <img class="icon" src="seq.png" alt="Sequence" width="168" height="73" onclick="openNav(n=1)"> </a>
+        <a id="step2"> <img class="icon" src="tools.png" alt="Tools" width="168" height="73" onclick="openNav(n=2)"> </a>
+        <a id="step3"> <img class="icon" src="draw.png" alt="Draw" width="168" height="73" onclick="openNav(n=3)"> </a>
+    </div>
+
+    <div id="step1Nav" class="stepNav">
+      <a id="step1CloseBtn" href="javascript:void(0)"class="stepClosebtn" onclick="closeNav(n=1)">&#171; </a>
+      <a id="seq1" href="#" onclick="openSeqNav(n=1)">{an}</a>
+      <a href="#">+</a>
+    </div>
+    <div id="step2Nav" class="stepNav">
+      <a id="step2CloseBtn" href="javascript:void(0)"class="stepClosebtn" onclick="closeNav(n=2)">&#171; </a>
+      <a id="tool1" href="#" onclick="openToolNav(n=1)">Tool 1</a>
+      <a href="#">+</a>
+    </div>
+    <div id="step3Nav" class="stepNav">
+      <a id="step3CloseBtn" href="javascript:void(0)"class="stepClosebtn" onclick="closeNav(n=3)">&#171; </a>
+        <div class="row">
+          <div class="column2">
+            <a id="drawNum" href="#">1.</a>
+          </div>
+          <div class="column">
+            <a id="draw1" href="#">{an}</a>
+          </div>
+          <div class="column">
+            <a id="draw1" href="#">Tool 1</a>
+          </div>
+          <div class="column2">
+            <a id="drawRemove" href="#">&times</a>
+          </div>
+        </div>
+      <a href="#">+</a>
+      <a id="draw1" href="#" onclick="openCanvas()">Draw!</a>
+    </div>
+
+    <div id="seqNav" class="selectNav">
+      <a id="seqCloseBtn" href="javascript:void(0)"class="selectClosebtn" onclick="closeSeqNav(n=1)">&#171; </a>
+      <a id="fct" href="#" onclick="openSeqInputNav(n=1)">Function</a>
+      <a id="OEIS" href="#" onclick="openSeqInputNav(n=2)"> OEIS</a>
+      <a id="list" href="#" onclick="openSeqInputNav(n=3)"> List</a>
+      <a id="code" href="#" onclick="openSeqInputNav(n=4)">Sage Code</a>
+    </div>
+    <div id="toolNav" class="selectNav">
+      <a id="toolCloseBtn" href="javascript:void(0)"class="selectClosebtn" onclick="closeToolNav(n=1)">&#171; </a>
+      <a href="#">Turtle Walk</a>
+      <a href="#">Game of Life</a>
+      <a href="#">Shift Compare</a>
+    </div>
+
+    <div id="fctInputNav" class="seqInputNav">
+      <a id="fctCloseBtn" href="javascript:void(0)"class="closebtn" onclick="closeSeqInputNav(n=1)">&#171; </a>
+      <li>Function: </li>
+      <textarea id="functionText"></textarea>
+    </div>
+    <div id="oeisInputNav" class="seqInputNav">
+      <a id="oeisCloseBtn" href="javascript:void(0)"class="closebtn" onclick="closeSeqInputNav(n=2)">&#171; </a>
+      <li>OEIS Number: </li>
+      <textarea id="oeisNum"></textarea>
+    </div>
+    <div id="listInputNav" class="seqInputNav">
+      <a id="listCloseBtn" href="javascript:void(0)"class="closebtn" onclick="closeSeqInputNav(n=3)">&#171; </a>
+      <li>List: </li>
+      <textarea id="listText"></textarea>
+    </div>
+    <div id="codeInputNav" class="seqInputNav">
+      <a id="listCloseBtn" href="javascript:void(0)"class="closebtn" onclick="closeSeqInputNav(n=4)">&#171; </a>
+      <li>Code: </li>
+      <textarea id="codeText"></textarea>
+    </div>
+
+    <div>
+      <canvas id="mainCanvas"> </canvas>
+    </div>
+    <script src="ToolPage.js" type="text/javascript" defer> </script>
+  </body>
+
+</html>

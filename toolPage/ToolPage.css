@@ -1,0 +1,289 @@
+/*Body*/
+body{
+  margin: 0;
+  background-image: url("background2.jpg");
+  background-attachment: fixed;
+  background-size: cover;
+  text-align: center;
+  /*background-repeat: no-repeat;*/
+}
+
+/*Header*/
+header{
+  background-color: #696773;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 3.365em;
+  overflow: hidden;
+}
+header a{
+  float: left;
+  position: relative;
+  left: 4.5em;
+  font-family: "Infinity", sans-serif;
+  font-size: 2.75em;
+  color: #ffffff;
+  text-decoration: none;
+  transition: 0.5s
+}
+header button{
+  float: right;
+  font-family: "Infinity", sans-serif;
+  font-size: 2em;
+  color: #ffffff;
+  background-color: #087e8b;
+  border: none;
+  border-radius: 10%;
+  padding-left: .25em;
+  padding-right: .25em;
+  margin-top: .2em;
+  margin-right: .4em;
+}
+header button:hover:not(.active){
+  color: #000000;
+}
+#Upload{
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+/*Main Side Navagation Bar*/
+.sideNav{
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  background-color: #0b5563;
+  width: 12em;
+  height: 100%;
+  position: fixed;
+  /*overflow: auto;*/
+  font-family: "Infinity", sans-serif;
+  color: #ffffff;
+  transition: margin-left 0.3s
+}
+.sideNav a {
+  display: block;
+  margin-bottom: 0em;
+  padding: .5em;
+  text-align: center;
+  transition: margin-left 0.3s;
+}
+.sideNav a:hover{
+  transition: 0.3s;
+  background-color: #087e8b!important;
+}
+#logo{
+  background-color: #c6a0ed;
+  margin-bottom: 0em;
+  padding: .5em;
+}
+#logo:hover{
+  background-color: #c6a0ed!important;
+}
+
+/*Examples Navigation Bar*/
+.exNav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #696773;
+    overflow-x: hidden;
+    transition: 0.3s;
+}
+.exNav a {
+    font-family: "Infinity", sans-serif;
+    text-align: center;
+    text-decoration: none;
+    font-size: 2em;
+    color: #ffffff;
+    display: block;
+    transition: 0.3s;
+}
+.exNav a:hover {
+  background-color: #0b5563!important;
+  color: #f1f1f1;
+}
+.exNav .closebtn {
+    top: 0;
+    font-size: 2.15em;
+    padding-top: .1em;
+    padding-bottom: .3em;
+}
+#exCloseBtn:hover{
+  background-color: #696773!important;
+}
+@media screen and (max-height: 450px) {
+  .exNav {padding-top: 15px;}
+  .exNav a {font-size: 18px;}
+}
+
+/*Step Navigation Bars*/
+.stepNav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 3.365em;
+    left: 12em;
+    z-index: 5;
+    background-color: #087e8b;
+    overflow-x: hidden;
+    transition: 0.3s;
+}
+.stepNav a {
+    font-family: "Infinity", sans-serif;
+    text-align: center;
+    text-decoration: none;
+    font-size: 3em;
+    color: #ffffff;
+    display: block;
+    transition: 0.3s;
+}
+.stepNav a:hover {
+  background-color: #c6a0ed!important;
+  color: #f1f1f1;
+}
+.stepNav .stepClosebtn {
+    top: 0;
+    font-size: 2.15em;
+}
+.stepNav .stepClosebtn:hover{
+  background-color: #087e8b!important;
+}
+@media screen and (max-height: 450px) {
+  .step1Nav {padding-top: 15px;}
+  .step1Nav a {font-size: 18px;}
+}
+.column {
+    float: left;
+    width: 40%;
+    height: auto;
+}
+.column2 {
+    float: left;
+    width: 10%;
+    height: auto;
+}
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+#drawNum:hover{
+  background-color: #087e8b!important;
+}
+#drawRemove:hover{
+  background-color: #087e8b!important;
+  color: #c6a0ed!important;
+}
+#mainCanvas{
+  position: fixed;
+  left: 12em;
+  top:3.365em;
+  width: 100%;
+  z-index: 3;
+}
+
+/*Select Navigation Bars*/
+.selectNav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 3.365em;
+    left: 24em;
+    z-index: 4;
+    background-color: #c6a0ed;
+    overflow-x: hidden;
+    transition: 0.3s;
+}
+.selectNav a {
+    font-family: "Infinity", sans-serif;
+    padding: .11em;
+    text-align: center;
+    text-decoration: none;
+    font-size: 2.5em;
+    color: #ffffff;
+    display: block;
+    transition: 0.3s;
+}
+.selectNav a:hover {
+  background-color: #696773!important;
+  color: #f1f1f1;
+}
+#toolNav a {
+  padding: .28em;
+  font-size: 2em;
+}
+#toolNav .selectClosebtn{
+  top: 0;
+  font-size: 2.15em;
+  padding: 0;
+}
+.selectNav .selectClosebtn {
+    top: 0;
+    font-size: 2.15em;
+    padding: 0;
+}
+.selectNav .selectClosebtn:hover{
+  background-color: #c6a0ed!important;
+}
+@media screen and (max-height: 450px) {
+  .selectNav {padding-top: 15px;}
+  .selectNav a {font-size: 18px;}
+}
+
+/*Seq Input Navigation Bars*/
+.seqInputNav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 3.365em;
+    left: 36em;
+    z-index: 3;
+    background-color: #696773;
+    overflow-x: hidden;
+    transition: 0.3s;
+}
+.seqInputNav a {
+    font-family: "Infinity", sans-serif;
+    text-align: center;
+    text-decoration: none;
+    font-size: 2em;
+    color: #ffffff;
+    display: block;
+    transition: 0.3s;
+}
+.seqInputNav li {
+    font-family: "Infinity", sans-serif;
+    text-align: center;
+    text-decoration: none;
+    font-size: 2em;
+    color: #ffffff;
+    display: block;
+    transition: 0.3s;
+}
+.seqInputNav input[type=text], select, textarea {
+  width: 80%;
+  height: 21em;
+  padding: .25em;
+  margin-top: .25em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+  font-size: 1.25em;
+}
+.seqInputNav .closebtn {
+    top: 0;
+    font-size: 2.15em;
+}
+@media screen and (max-height: 450px) {
+  .seqInputNav {padding-top: 15px;}
+  .seqInputNav a {font-size: 18px;}
+}
+#oeisNum{
+  height: 1.5em;
+  resize: none;
+}
