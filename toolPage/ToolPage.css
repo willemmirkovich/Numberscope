@@ -1,4 +1,4 @@
-@font-face { font-family: Infinity; src: url('Infinity.ttf'); } 
+@font-face { font-family: Infinity; src: url('Infinity.ttf'); }
 /*Body*/
 body{
   margin: 0;
@@ -187,7 +187,8 @@ header button:hover:not(.active){
   width: 0;
   height: 100%;
   z-index: 3;
-  color: #000000;
+  color: #ffffff;
+  background-color: #ffffff;
 }
 
 /*Select Navigation Bars*/
