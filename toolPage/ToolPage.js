@@ -2,6 +2,7 @@
 function openExNav() {
     document.getElementById("exampleNav").style.width = "12em";
     document.getElementById("title1").style.marginLeft = "4.5em";
+    document.getElementById("mainCanvas").style.marginLeft = "12em";
 
     var list1 = ["sideNav", "stepNav", "selectNav", "seqInputNav"];
     for (var i = 0; i < list1.length; i++) {
@@ -14,6 +15,7 @@ function openExNav() {
 function closeExNav() {
     document.getElementById("exampleNav").style.width = "0";
     document.getElementById("title1").style.marginLeft = "0";
+    document.getElementById("mainCanvas").style.marginLeft = "0";
 
     var list1 = ["sideNav", "stepNav", "selectNav", "seqInputNav"];
     for (var i = 0; i < list1.length; i++) {

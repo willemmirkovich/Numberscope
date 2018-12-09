@@ -128,7 +128,7 @@ header button:hover:not(.active){
     position: fixed;
     top: 3.365em;
     left: 12em;
-    z-index: 5;
+    z-index: 10;
     background-color: #087e8b;
     overflow-x: hidden;
     transition: 0.3s;
@@ -186,6 +186,7 @@ header button:hover:not(.active){
   top:3.365em;
   width: 0;
   height: 100%;
+  z-index: 1;
   color: #ffffff;
   background-color: #ffffff;
   transition: 0.3s;
