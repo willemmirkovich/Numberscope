@@ -1,8 +1,15 @@
 @font-face { font-family: Infinity; src: url('Infinity.ttf'); }
+:root{
+  --logoColor: #afafdc;
+  --topBarColor: #f75c03;
+  --sideNavColor: #416788;
+  --sideNavColor2: #70cad1;
+}
+
 /*Body*/
 body{
   margin: 0;
-  background-image: url("background2.jpg");
+  background-image: url("background3.jpg");
   background-attachment: fixed;
   background-size: cover;
   text-align: center;
@@ -11,7 +18,7 @@ body{
 
 /*Header*/
 header{
-  background-color: #696773;
+  background-color: var(--topBarColor);
   position: fixed;
   top: 0;
   width: 100%;
@@ -33,7 +40,7 @@ header button{
   font-family: "Infinity", sans-serif;
   font-size: 2em;
   color: #ffffff;
-  background-color: #087e8b;
+  background-color: var(--sideNavColor2);
   border: none;
   border-radius: 10%;
   padding-left: .25em;
@@ -54,7 +61,7 @@ header button:hover:not(.active){
   margin: 0;
   padding: 0;
   list-style-type: none;
-  background-color: #0b5563;
+  background-color: var(--sideNavColor);
   width: 12em;
   height: 100%;
   position: fixed;
@@ -72,15 +79,15 @@ header button:hover:not(.active){
 }
 .sideNav a:hover{
   transition: 0.3s;
-  background-color: #087e8b!important;
+  background-color: var(--sideNavColor2)!important;
 }
 #logo{
-  background-color: #c6a0ed;
+  background-color: var(--logoColor);
   margin-bottom: 0em;
   padding: .5em;
 }
 #logo:hover{
-  background-color: #c6a0ed!important;
+  background-color: var(--logoColor)!important;
 }
 
 /*Examples Navigation Bar*/
@@ -90,7 +97,7 @@ header button:hover:not(.active){
     position: fixed;
     top: 0;
     left: 0;
-    background-color: #696773;
+    background-color: var(--topBarColor);
     overflow-x: hidden;
     transition: 0.3s;
 }
@@ -104,7 +111,7 @@ header button:hover:not(.active){
     transition: 0.3s;
 }
 .exNav a:hover {
-  background-color: #0b5563!important;
+  background-color: var(--sideNavColor)!important;
   color: #f1f1f1;
 }
 .exNav .closebtn {
@@ -114,7 +121,7 @@ header button:hover:not(.active){
     padding-bottom: .3em;
 }
 #exCloseBtn:hover{
-  background-color: #696773!important;
+  background-color: var(--topBarColor)!important;
 }
 @media screen and (max-height: 450px) {
   .exNav {padding-top: 15px;}
@@ -128,8 +135,8 @@ header button:hover:not(.active){
     position: fixed;
     top: 3.365em;
     left: 12em;
-    z-index: 5;
-    background-color: #087e8b;
+    z-index: 10;
+    background-color: var(--sideNavColor2);
     overflow-x: hidden;
     transition: 0.3s;
 }
@@ -143,7 +150,7 @@ header button:hover:not(.active){
     transition: 0.3s;
 }
 .stepNav a:hover {
-  background-color: #c6a0ed!important;
+  background-color: var(--logoColor)!important;
   color: #f1f1f1;
 }
 .stepNav .stepClosebtn {
@@ -151,7 +158,7 @@ header button:hover:not(.active){
     font-size: 2.15em;
 }
 .stepNav .stepClosebtn:hover{
-  background-color: #087e8b!important;
+  background-color: var(--sideNavColor2)!important;
 }
 @media screen and (max-height: 450px) {
   .step1Nav {padding-top: 15px;}
@@ -174,11 +181,11 @@ header button:hover:not(.active){
     clear: both;
 }
 #drawNum:hover{
-  background-color: #087e8b!important;
+  background-color: var(--sideNavColor2)!important;
 }
 #drawRemove:hover{
-  background-color: #087e8b!important;
-  color: #c6a0ed!important;
+  background-color: var(--sideNavColor2)!important;
+  color: var(--logoColor)!important;
 }
 #mainCanvas{
   position: fixed;
@@ -186,6 +193,7 @@ header button:hover:not(.active){
   top:3.365em;
   width: 0;
   height: 100%;
+  z-index: 1;
   color: #ffffff;
   background-color: #ffffff;
   transition: 0.3s;
@@ -199,7 +207,7 @@ header button:hover:not(.active){
     top: 3.365em;
     left: 24em;
     z-index: 4;
-    background-color: #c6a0ed;
+    background-color: var(--logoColor);
     overflow-x: hidden;
     transition: 0.3s;
 }
@@ -214,7 +222,7 @@ header button:hover:not(.active){
     transition: 0.3s;
 }
 .selectNav a:hover {
-  background-color: #696773!important;
+  background-color: var(--topBarColor)!important;
   color: #f1f1f1;
 }
 #toolNav a {
@@ -232,7 +240,7 @@ header button:hover:not(.active){
     padding: 0;
 }
 .selectNav .selectClosebtn:hover{
-  background-color: #c6a0ed!important;
+  background-color: var(--logoColor)!important;
 }
 @media screen and (max-height: 450px) {
   .selectNav {padding-top: 15px;}
@@ -247,7 +255,7 @@ header button:hover:not(.active){
     top: 3.365em;
     left: 36em;
     z-index: 3;
-    background-color: #696773;
+    background-color: var(--topBarColor);
     overflow-x: hidden;
     transition: 0.3s;
 }
