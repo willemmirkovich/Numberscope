@@ -186,9 +186,9 @@ header button:hover:not(.active){
   top:3.365em;
   width: 0;
   height: 100%;
-  z-index: 3;
   color: #ffffff;
   background-color: #ffffff;
+  transition: 0.3s;
 }
 
 /*Select Navigation Bars*/
