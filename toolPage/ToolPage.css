@@ -141,6 +141,8 @@ header button:hover:not(.active){
     transition: 0.3s;
 }
 .stepNav a {
+    float: left;
+    width: 100%;
     font-family: "Infinity", sans-serif;
     text-align: center;
     text-decoration: none;
@@ -156,9 +158,15 @@ header button:hover:not(.active){
 .stepNav .stepClosebtn {
     top: 0;
     font-size: 2.15em;
+    width: 50%;
 }
 .stepNav .stepClosebtn:hover{
   background-color: var(--sideNavColor2)!important;
+}
+.stepNav .stepAddbtn{
+  top: 0;
+  font-size: 2.15em;
+  width: 50%;
 }
 @media screen and (max-height: 450px) {
   .step1Nav {padding-top: 15px;}

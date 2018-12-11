@@ -2,6 +2,9 @@ var logoColor = "#afafdc";
 var topBarColor = "#f75c03";
 var sideNavColor = "#416788";
 var sideNavColor2 = "#70cad1";
+var numSequences = 1;
+var numTools = 1;
+var numDraw = 1;
 
 //Example Navigation Bar
 function openExNav() {
@@ -160,5 +163,65 @@ function closeToolNav(n){
     //document.getElementById("toolNav").style.marginLeft = "-12em";
     document.getElementById("toolNav").style.width = "0";
     document.getElementById("tool1").style.background = sideNavColor2;
+  }
+}
+
+function addSeq(){
+  if(numSequences < 10){
+    var seqLetter = String.fromCharCode(97 + numSequences);
+    var a = document.createElement('a');
+    var linkText = document.createTextNode("{" + seqLetter + "n}");
+    a.appendChild(linkText);
+    a.href = "#";
+    a.onclick = "openSeqNav(n=1)";
+    document.getElementById("step1Nav").append(a);
+    numSequences += 1;
+  }
+  // var currentA = document.getElementById("addSeqBtn");
+  // document.body.insertBefore(a, currentA);
+  // var addSeq = document.getElementById("addSeqBtn");
+  // $(a).insertBefore(addSeq);
+  //document.getElementById("step1Nav").insertBefore('.content:last-child');
+}
+function addTool(){
+  if(numTools < 10){
+    var toolNum = numTools + 1;
+    var a = document.createElement('a');
+    var linkText = document.createTextNode("Tool " + toolNum);
+    a.appendChild(linkText);
+    a.href = "#";
+    a.onclick="openToolNav(n=1)";
+    document.getElementById("step2Nav").append(a);
+    numTools += 1;
+  }
+}
+function addDraw(){
+  if(numDraw < 10){
+    var drawNumber = numDraw + 1;
+    var a = document.createElement('a');
+    var linkText = document.createTextNode(drawNumber + ".");
+    a.appendChild(linkText);
+    a.href = "#";
+    document.getElementById("drawListNum").append(a);
+
+    var a = document.createElement('a');
+    var linkText = document.createTextNode("{an}");
+    a.appendChild(linkText);
+    a.href = "#";
+    document.getElementById("drawSeqList").append(a);
+
+    var a = document.createElement('a');
+    var linkText = document.createTextNode("Tool 1");
+    a.appendChild(linkText);
+    a.href = "#";
+    document.getElementById("drawToolList").append(a);
+
+    // var a = document.createElement('a');
+    // var linkText = document.createTextNode("&times");
+    // a.appendChild(linkText);
+    // a.href = "#";
+    // document.getElementById("drawRemoveBtns").append(a);
+
+    numDraw += 1;
   }
 }

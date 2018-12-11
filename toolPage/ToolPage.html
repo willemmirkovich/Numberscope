@@ -32,31 +32,31 @@
 
     <div id="step1Nav" class="stepNav">
       <a id="step1CloseBtn" href="javascript:void(0)"class="stepClosebtn" onclick="closeNav(n=1)">&#171; </a>
+      <a id="addSeqBtn" href="#" class="stepAddbtn" onclick="addSeq()">+</a>
       <a id="seq1" href="#" onclick="openSeqNav(n=1)">{an}</a>
-      <a href="#">+</a>
     </div>
     <div id="step2Nav" class="stepNav">
       <a id="step2CloseBtn" href="javascript:void(0)"class="stepClosebtn" onclick="closeNav(n=2)">&#171; </a>
+      <a href="#" class="stepAddbtn" onclick="addTool()">+</a>
       <a id="tool1" href="#" onclick="openToolNav(n=1)">Tool 1</a>
-      <a href="#">+</a>
     </div>
     <div id="step3Nav" class="stepNav">
       <a id="step3CloseBtn" href="javascript:void(0)"class="stepClosebtn" onclick="closeNav(n=3)">&#171; </a>
-        <div class="row">
-          <div class="column2">
-            <a id="drawNum" href="#">1.</a>
-          </div>
-          <div class="column">
-            <a id="draw1" href="#">{an}</a>
-          </div>
-          <div class="column">
-            <a id="draw1" href="#">Tool 1</a>
-          </div>
-          <div class="column2">
-            <a id="drawRemove" href="#">&times</a>
-          </div>
+      <a href="#" class="stepAddbtn" onclick="addDraw()">+</a>
+      <div class="row">
+        <div id="drawListNum" class="column2">
+          <a id="drawNum" href="#">1.</a>
         </div>
-      <a href="#">+</a>
+        <div id="drawSeqList" class="column">
+          <a id="draw1" href="#">{an}</a>
+        </div>
+        <div id="drawToolList"class="column">
+          <a id="draw1" href="#">Tool 1</a>
+        </div>
+        <div id="drawRemoveBtns" class="column2">
+          <a id="drawRemove" href="#">&times</a>
+        </div>
+      </div>
       <a id="draw1" href="#" onclick="openCanvas()">Draw!</a>
     </div>
 
@@ -74,6 +74,7 @@
       <a href="#">Shift Compare</a>
     </div>
 
+    <!--Sequence Input Options-->
     <div id="fctInputNav" class="seqInputNav">
       <a id="fctCloseBtn" href="javascript:void(0)"class="closebtn" onclick="closeSeqInputNav(n=1)">&#171; </a>
       <li>Function: </li>
