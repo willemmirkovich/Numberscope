@@ -172,14 +172,19 @@ header button:hover:not(.active){
   .step1Nav {padding-top: 15px;}
   .step1Nav a {font-size: 18px;}
 }
-.column {
+.mainColumn{
     float: left;
-    width: 40%;
+    width: 35%;
     height: auto;
 }
-.column2 {
+.numColumn{
     float: left;
-    width: 10%;
+    width: 15%;
+    height: auto;
+}
+.xColumn{
+    float: left;
+    width: 15%;
     height: auto;
 }
 /* Clear floats after the columns */
@@ -188,10 +193,10 @@ header button:hover:not(.active){
     display: table;
     clear: both;
 }
-#drawNum:hover{
+.numColumn a:hover{
   background-color: var(--sideNavColor2)!important;
 }
-#drawRemove:hover{
+.xColumn a:hover{
   background-color: var(--sideNavColor2)!important;
   color: var(--logoColor)!important;
 }

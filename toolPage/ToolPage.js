@@ -202,6 +202,7 @@ function addDraw(){
     var linkText = document.createTextNode(drawNumber + ".");
     a.appendChild(linkText);
     a.href = "#";
+    a.class = "numColumn";
     document.getElementById("drawListNum").append(a);
 
     var a = document.createElement('a');
@@ -220,6 +221,7 @@ function addDraw(){
     // var linkText = document.createTextNode("&times");
     // a.appendChild(linkText);
     // a.href = "#";
+    // a.class = "xColumn";
     // document.getElementById("drawRemoveBtns").append(a);
 
     numDraw += 1;
