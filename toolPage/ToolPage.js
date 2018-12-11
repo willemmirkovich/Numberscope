@@ -170,8 +170,9 @@ function addSeq(){
   if(numSequences < 10){
     var seqLetter = String.fromCharCode(97 + numSequences);
     var a = document.createElement('a');
-    var linkText = document.createTextNode("{" + seqLetter + "n}");
-    a.appendChild(linkText);
+    //var linkText = document.createTextNode("{" + seqLetter + "n}");
+    a.innerHTML = "{" + seqLetter + "<sub>n</sub>}";
+    //a.appendChild(linkText);
     a.href = "#";
     a.onclick = "openSeqNav(n=1)";
     document.getElementById("step1Nav").append(a);
@@ -206,8 +207,8 @@ function addDraw(){
     document.getElementById("drawListNum").append(a);
 
     var a = document.createElement('a');
-    var linkText = document.createTextNode("{an}");
-    a.appendChild(linkText);
+    //a.innerHTML = "{a<sub>n</sub>}";
+    a.innerHTML = "{an}";
     a.href = "#";
     document.getElementById("drawSeqList").append(a);
 
@@ -217,12 +218,11 @@ function addDraw(){
     a.href = "#";
     document.getElementById("drawToolList").append(a);
 
-    // var a = document.createElement('a');
-    // var linkText = document.createTextNode("&times");
-    // a.appendChild(linkText);
-    // a.href = "#";
-    // a.class = "xColumn";
-    // document.getElementById("drawRemoveBtns").append(a);
+    var a = document.createElement('a');
+    a.innerHTML = "&times";
+    a.href = "#";
+    a.class = "xColumn";
+    document.getElementById("drawRemoveBtns").append(a);
 
     numDraw += 1;
   }
