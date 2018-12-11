@@ -82,18 +82,25 @@ function openCanvas(){
 
 //Sequence Navigation Bars
 function openSeqNav(n){
-  if (n==1) {
-    //document.getElementById("seqNav").style.marginLeft = "0em";
-    document.getElementById("title1").innerHTML = "Pick an Input Method";
-    document.getElementById("seqNav").style.width = "12em";
-    document.getElementById("seq1").style.background = logoColor;
+  document.getElementById("title1").innerHTML = "Pick an Input Method";
+  document.getElementById("seqNav").style.width = "12em";
+  for (var i = 1; i <= numSequences; i++) {
+    var curSeq = "seq" + i;
+    if (i == n) {
+      document.getElementById(curSeq).style.background = logoColor;
+    }
+    else {
+      document.getElementById(curSeq).style.background = sideNavColor2;
+    }
   }
 }
 function closeSeqNav(n){
   if (n==1) {
-    //document.getElementById("seqNav").style.marginLeft = "-12em";
     document.getElementById("seqNav").style.width = "0";
-    document.getElementById("seq1").style.background = sideNavColor2;
+    for (var i = 1; i <= numSequences; i++) {
+      var curSeq = "seq" + i;
+      document.getElementById(curSeq).style.background = sideNavColor2;
+    }
     closeSeqInputNav(n=1);
     closeSeqInputNav(n=2);
     closeSeqInputNav(n=3);
@@ -152,48 +159,62 @@ function closeSeqInputNav(n){
 
 //Tool Navigation Bars
 function openToolNav(n){
-  if (n==1) {
-    //document.getElementById("toolNav").style.marginLeft = "0em";
-    document.getElementById("toolNav").style.width = "12em";
-    document.getElementById("tool1").style.background = logoColor;
+  document.getElementById("toolNav").style.width = "12em";
+  for (var i = 1; i <= numTools; i++) {
+    var curTool = "tool" + i;
+    if (i == n) {
+      document.getElementById(curTool).style.background = logoColor;
+    }
+    else {
+      document.getElementById(curTool).style.background = sideNavColor2;
+    }
   }
 }
 function closeToolNav(n){
   if (n==1) {
     //document.getElementById("toolNav").style.marginLeft = "-12em";
     document.getElementById("toolNav").style.width = "0";
-    document.getElementById("tool1").style.background = sideNavColor2;
+    for (var i = 1; i <= numTools; i++) {
+      var curTool = "tool" + i;
+      document.getElementById(curTool).style.background = sideNavColor2;
+    }
   }
 }
 
 function addSeq(){
   if(numSequences < 10){
     var seqLetter = String.fromCharCode(97 + numSequences);
-    var a = document.createElement('a');
-    //var linkText = document.createTextNode("{" + seqLetter + "n}");
-    a.innerHTML = "{" + seqLetter + "<sub>n</sub>}";
-    //a.appendChild(linkText);
-    a.href = "#";
-    a.onclick = "openSeqNav(n=1)";
-    document.getElementById("step1Nav").append(a);
     numSequences += 1;
+
+    var a = document.createElement('a');
+    a.innerHTML = "{" + seqLetter + "<sub>n</sub>}";
+    a.setAttribute("href", "#");
+
+    var idName = "seq" + numSequences;
+    a.setAttribute("id", idName);
+
+    var fctCall = "openSeqNav(n=" + numSequences + ")";
+    a.setAttribute("onclick", fctCall);
+
+    document.getElementById("step1Nav").append(a);
   }
-  // var currentA = document.getElementById("addSeqBtn");
-  // document.body.insertBefore(a, currentA);
-  // var addSeq = document.getElementById("addSeqBtn");
-  // $(a).insertBefore(addSeq);
-  //document.getElementById("step1Nav").insertBefore('.content:last-child');
 }
 function addTool(){
   if(numTools < 10){
     var toolNum = numTools + 1;
-    var a = document.createElement('a');
-    var linkText = document.createTextNode("Tool " + toolNum);
-    a.appendChild(linkText);
-    a.href = "#";
-    a.onclick="openToolNav(n=1)";
-    document.getElementById("step2Nav").append(a);
     numTools += 1;
+
+    var a = document.createElement('a');
+    a.innerHTML = "Tool " + toolNum;
+    a.setAttribute("href", "#");
+
+    var idName = "tool" + numTools;
+    a.setAttribute("id", idName);
+
+    var fctCall = "openToolNav(n=" + numTools + ")";
+    a.setAttribute("onclick", fctCall);
+
+    document.getElementById("step2Nav").append(a);
   }
 }
 function addDraw(){
