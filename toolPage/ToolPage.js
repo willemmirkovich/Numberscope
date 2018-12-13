@@ -51,7 +51,7 @@ function openNav(n){
   }
   else if (n == 3) {
     document.getElementById("title1").innerHTML = "Pick Sequence to Draw";
-    document.getElementById("step3Nav").style.width = "24em";
+    document.getElementById("step3Nav").style.width = "36em";
     document.getElementById("step3").style.background = sideNavColor2;
     //document.getElementsByTagName('body').style.backgroundImage = "sequenceDraw.jpg";
     closeNav(n=1);
