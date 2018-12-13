@@ -174,17 +174,17 @@ header button:hover:not(.active){
 }
 .mainColumn{
     float: left;
-    width: 35%;
+    width: 40%;
     height: auto;
 }
 .numColumn{
     float: left;
-    width: 15%;
+    width: 10%;
     height: auto;
 }
 .xColumn{
     float: left;
-    width: 15%;
+    width: 10%;
     height: auto;
 }
 /* Clear floats after the columns */
@@ -200,6 +200,31 @@ header button:hover:not(.active){
   background-color: var(--sideNavColor2)!important;
   color: var(--logoColor)!important;
 }
+
+.stepNav select{
+  font-family: "Infinity", sans-serif;
+  font-size: 3em;
+  color: #ffffff;
+  height: auto;
+  background-color: var(--sideNavColor2);
+  border-width: 0em;
+  padding: .033em;
+  margin: 0;
+}
+.stepNav option {
+  position: absolute;
+  background-color: #f1f1f1;
+  color: #000000;
+  top: 100%;
+  border-style: none;
+}
+.stepNav option:active {
+  background-color: var(--logoColor);
+}
+.select-selected{
+  background-color: var(--logoColor);
+}
+
 #mainCanvas{
   position: fixed;
   left: 12em;

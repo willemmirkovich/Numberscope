@@ -48,16 +48,24 @@
           <a id="drawNum" href="#">1.</a>
         </div>
         <div id="drawSeqList" class="mainColumn">
-          <a id="draw1" href="#">{an}</a>
+          <select id="selectSeq1">
+            <option value="s1">{a<sub>n</sub>}</option>
+          </select>
         </div>
         <div id="drawToolList"class="mainColumn">
-          <a id="draw1" href="#">Tool 1</a>
+          <select id="selectTool1">
+            <option value="t1">Tool 1</option>
+          </select>
         </div>
         <div id="drawRemoveBtns" class="xColumn">
           <a id="drawRemove" href="#">&times</a>
         </div>
       </div>
       <a id="draw1" href="#" onclick="openCanvas()">Draw!</a>
+    </div>
+
+    <div id="canvas" class="canvas">
+      <canvas id="mainCanvas"> </canvas>
     </div>
 
     <div id="seqNav" class="selectNav">
@@ -95,10 +103,7 @@
       <li>Code: </li>
       <textarea id="codeText"></textarea>
     </div>
-
-    <div>
-      <canvas id="mainCanvas"> </canvas>
-    </div>
+    
     <script src="ToolPage.js" type="text/javascript" defer> </script>
   </body>
 

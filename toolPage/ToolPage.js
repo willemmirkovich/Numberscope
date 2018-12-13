@@ -197,6 +197,17 @@ function addSeq(){
     a.setAttribute("onclick", fctCall);
 
     document.getElementById("step1Nav").append(a);
+    ////////////////////////////////
+    for (var i = 1; i <= numDraw; i++) {
+      var opt = document.createElement("option");
+      opt.innerHTML = "{" + seqLetter + "<sub>n</sub>}";
+
+      var valueName = "s" + numSequences;
+      opt.setAttribute("value", valueName);
+
+      var curSelect = "selectSeq" + i;
+      document.getElementById(curSelect).append(opt);
+    }
   }
 }
 function addTool(){
@@ -215,36 +226,67 @@ function addTool(){
     a.setAttribute("onclick", fctCall);
 
     document.getElementById("step2Nav").append(a);
+    ////////////////////////////////
+    for (var i = 1; i <= numDraw; i++) {
+      var opt = document.createElement("option");
+      opt.innerHTML = "Tool " + numTools;
+
+      var valueName = "t" + numTools;
+      opt.setAttribute("value", valueName);
+
+      var curSelect = "selectTool" + i;
+      document.getElementById(curSelect).append(opt);
+    }
   }
 }
 function addDraw(){
   if(numDraw < 10){
-    var drawNumber = numDraw + 1;
+    numDraw += 1;
+    /////////////////////////////////////
     var a = document.createElement('a');
-    var linkText = document.createTextNode(drawNumber + ".");
-    a.appendChild(linkText);
-    a.href = "#";
-    a.class = "numColumn";
+    a.innerHTML = numDraw + ".";
+    a.setAttribute("href", "#");
+    a.setAttribute("class", "numColumn");
     document.getElementById("drawListNum").append(a);
+    /////////////////////////////////////
+    var sel = document.createElement("select");
+    var selIDName = "selectSeq" + numDraw;
+    sel.setAttribute("id", selIDName);
+    document.getElementById("drawSeqList").append(sel);
 
-    var a = document.createElement('a');
-    //a.innerHTML = "{a<sub>n</sub>}";
-    a.innerHTML = "{an}";
-    a.href = "#";
-    document.getElementById("drawSeqList").append(a);
+    for (var i = 1; i <= numSequences; i++) {
+      var j = 97 + (i - 1);
+      var seqLetter = String.fromCharCode(j);
+      var opt = document.createElement("option");
+      opt.innerHTML = "{" + seqLetter + "<sub>n</sub>}";
 
-    var a = document.createElement('a');
-    var linkText = document.createTextNode("Tool 1");
-    a.appendChild(linkText);
-    a.href = "#";
-    document.getElementById("drawToolList").append(a);
+      var valueName = "s" + i;
+      opt.setAttribute("value", valueName);
 
+      document.getElementById(selIDName).append(opt);
+    }
+    /////////////////////////////////////
+    var sel = document.createElement("select");
+    var selIDName = "selectTool" + numDraw;
+    sel.setAttribute("id", selIDName);
+    document.getElementById("drawToolList").append(sel);
+
+    for (var i = 1; i <= numTools; i++) {
+      var seqLetter = String.fromCharCode(j);
+      var opt = document.createElement("option");
+      opt.innerHTML = "Tool " + i;
+
+      var valueName = "t" + i;
+      opt.setAttribute("value", valueName);
+
+      document.getElementById(selIDName).append(opt);
+    }
+    // /////////////////////////////////////
     var a = document.createElement('a');
     a.innerHTML = "&times";
-    a.href = "#";
-    a.class = "xColumn";
-    document.getElementById("drawRemoveBtns").append(a);
+    a.setAttribute("href", "#");
+    a.setAttribute("class", "xColumn");
 
-    numDraw += 1;
+    document.getElementById("drawRemoveBtns").append(a);
   }
 }
