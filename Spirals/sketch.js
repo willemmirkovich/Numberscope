@@ -5,14 +5,14 @@ function setup() {
 }
 
 function draw() {	
-    myList=makeSquareList(10);
+    myList=makeSacksList(25);
 	for (a=0; a<myList.length; a++)
 	{
 		if (a==0)
 		{
 			fill(0);
 		}
-		else if (onSequence(a))
+		else if (onSequence(a+1))
 		{
 			fill(255,0,0);
 		}
@@ -21,6 +21,6 @@ function draw() {
 			fill (0,255,0);
 		}
 		coord=new coordinate(300+10*myList[a].x,250+10*myList[a].y);
-		polygon(coord.x,coord.y,5,4);
+		ellipse(coord.x,coord.y,12,12);
 	}
 }

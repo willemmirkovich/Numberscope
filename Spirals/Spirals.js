@@ -101,3 +101,20 @@ function makeTriList(Layers)
 	}
 	return List;
 }
+
+function makeSacksList(Layers)
+{
+	var pi = 3.1415926
+	steps=Layers**2;
+	let List=[];
+	for(let step=0; step<=steps; step++)
+	{
+		let r=Math.sqrt(step);
+		let theta=2*pi*r;
+		let x=r*cos(theta);
+		let y= r* sin(theta);
+		let coord = new coordinate(x,y);
+		List[step]=coord;
+	}
+	return List;
+}
