@@ -68,42 +68,143 @@
       <canvas id="mainCanvas"> </canvas>
     </div>
 
-    <div id="seqNav" class="selectNav">
-      <a id="seqCloseBtn" href="javascript:void(0)"class="selectClosebtn" onclick="closeSeqNav(n=1)">&#171; </a>
-      <a id="fct" href="#" onclick="openSeqInputNav(n=1)">Function</a>
-      <a id="OEIS" href="#" onclick="openSeqInputNav(n=2)"> OEIS</a>
-      <a id="list" href="#" onclick="openSeqInputNav(n=3)"> List</a>
-      <a id="code" href="#" onclick="openSeqInputNav(n=4)">Sage Code</a>
+    <div id="seqNavs">
+      <div id="seqNav1" class="selectNav">
+        <a id="seqCloseBtn1" href="javascript:void(0)"class="selectClosebtn" onclick="closeSeqNav(n=1)">&#171; </a>
+        <a id="builtIn1" href="#" onclick="openSeqInputNav(n=1,m=1)">Built In</a>
+        <a id="OEIS1" href="#" onclick="openSeqInputNav(n=1,m=2)"> OEIS</a>
+        <a id="list1" href="#" onclick="openSeqInputNav(n=1,m=3)"> List</a>
+        <a id="code1" href="#" onclick="openSeqInputNav(n=1,m=4)">Sage Code</a>
+      </div>
     </div>
-    <div id="toolNav" class="selectNav">
-      <a id="toolCloseBtn" href="javascript:void(0)"class="selectClosebtn" onclick="closeToolNav(n=1)">&#171; </a>
-      <a href="#">Turtle Walk</a>
-      <a href="#">Game of Life</a>
-      <a href="#">Shift Compare</a>
+
+    <div id="toolNavs">
+      <div id="toolNav" class="selectNav">
+        <a id="toolCloseBtn" href="javascript:void(0)"class="selectClosebtn" onclick="closeToolNav(n=1)">&#171; </a>
+        <a href="#">Turtle Walk</a>
+        <a href="#">Game of Life</a>
+        <a href="#">Shift Compare</a>
+      </div>
     </div>
 
     <!--Sequence Input Options-->
-    <div id="fctInputNav" class="seqInputNav">
-      <a id="fctCloseBtn" href="javascript:void(0)"class="closebtn" onclick="closeSeqInputNav(n=1)">&#171; </a>
-      <li>Function: </li>
-      <textarea id="functionText"></textarea>
+    <div id="builtInInputNavs">
+      <div id="builtInInputNav1" class="seqInputNav">
+        <a id="builtInCloseBtn1" href="javascript:void(0)"class="closebtn" onclick="closeSeqInputNav(n=1,m=1)">&#171; </a>
+        <li>Built In Sequences </li>
+        <select id="builtInSelect1" onchange="openLinRec(n=1)">
+          <option value="primes" selected> Prime Numbers </option>
+          <option value="fibonacci"> Fibonacci Numbers</option>
+          <option value="lucas"> Lucas Numbers</option>
+          <option value="thueMorse"> Thue-Morse</option>
+          <option value="recaman"> Recaman</option>
+          <option value="linRec"> Linear Recurrence</option>
+        </select>
+        <nav id="linRecNav1" class="linRecNav">
+          <li id="linRecDef1" class="linRecDef"> a<sub>n</sub> = c<sub>1</sub>a<sub>n-1</sub> + ... + c<sub>k</sub>a<sub>n-k</sub></li>
+
+          <div class="linRecKRow">
+            <div class="kLabel">
+              <li class="kequals"> k =</li>
+            </div>
+
+            <div class="kSelect">
+              <select id="kSelect1" class="kequalsText" onchange="extendLinRec(n=1)">
+                <option value="1"> 1 </option>
+                <option value="2" selected> 2 </option>
+                <option value="3"> 3 </option>
+                <option value="4"> 4 </option>
+                <option value="5"> 5 </option>
+                <option value="6"> 6 </option>
+                <option value="7"> 7 </option>
+                <option value="8"> 8 </option>
+                <option value="9"> 9 </option>
+                <option value="10"> 10 </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="linRecRow">
+            <div class="cList">
+              <li> C<sub>1</sub> : </li>
+              <li> C<sub>2</sub> : </li>
+              <li> C<sub>3</sub> : </li>
+              <li> C<sub>4</sub> : </li>
+              <li> C<sub>5</sub> : </li>
+              <li> C<sub>6</sub> : </li>
+              <li> C<sub>7</sub> : </li>
+              <li> C<sub>8</sub> : </li>
+              <li> C<sub>9</sub> : </li>
+              <li> C<sub>10</sub> : </li>
+            </div>
+
+            <div class="cText">
+              <textarea id="c1_1"></textarea>
+              <textarea id="c2_1"></textarea>
+              <textarea id="c3_1"></textarea>
+              <textarea id="c4_1"></textarea>
+              <textarea id="c5_1"></textarea>
+              <textarea id="c6_1"></textarea>
+              <textarea id="c7_1"></textarea>
+              <textarea id="c8_1"></textarea>
+              <textarea id="c9_1"></textarea>
+              <textarea id="c10_1"></textarea>
+            </div>
+
+            <div class="aList">
+              <li> a<sub>0</sub> : </li>
+              <li> a<sub>1</sub> : </li>
+              <li> a<sub>2</sub> : </li>
+              <li> a<sub>3</sub> : </li>
+              <li> a<sub>4</sub> : </li>
+              <li> a<sub>5</sub> : </li>
+              <li> a<sub>6</sub> : </li>
+              <li> a<sub>7</sub> : </li>
+              <li> a<sub>8</sub> : </li>
+              <li> a<sub>9</sub> : </li>
+            </div>
+
+            <div class="cText">
+              <textarea id="a1_1"></textarea>
+              <textarea id="a2_1"></textarea>
+              <textarea id="a3_1"></textarea>
+              <textarea id="a4_1"></textarea>
+              <textarea id="a5_1"></textarea>
+              <textarea id="a6_1"></textarea>
+              <textarea id="a7_1"></textarea>
+              <textarea id="a8_1"></textarea>
+              <textarea id="a9_1"></textarea>
+              <textarea id="a10_1"></textarea>
+            </div>
+          </div>
+        </nav>
+      </div>
     </div>
-    <div id="oeisInputNav" class="seqInputNav">
-      <a id="oeisCloseBtn" href="javascript:void(0)"class="closebtn" onclick="closeSeqInputNav(n=2)">&#171; </a>
-      <li>OEIS Number: </li>
-      <textarea id="oeisNum"></textarea>
+
+    <div id="oeisInputNavs">
+      <div id="oeisInputNav1" class="seqInputNav">
+        <a id="oeisCloseBtn1" href="javascript:void(0)"class="closebtn" onclick="closeSeqInputNav(n=1,m=2)">&#171; </a>
+        <li>OEIS Number: </li>
+        <textarea id="oeisNum1" class="oeisNum"></textarea>
+      </div>
     </div>
-    <div id="listInputNav" class="seqInputNav">
-      <a id="listCloseBtn" href="javascript:void(0)"class="closebtn" onclick="closeSeqInputNav(n=3)">&#171; </a>
-      <li>List: </li>
-      <textarea id="listText"></textarea>
+
+    <div id="listInputNavs">
+      <div id="listInputNav1" class="seqInputNav">
+        <a id="listCloseBtn1" href="javascript:void(0)"class="closebtn" onclick="closeSeqInputNav(n=1,m=3)">&#171; </a>
+        <li>List: </li>
+        <textarea id="listText1">1,2,3,4,5</textarea>
+      </div>
     </div>
-    <div id="codeInputNav" class="seqInputNav">
-      <a id="listCloseBtn" href="javascript:void(0)"class="closebtn" onclick="closeSeqInputNav(n=4)">&#171; </a>
-      <li>Code: </li>
-      <textarea id="codeText"></textarea>
+
+    <div id="codeInputNavs">
+      <div id="codeInputNav1" class="seqInputNav">
+        <a id="listCloseBtn1" href="javascript:void(0)"class="closebtn" onclick="closeSeqInputNav(n=1,m=4)">&#171; </a>
+        <li>Code: </li>
+        <textarea id="codeText1"></textarea>
+      </div>
     </div>
-    
+
     <script src="ToolPage.js" type="text/javascript" defer> </script>
   </body>
 
