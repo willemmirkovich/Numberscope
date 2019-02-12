@@ -49,12 +49,12 @@
         </div>
         <div id="drawSeqList" class="mainColumn">
           <select id="selectSeq1">
-            <option value="s1">{a<sub>n</sub>}</option>
+            <option value="1" selected>{a<sub>n</sub>}</option>
           </select>
         </div>
         <div id="drawToolList"class="mainColumn">
           <select id="selectTool1">
-            <option value="t1">Tool 1</option>
+            <option value="1" selected>Tool 1</option>
           </select>
         </div>
         <div id="drawRemoveBtns" class="xColumn">
@@ -81,9 +81,9 @@
     <div id="toolNavs">
       <div id="toolNav" class="selectNav">
         <a id="toolCloseBtn" href="javascript:void(0)"class="selectClosebtn" onclick="closeToolNav(n=1)">&#171; </a>
-        <a href="#">Turtle Walk</a>
-        <a href="#">Game of Life</a>
-        <a href="#">Shift Compare</a>
+        <a href="#" onclick="openToolInputNav(n=1,m=1)">Turtle Walk</a>
+        <a href="#" onclick="openToolInputNav(n=1,m=2)">Game of Life</a>
+        <a href="#" onclick="openToolInputNav(n=1,m=3)">Shift Compare</a>
       </div>
     </div>
 

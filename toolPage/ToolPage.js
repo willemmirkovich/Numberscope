@@ -63,8 +63,8 @@ function closeNav(n){
     document.getElementById("step1Nav").style.width = "0";
     document.getElementById("step1").style.background = sideNavColor;
 
-    for (var i = 1; i <= numSequences; i++) {
-      closeSeqNav(i);
+    for (let k = 1; k <= numSequences; k++) {
+      closeSeqNav(k);
     }
     //closeSeqNav(2);
   }
@@ -113,12 +113,12 @@ function openSeqNav(n){
 function closeSeqNav(n){
   var selectedNav = "seqNav" + n;
   document.getElementById(selectedNav).style.width = "0";
-  for (var i = 1; i <= numSequences; i++) {
+  for (let i = 1; i <= numSequences; i++) {
     var curSeq = "seq" + i;
     document.getElementById(curSeq).style.background = sideNavColor2;
   }
-  for (var i = 1; i <= numSequences; i++) {
-    for (var j = 1; j <= 4; j++) {
+  for (let i = 1; i <= numSequences; i++) {
+    for (let j = 1; j <= 4; j++) {
       closeSeqInputNav(i,j);
     }
   }
@@ -198,6 +198,9 @@ function closeSeqInputNav(n,m){
   }
 }
 
+function openToolInputNav(n,m){
+
+}
 //Linear Recurrence
 var linRecHeights = ["8.5em", "11.5em", "14em", "16.5em", "19.5em", "22em", "24.7em", "27.5em", "30em", "34em" ]
 function openLinRec(n){
@@ -268,7 +271,7 @@ function addSeq(){
       var opt = document.createElement("option");
       opt.innerHTML = "{" + seqLetter + "<sub>n</sub>}";
 
-      var valueName = "s" + numSequences;
+      var valueName = numSequences;
       opt.setAttribute("value", valueName);
 
       var curSelect = "selectSeq" + i;
@@ -438,7 +441,7 @@ function addTool(){
       var opt = document.createElement("option");
       opt.innerHTML = "Tool " + numTools;
 
-      var valueName = "t" + numTools;
+      var valueName = numTools;
       opt.setAttribute("value", valueName);
 
       var curSelect = "selectTool" + i;
