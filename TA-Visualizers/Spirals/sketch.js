@@ -5,7 +5,7 @@ function setup() {
 }
 
 function draw() {	
-    myList=makeSacksList(25);
+    myList=makeTriList(25);
 	for (a=0; a<myList.length; a++)
 	{
 		if (a==0)
