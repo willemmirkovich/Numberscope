@@ -123,10 +123,10 @@ header button:hover:not(.active){
 #exCloseBtn:hover{
   background-color: var(--topBarColor)!important;
 }
-@media screen and (max-height: 450px) {
+/* @media screen and (max-height: 450px) {
   .exNav {padding-top: 15px;}
   .exNav a {font-size: 18px;}
-}
+} */
 
 /*Step Navigation Bars*/
 .stepNav {
@@ -168,10 +168,10 @@ header button:hover:not(.active){
   font-size: 2.15em;
   width: 50%;
 }
-@media screen and (max-height: 450px) {
-  .step1Nav {padding-top: 15px;}
-  .step1Nav a {font-size: 18px;}
-}
+/* @media screen and (max-height: 450px) {
+  .stepNav {padding-top: 15px;}
+  .stepNav a {font-size: 18px;}
+} */
 .mainColumn{
     float: left;
     width: 40%;
@@ -280,10 +280,10 @@ header button:hover:not(.active){
 .selectNav .selectClosebtn:hover{
   background-color: var(--logoColor)!important;
 }
-@media screen and (max-height: 450px) {
+/* @media screen and (max-height: 450px) {
   .selectNav {padding-top: 15px;}
   .selectNav a {font-size: 18px;}
-}
+} */
 
 /*Seq Input Navigation Bars*/
 .seqInputNav {
@@ -315,6 +315,29 @@ header button:hover:not(.active){
     display: block;
     transition: 0.3s;
 }
+.seqInputNav select{
+  font-family: "Infinity", sans-serif;
+  font-size: 2em;
+  color: #ffffff;
+  height: auto;
+  background-color: var(--topBarColor);
+  border-width: 0em;
+  padding: .033em;
+  margin: 0;
+}
+.seqInputNav option {
+  position: absolute;
+  background-color: #f1f1f1;
+  color: #000000;
+  top: 100%;
+  border-style: none;
+}
+.seqInputNav option:active {
+  background-color: var(--logoColor);
+}
+.select-selected{
+  background-color: var(--logoColor);
+}
 .seqInputNav input[type=text], select, textarea {
   width: 80%;
   height: 21em;
@@ -329,11 +352,80 @@ header button:hover:not(.active){
     top: 0;
     font-size: 2.15em;
 }
-@media screen and (max-height: 450px) {
+/* @media screen and (max-height: 450px) {
   .seqInputNav {padding-top: 15px;}
   .seqInputNav a {font-size: 18px;}
-}
-#oeisNum{
+} */
+.oeisNum{
   height: 1.5em;
   resize: none;
 }
+
+.linRecNav{
+  height: 0;
+  margin-top: 1em;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  position: fixed;
+  transition: 0.3s;
+}
+.linRecDef{
+  margin-right: 18em;
+  margin-bottom: .5em;
+}
+.linRecNav textarea{
+  width: 80%;
+  height: 1.25em;
+  padding: .25em;
+  margin-top: .5em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: none;
+  font-size: 1.25em;
+}
+.kLabel{
+    float: left;
+    width: 6%;
+    margin-left: 2em;
+    height: auto;
+    text-align: right;
+}
+.kSelect{
+    float: left;
+    width: 10.5%;
+    height: auto;
+    margin-left: -.8em;
+}
+.linRecKRow:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.cList{
+    float: left;
+    width: 5%;
+    height: auto;
+    margin-left: 2em;
+    text-align: left;
+}
+.aList{
+    float: left;
+    width: 5%;
+    height: auto;
+    margin-left: 2em;
+    text-align: left;
+}
+.cText{
+    float: left;
+    width: 10%;
+    height: auto;
+}
+.linRecRow:after{
+    content: "";
+    display: table;
+    clear: both;
+}
+/* @media screen and (max-height: 450px) {
+  .linRecNav {padding-top: 15px;}
+  .linRecNav a {font-size: 18px;}
+} */
