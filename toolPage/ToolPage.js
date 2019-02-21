@@ -532,12 +532,13 @@ function addDraw(){
       document.getElementById(selIDName).append(opt);
     }
     /////////////////////////////////////
-    let sel = document.createElement("select");
-    let selIDName = "selectTool" + numDraw;
+    sel = document.createElement("select");
+    selIDName = "selectTool" + numDraw;
     sel.setAttribute("id", selIDName);
     document.getElementById("drawToolList").append(sel);
 
     for (let i = 1; i <= numTools; i++) {
+      let j = 97 + (i - 1);
       let seqLetter = String.fromCharCode(j);
       let opt = document.createElement("option");
       opt.innerHTML = "Tool " + i;
@@ -548,11 +549,17 @@ function addDraw(){
       document.getElementById(selIDName).append(opt);
     }
     // /////////////////////////////////////
-    let a = document.createElement('a');
+    a = document.createElement('a');
+    let removeId = "drawRemove" + numDraw;
+    a.setAttribute("id", removeId);
+    let fctCall = "removeDraw(n=" + numDraw + ")";
+    a.setAttribute("onclick", fctCall);
     a.innerHTML = "&times";
     a.setAttribute("href", "#");
-    a.setAttribute("class", "xColumn");
 
     document.getElementById("drawRemoveBtns").append(a);
   }
+}
+function removeDraw(n){
+
 }
