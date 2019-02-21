@@ -263,15 +263,15 @@ header button:hover:not(.active){
   background-color: var(--topBarColor)!important;
   color: #f1f1f1;
 }
-#toolNav a {
+/* #toolNav a {
   padding: .28em;
   font-size: 2em;
-}
-#toolNav .selectClosebtn{
+} */
+/* #toolNav .selectClosebtn{
   top: 0;
   font-size: 2.15em;
   padding: 0;
-}
+} */
 .selectNav .selectClosebtn {
     top: 0;
     font-size: 2.15em;

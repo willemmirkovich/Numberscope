@@ -66,12 +66,13 @@ function closeNav(n){
     for (let k = 1; k <= numSequences; k++) {
       closeSeqNav(k);
     }
-    //closeSeqNav(2);
   }
   else if (n==2) {
     document.getElementById("step2Nav").style.width = "0";
     document.getElementById("step2").style.background = sideNavColor;
-    closeToolNav(1);
+    for (let k = 1; k <= numTools; k++) {
+      closeToolNav(k);
+    }
   }
   else if (n==3) {
     document.getElementById("step3Nav").style.width = "0";
@@ -87,7 +88,7 @@ function openCanvas(){
 //Sequence Navigation Bars
 function openSeqNav(n){
   document.getElementById("title1").innerHTML = "Pick an Input Method";
-  for ( i = 1; i <= numSequences; i++) {
+  for (let i = 1; i <= numSequences; i++) {
     let curSeqNav = "seqNav" + i;
     document.getElementById(curSeqNav).style.width = "0em";
   }
@@ -198,10 +199,6 @@ function closeSeqInputNav(n,m){
   }
 }
 
-function openToolInputNav(n,m){
-
-}
-
 //Linear Recurrence
 // let linRecHeights = ["8.5em", "11.5em", "14em", "16.5em", "19.5em", "22em", "24.7em", "27.5em", "30em", "34em" ]
 // function openLinRec(n){
@@ -229,7 +226,13 @@ function openToolInputNav(n,m){
 
 //Tool Navigation Bars
 function openToolNav(n){
-  document.getElementById("toolNav").style.width = "12em";
+  for (let i = 1; i <= numTools; i++) {
+    let curToolNav = "toolNav" + i;
+    document.getElementById(curToolNav).style.width = "0em";
+  }
+  let selectedNav = "toolNav" + n;
+  document.getElementById(selectedNav).style.width = "24em";
+
   for (let i = 1; i <= numTools; i++) {
     let curTool = "tool" + i;
     if (i == n) {
@@ -241,14 +244,16 @@ function openToolNav(n){
   }
 }
 function closeToolNav(n){
-  if (n==1) {
-    //document.getElementById("toolNav").style.marginLeft = "-12em";
-    document.getElementById("toolNav").style.width = "0";
-    for (let i = 1; i <= numTools; i++) {
-      let curTool = "tool" + i;
-      document.getElementById(curTool).style.background = sideNavColor2;
-    }
+  let selectedNav = "toolNav" + n;
+  document.getElementById(selectedNav).style.width = "0";
+  for (let i = 1; i <= numTools; i++) {
+    let curTool = "tool" + i;
+    document.getElementById(curTool).style.background = sideNavColor2;
   }
+}
+
+function openToolInputNav(n,m){
+
 }
 
 function addSeq(){
@@ -447,6 +452,56 @@ function addTool(){
 
       let curSelect = "selectTool" + i;
       document.getElementById(curSelect).append(opt);
+
+      ////////////////////////////////
+      //Create new Function Input Nav
+      let newNav = document.createElement("div");
+      let navId = "toolNav" + numTools;
+      newNav.setAttribute("id", navId);
+      newNav.setAttribute("class", "selectNav");
+
+      //Close Btn Link
+      a = document.createElement('a');
+      let newId = "toolCloseBtn" + numSequences;
+      a.setAttribute("id", newId);
+      a.setAttribute("href", "javascript:void(0)");
+      a.setAttribute("class", "selectClosebtn");
+      fctCall = "closeToolNav(n=" + numTools + ")";
+      a.setAttribute("onclick", fctCall);
+      a.innerHTML = "&#171";
+      newNav.appendChild(a);
+
+      //Turtle Walk Link
+      let turtleLink = document.createElement('a');
+      let turtleId = "turtle" + numTools;
+      turtleLink.setAttribute("id", turtleId);
+      turtleLink.setAttribute("href", "#");
+      fctCall = "openToolInputNav(n=" + numTools + ",m=1)";
+      turtleLink.setAttribute("onclick", fctCall);
+      turtleLink.innerHTML = "Turtle Walk";
+      newNav.appendChild(turtleLink);
+
+      //Game of Life Link
+      let golLink = document.createElement('a');
+      let golId = "gol" + numTools;
+      golLink.setAttribute("id", golId);
+      golLink.setAttribute("href", "#");
+      fctCall = "openToolInputNav(n=" + numTools + ",m=2)";
+      golLink.setAttribute("onclick", fctCall);
+      golLink.innerHTML = "Game of Life";
+      newNav.appendChild(golLink);
+
+      //Shift Comparision Link
+      let shiftLink = document.createElement('a');
+      let shiftId = "shift" + numTools;
+      shiftLink.setAttribute("id", shiftId);
+      shiftLink.setAttribute("href", "#");
+      fctCall = "openToolInputNav(n=" + numTools + ",m=3)";
+      shiftLink.setAttribute("onclick", fctCall);
+      shiftLink.innerHTML = "Shift Comparision";
+      newNav.appendChild(shiftLink);
+
+      document.getElementById("toolNavs").append(newNav);
     }
   }
 }

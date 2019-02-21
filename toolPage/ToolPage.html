@@ -68,6 +68,7 @@
       <canvas id="mainCanvas"> </canvas>
     </div>
 
+    <!--Sequence Navs-->
     <div id="seqNavs">
       <div id="seqNav1" class="selectNav">
         <a id="seqCloseBtn1" href="javascript:void(0)"class="selectClosebtn" onclick="closeSeqNav(n=1)">&#171; </a>
@@ -75,15 +76,6 @@
         <a id="OEIS1" href="#" onclick="openSeqInputNav(n=1,m=2)"> OEIS</a>
         <a id="list1" href="#" onclick="openSeqInputNav(n=1,m=3)"> List</a>
         <a id="code1" href="#" onclick="openSeqInputNav(n=1,m=4)">Sage Code</a>
-      </div>
-    </div>
-
-    <div id="toolNavs">
-      <div id="toolNav" class="selectNav">
-        <a id="toolCloseBtn" href="javascript:void(0)"class="selectClosebtn" onclick="closeToolNav(n=1)">&#171; </a>
-        <a href="#" onclick="openToolInputNav(n=1,m=1)">Turtle Walk</a>
-        <a href="#" onclick="openToolInputNav(n=1,m=2)">Game of Life</a>
-        <a href="#" onclick="openToolInputNav(n=1,m=3)">Shift Compare</a>
       </div>
     </div>
 
@@ -204,6 +196,18 @@
         <textarea id="codeText1"></textarea>
       </div>
     </div>
+
+    <!--Tool Navs-->
+    <div id="toolNavs">
+      <div id="toolNav1" class="selectNav">
+        <a id="toolCloseBtn1" href="javascript:void(0)"class="selectClosebtn" onclick="closeToolNav(n=1)">&#171; </a>
+        <a id="turtle1" href="#" onclick="openToolInputNav(n=1,m=1)">Turtle Walk</a>
+        <a id="gol1" href="#" onclick="openToolInputNav(n=1,m=2)">Game of Life</a>
+        <a id="shift1" href="#" onclick="openToolInputNav(n=1,m=3)">Shift Comparison</a>
+      </div>
+    </div>
+
+    <!--Tool Input Navs-->
 
     <script src="ToolPage.js" type="text/javascript" defer> </script>
   </body>
