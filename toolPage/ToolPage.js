@@ -175,8 +175,8 @@ function closeSeqInputNav(n,m){
     document.getElementById(f).style.width = "0";
     let g = "builtIn" + n;
     document.getElementById(g).style.background = logoColor;
-    let linRecNav = "linRecNav" + n;
-    document.getElementById(linRecNav).style.height = "0em";
+    // let linRecNav = "linRecNav" + n;
+    // document.getElementById(linRecNav).style.height = "0em";
   }
   else if (m==2) {
     let f = "oeisInputNav" + n;
@@ -201,30 +201,31 @@ function closeSeqInputNav(n,m){
 function openToolInputNav(n,m){
 
 }
+
 //Linear Recurrence
-let linRecHeights = ["8.5em", "11.5em", "14em", "16.5em", "19.5em", "22em", "24.7em", "27.5em", "30em", "34em" ]
-function openLinRec(n){
-  let linRecNumber = "builtInSelect" + n;
-  let linRecNav = "linRecNav" + n;
-  if (document.getElementById(linRecNumber).value == "linRec") {
-    let curkSelect = "kSelect" + n;
-    let linRecNavLength = document.getElementById(curkSelect).value;
-    let linRecNavLength = parseInt(linRecNavLength, 10) - 1;
-    let newHeight = linRecHeights[linRecNavLength];
-    document.getElementById(linRecNav).style.height = newHeight;
-  }
-  else {
-    document.getElementById(linRecNav).style.height = "0";
-  }
-}
-function extendLinRec(n){
-  let linRecNav = "linRecNav" + n;
-  let curkSelect = "kSelect" + n;
-  let linRecNavLength = document.getElementById(curkSelect).value;
-  let linRecNavLength = parseInt(linRecNavLength, 10) - 1;
-  let newHeight = linRecHeights[linRecNavLength];
-  document.getElementById(linRecNav).style.height = newHeight;
-}
+// let linRecHeights = ["8.5em", "11.5em", "14em", "16.5em", "19.5em", "22em", "24.7em", "27.5em", "30em", "34em" ]
+// function openLinRec(n){
+//   let linRecNumber = "builtInSelect" + n;
+//   let linRecNav = "linRecNav" + n;
+//   if (document.getElementById(linRecNumber).value == "linRec") {
+//     let curkSelect = "kSelect" + n;
+//     let linRecNavLength = document.getElementById(curkSelect).value;
+//     let linRecNavLength = parseInt(linRecNavLength, 10) - 1;
+//     let newHeight = linRecHeights[linRecNavLength];
+//     document.getElementById(linRecNav).style.height = newHeight;
+//   }
+//   else {
+//     document.getElementById(linRecNav).style.height = "0";
+//   }
+// }
+// function extendLinRec(n){
+//   let linRecNav = "linRecNav" + n;
+//   let curkSelect = "kSelect" + n;
+//   let linRecNavLength = document.getElementById(curkSelect).value;
+//   let linRecNavLength = parseInt(linRecNavLength, 10) - 1;
+//   let newHeight = linRecHeights[linRecNavLength];
+//   document.getElementById(linRecNav).style.height = newHeight;
+// }
 
 //Tool Navigation Bars
 function openToolNav(n){

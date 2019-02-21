@@ -361,7 +361,7 @@ header button:hover:not(.active){
   resize: none;
 }
 
-.linRecNav{
+/* .linRecNav{
   height: 0;
   margin-top: 1em;
   overflow-x: hidden;
@@ -424,7 +424,7 @@ header button:hover:not(.active){
     content: "";
     display: table;
     clear: both;
-}
+} */
 /* @media screen and (max-height: 450px) {
   .linRecNav {padding-top: 15px;}
   .linRecNav a {font-size: 18px;}
