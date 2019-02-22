@@ -1,0 +1,441 @@
+@font-face { font-family: Infinity; src: url('../resources/toolpage/Infinity.ttf'); }
+:root{
+  --logoColor: #afafdc;
+  --topBarColor: #f75c03;
+  --sideNavColor: #416788;
+  --sideNavColor2: #70cad1;
+}
+
+/*Body*/
+body{
+  margin: 0;
+  background-image: url("../resources/toolpage/background4.jpg");
+  background-attachment: fixed;
+  background-size: cover;
+  text-align: center;
+  /*background-repeat: no-repeat;*/
+}
+
+/*Header*/
+header{
+  background-color: var(--topBarColor);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 3.365em;
+  overflow: hidden;
+}
+header a{
+  float: left;
+  position: relative;
+  left: 4.5em;
+  font-family: "Infinity", sans-serif;
+  font-size: 2.75em;
+  color: #ffffff;
+  text-decoration: none;
+  transition: 0.5s
+}
+header button{
+  float: right;
+  font-family: "Infinity", sans-serif;
+  font-size: 2em;
+  color: #ffffff;
+  background-color: var(--sideNavColor2);
+  border: none;
+  border-radius: 10%;
+  padding-left: .25em;
+  padding-right: .25em;
+  margin-top: .2em;
+  margin-right: .4em;
+}
+header button:hover:not(.active){
+  color: #000000;
+}
+#Upload{
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+#canvasArea {
+    position: fixed;
+    left: 192px;
+    top: 53.833px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+/*Main Side Navagation Bar*/
+.sideNav{
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  background-color: var(--sideNavColor);
+  width: 12em;
+  height: 100%;
+  position: fixed;
+  /*overflow: auto;*/
+  font-family: "Infinity", sans-serif;
+  color: #ffffff;
+  transition: margin-left 0.3s
+}
+.sideNav a {
+  display: block;
+  margin-bottom: 0em;
+  padding: .5em;
+  text-align: center;
+  transition: margin-left 0.3s;
+}
+.sideNav a:hover{
+  transition: 0.3s;
+  background-color: var(--sideNavColor2)!important;
+}
+#logo{
+  background-color: var(--logoColor);
+  margin-bottom: 0em;
+  padding: .5em;
+}
+#logo:hover{
+  background-color: var(--logoColor)!important;
+}
+
+/*Examples Navigation Bar*/
+.exNav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: var(--topBarColor);
+    overflow-x: hidden;
+    transition: 0.3s;
+}
+.exNav a {
+    font-family: "Infinity", sans-serif;
+    text-align: center;
+    text-decoration: none;
+    font-size: 2em;
+    color: #ffffff;
+    display: block;
+    transition: 0.3s;
+}
+.exNav a:hover {
+  background-color: var(--sideNavColor)!important;
+  color: #f1f1f1;
+}
+.exNav .closebtn {
+    top: 0;
+    font-size: 2.15em;
+    padding-top: .1em;
+    padding-bottom: .3em;
+}
+#exCloseBtn:hover{
+  background-color: var(--topBarColor)!important;
+}
+/* @media screen and (max-height: 450px) {
+  .exNav {padding-top: 15px;}
+  .exNav a {font-size: 18px;}
+} */
+
+/*Step Navigation Bars*/
+.stepNav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 3.365em;
+    left: 12em;
+    z-index: 10;
+    background-color: var(--sideNavColor2);
+    overflow-x: hidden;
+    transition: 0.3s;
+}
+.stepNav a {
+    float: left;
+    width: 100%;
+    font-family: "Infinity", sans-serif;
+    text-align: center;
+    text-decoration: none;
+    font-size: 3em;
+    color: #ffffff;
+    display: block;
+    transition: 0.3s;
+}
+.stepNav a:hover {
+  background-color: var(--logoColor)!important;
+  color: #f1f1f1;
+}
+.stepNav .stepClosebtn {
+    top: 0;
+    font-size: 2.15em;
+    width: 50%;
+}
+.stepNav .stepClosebtn:hover{
+  background-color: var(--sideNavColor2)!important;
+}
+.stepNav .stepAddbtn{
+  top: 0;
+  font-size: 2.15em;
+  width: 50%;
+}
+/* @media screen and (max-height: 450px) {
+  .stepNav {padding-top: 15px;}
+  .stepNav a {font-size: 18px;}
+} */
+.mainColumn{
+    float: left;
+    width: 40%;
+    height: auto;
+}
+.numColumn{
+    float: left;
+    width: 10%;
+    height: auto;
+}
+.xColumn{
+    float: left;
+    width: 10%;
+    height: auto;
+}
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.numColumn a:hover{
+  background-color: var(--sideNavColor2)!important;
+}
+.xColumn a:hover{
+  background-color: var(--sideNavColor2)!important;
+  color: var(--logoColor)!important;
+}
+
+.stepNav select{
+  font-family: "Infinity", sans-serif;
+  font-size: 3em;
+  color: #ffffff;
+  height: auto;
+  background-color: var(--sideNavColor2);
+  border-width: 0em;
+  padding: .033em;
+  margin: 0;
+}
+.stepNav option {
+  position: absolute;
+  background-color: #f1f1f1;
+  color: #000000;
+  top: 100%;
+  border-style: none;
+}
+.stepNav option:active {
+  background-color: var(--logoColor);
+}
+.select-selected{
+  background-color: var(--logoColor);
+}
+
+#mainCanvas{
+  position: fixed;
+  left: 12em;
+  top:3.365em;
+  width: 0;
+  height: 100%;
+  z-index: 1;
+  color: #ffffff;
+  background-color: #ffffff;
+  transition: 0.3s;
+}
+
+/*Select Navigation Bars*/
+.selectNav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 3.365em;
+    left: 24em;
+    z-index: 4;
+    background-color: var(--logoColor);
+    overflow-x: hidden;
+    transition: 0.3s;
+}
+.selectNav a {
+    font-family: "Infinity", sans-serif;
+    padding: .217em;
+    text-align: center;
+    text-decoration: none;
+    font-size: 2.5em;
+    color: #ffffff;
+    display: block;
+    transition: 0.3s;
+}
+.selectNav a:hover {
+  background-color: var(--topBarColor)!important;
+  color: #f1f1f1;
+}
+/* #toolNav a {
+  padding: .28em;
+  font-size: 2em;
+} */
+/* #toolNav .selectClosebtn{
+  top: 0;
+  font-size: 2.15em;
+  padding: 0;
+} */
+.selectNav .selectClosebtn {
+    top: 0;
+    font-size: 2.15em;
+    padding: 0;
+}
+.selectNav .selectClosebtn:hover{
+  background-color: var(--logoColor)!important;
+}
+/* @media screen and (max-height: 450px) {
+  .selectNav {padding-top: 15px;}
+  .selectNav a {font-size: 18px;}
+} */
+
+/*Seq Input Navigation Bars*/
+.seqInputNav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 3.365em;
+    left: 36em;
+    z-index: 3;
+    background-color: var(--topBarColor);
+    overflow-x: hidden;
+    transition: 0.3s;
+}
+.seqInputNav a {
+    font-family: "Infinity", sans-serif;
+    text-align: center;
+    text-decoration: none;
+    font-size: 2em;
+    color: #ffffff;
+    display: block;
+    transition: 0.3s;
+}
+.seqInputNav li {
+    font-family: "Infinity", sans-serif;
+    text-align: center;
+    text-decoration: none;
+    font-size: 2em;
+    color: #ffffff;
+    display: block;
+    transition: 0.3s;
+}
+.seqInputNav select{
+  font-family: "Infinity", sans-serif;
+  font-size: 2em;
+  color: #ffffff;
+  height: auto;
+  background-color: var(--topBarColor);
+  border-width: 0em;
+  padding: .033em;
+  margin: 0;
+}
+.seqInputNav option {
+  position: absolute;
+  background-color: #f1f1f1;
+  color: #000000;
+  top: 100%;
+  border-style: none;
+}
+.seqInputNav option:active {
+  background-color: var(--logoColor);
+}
+.select-selected{
+  background-color: var(--logoColor);
+}
+.seqInputNav input[type=text], select, textarea {
+  width: 80%;
+  height: 21em;
+  padding: .25em;
+  margin-top: .25em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+  font-size: 1.25em;
+}
+.seqInputNav .closebtn {
+    top: 0;
+    font-size: 2.15em;
+}
+/* @media screen and (max-height: 450px) {
+  .seqInputNav {padding-top: 15px;}
+  .seqInputNav a {font-size: 18px;}
+} */
+.oeisNum{
+  height: 1.5em;
+  resize: none;
+}
+
+/* .linRecNav{
+  height: 0;
+  margin-top: 1em;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  position: fixed;
+  transition: 0.3s;
+}
+.linRecDef{
+  margin-right: 18em;
+  margin-bottom: .5em;
+}
+.linRecNav textarea{
+  width: 80%;
+  height: 1.25em;
+  padding: .25em;
+  margin-top: .5em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: none;
+  font-size: 1.25em;
+}
+.kLabel{
+    float: left;
+    width: 6%;
+    margin-left: 2em;
+    height: auto;
+    text-align: right;
+}
+.kSelect{
+    float: left;
+    width: 10.5%;
+    height: auto;
+    margin-left: -.8em;
+}
+.linRecKRow:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.cList{
+    float: left;
+    width: 5%;
+    height: auto;
+    margin-left: 2em;
+    text-align: left;
+}
+.aList{
+    float: left;
+    width: 5%;
+    height: auto;
+    margin-left: 2em;
+    text-align: left;
+}
+.cText{
+    float: left;
+    width: 10%;
+    height: auto;
+}
+.linRecRow:after{
+    content: "";
+    display: table;
+    clear: both;
+} */
+/* @media screen and (max-height: 450px) {
+  .linRecNav {padding-top: 15px;}
+  .linRecNav a {font-size: 18px;}
+} */
