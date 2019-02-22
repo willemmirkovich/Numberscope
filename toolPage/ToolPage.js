@@ -131,6 +131,7 @@ function openSeqInputNav(n,m){
     document.getElementById(u).style.width = "24em";
     let v = "builtIn" + n;
     document.getElementById(v).style.background = topBarColor;
+    //document.getElementById(v).style.borderLeft = "solid", sideNavColor;
 
     // let linRecNumber = "builtInSelect" + n;
     // let linRecNav = "linRecNav" + n;
