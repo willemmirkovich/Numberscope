@@ -261,7 +261,11 @@ header button:hover:not(.active){
 }
 .selectNav a {
     font-family: "Infinity", sans-serif;
-    padding: .217em;
+    /* padding: .217em; */
+    border: solid;
+    border-width: .217em;
+    border-color: var(--logoColor);
+    /* border-left-color: var(--sideNavColor); */
     text-align: center;
     text-decoration: none;
     font-size: 2.5em;
@@ -271,6 +275,8 @@ header button:hover:not(.active){
 }
 .selectNav a:hover {
   background-color: var(--topBarColor)!important;
+  border-color: var(--topBarColor)!important;
+  border-left-color: var(--sideNavColor)!important;
   color: #f1f1f1;
 }
 /* #toolNav a {
@@ -285,6 +291,7 @@ header button:hover:not(.active){
 .selectNav .selectClosebtn {
     top: 0;
     font-size: 2.15em;
+    border-width: 0;
     padding: 0;
 }
 .selectNav .selectClosebtn:hover{

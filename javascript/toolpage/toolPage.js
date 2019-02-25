@@ -5,12 +5,13 @@ var sideNavColor2 = "#70cad1";
 var numSequences = 1;
 var numTools = 1;
 var numDraw = 1;
+var toolTypes = ["empty","turtle", "gol", "shift"];
 
 // var activeSequences = []
 // var activeTool = []
 
 builtInNames = ["primes","fibonacci","lucas","thueMorse","recaman","linRec"]
-inputTypesNames = ["builtIn", "OEIS", "list", "code"] 
+inputTypesNames = ["builtIn", "OEIS", "list", "code"]
 moduleNames = ["turtle", "gameOfLife","shiftCompare"]
 
 var currentSequence = {
@@ -27,17 +28,17 @@ var currentSequence = {
   setValue: function(){
     if(this.inputType == "builtIn"){
       this.inputValue = document.getElementById(this.inputType + "Select" +  this.ID).value
-    } 
+    }
     if(this.inputType == "OEIS"){
       this.inputValue = undefined;
       console.error("Not Implemented: " + this.inputType + " input")
     }
     if(this.inputType == "list"){
-      this.inputValue = undefined;      
+      this.inputValue = undefined;
       console.error("Not Implemented: " + this.inputType + " input")
     }
     if(this.inputType == "code"){
-      this.inputValue = undefined;      
+      this.inputValue = undefined;
       console.error("Not Implemented: " + this.inputType + " input")
     }
   },
@@ -47,14 +48,14 @@ var currentSequence = {
   },
   sendSequence: function(){
     if(this.inputValue == undefined){ console.log("Not setting input since it is undefined for input type: " + this.inputType)}
-    else{NScore.receiveSequence(Object.assign({}, {ID: this.ID, inputType: this.inputType, inputValue: this.inputValue, parameters: this.parameters}))}  
+    else{NScore.receiveSequence(Object.assign({}, {ID: this.ID, inputType: this.inputType, inputValue: this.inputValue, parameters: this.parameters}))}
   },
   refresh: function(){
     this.ID = undefined;
     this.inputType = undefined;
     this.inputValue = undefined;
     this.parameters = undefined;
-  } 
+  }
 }
 
 var currentTool = {
@@ -77,7 +78,7 @@ var currentTool = {
     console.log("Not implemented");
   },
   sendModule: function(){
-    NScore.receiveModule(Object.assign({}, {ID: this.ID, moduleName: this.moduleName, config: this.config}))  
+    NScore.receiveModule(Object.assign({}, {ID: this.ID, moduleName: this.moduleName, config: this.config}))
   }
 };
 
@@ -211,12 +212,18 @@ function openSeqInputNav(n,m){
     document.getElementById(u).style.width = "24em";
     let v = "builtIn" + n;
     document.getElementById(v).style.background = topBarColor;
+    document.getElementById(v).style.borderColor = topBarColor;
+    document.getElementById(v).style.borderLeftColor = sideNavColor;
 
     // let linRecNumber = "builtInSelect" + n;
     // let linRecNav = "linRecNav" + n;
     // if (document.getElementById(linRecNumber).value == "linRec") {
     //   extendLinRec(n);
     // }
+
+    document.getElementById("OEIS" + n).style.borderLeftColor = logoColor;
+    document.getElementById("list" + n).style.borderLeftColor = logoColor;
+    document.getElementById("code" + n).style.borderLeftColor = logoColor;
 
     closeSeqInputNav(n,3);
     closeSeqInputNav(n,4);
@@ -227,6 +234,13 @@ function openSeqInputNav(n,m){
     document.getElementById(u).style.width = "12em";
     let v = "OEIS" + n;
     document.getElementById(v).style.background = topBarColor;
+    document.getElementById(v).style.borderColor = topBarColor;
+    document.getElementById(v).style.borderLeftColor = sideNavColor;
+
+    document.getElementById("builtIn" + n).style.borderLeftColor = logoColor;
+    document.getElementById("list" + n).style.borderLeftColor = logoColor;
+    document.getElementById("code" + n).style.borderLeftColor = logoColor;
+
     closeSeqInputNav(n,4);
     closeSeqInputNav(n,3);
     closeSeqInputNav(n,1);
@@ -236,6 +250,13 @@ function openSeqInputNav(n,m){
     document.getElementById(u).style.width = "24em";
     let v = "list" + n
     document.getElementById(v).style.background = topBarColor;
+    document.getElementById(v).style.borderColor = topBarColor;
+    document.getElementById(v).style.borderLeftColor = sideNavColor;
+
+    document.getElementById("builtIn" + n).style.borderLeftColor = logoColor;
+    document.getElementById("OEIS" + n).style.borderLeftColor = logoColor;
+    document.getElementById("code" + n).style.borderLeftColor = logoColor;
+
     closeSeqInputNav(n,4);
     closeSeqInputNav(n,2);
     closeSeqInputNav(n,1);
@@ -245,6 +266,13 @@ function openSeqInputNav(n,m){
     document.getElementById(u).style.width = "24em";
     let v = "code" + n;
     document.getElementById(v).style.background = topBarColor;
+    document.getElementById(v).style.borderColor = topBarColor;
+    document.getElementById(v).style.borderLeftColor = sideNavColor;
+
+    document.getElementById("builtIn" + n).style.borderLeftColor = logoColor;
+    document.getElementById("OEIS" + n).style.borderLeftColor = logoColor;
+    document.getElementById("list" + n).style.borderLeftColor = logoColor;
+
     closeSeqInputNav(n,3);
     closeSeqInputNav(n,2);
     closeSeqInputNav(n,1);
@@ -256,6 +284,9 @@ function closeSeqInputNav(n,m){
     document.getElementById(f).style.width = "0";
     let g = "builtIn" + n;
     document.getElementById(g).style.background = logoColor;
+    document.getElementById(g).style.borderRightColor = logoColor;
+    document.getElementById(g).style.borderTopColor = logoColor;
+    document.getElementById(g).style.borderBottomColor = logoColor;
     // let linRecNav = "linRecNav" + n;
     // document.getElementById(linRecNav).style.height = "0em";
   }
@@ -264,18 +295,27 @@ function closeSeqInputNav(n,m){
     document.getElementById(f).style.width = "0";
     let g = "OEIS" + n;
     document.getElementById(g).style.background = logoColor;
+    document.getElementById(g).style.borderRightColor = logoColor;
+    document.getElementById(g).style.borderTopColor = logoColor;
+    document.getElementById(g).style.borderBottomColor = logoColor;
   }
   else if (m==3) {
     let f = "listInputNav" + n;
     document.getElementById(f).style.width = "0";
     let g = "list" + n;
     document.getElementById(g).style.background = logoColor;
+    document.getElementById(g).style.borderRightColor = logoColor;
+    document.getElementById(g).style.borderTopColor = logoColor;
+    document.getElementById(g).style.borderBottomColor = logoColor;
   }
   else if (m==4) {
     let f = "codeInputNav" + n;
     document.getElementById(f).style.width = "0";
     let g = "code" + n;
     document.getElementById(g).style.background = logoColor;
+    document.getElementById(g).style.borderRightColor = logoColor;
+    document.getElementById(g).style.borderTopColor = logoColor;
+    document.getElementById(g).style.borderBottomColor = logoColor;
   }
 }
 
@@ -307,8 +347,9 @@ function closeSeqInputNav(n,m){
 //Tool Navigation Bars
 function openToolNav(n){
   for (let i = 1; i <= numTools; i++) {
-    let curToolNav = "toolNav" + i;
-    document.getElementById(curToolNav).style.width = "0em";
+    // let curToolNav = "toolNav" + i;
+    // document.getElementById(curToolNav).style.width = "0em";
+    closeToolNav(i);
   }
   let selectedNav = "toolNav" + n;
   document.getElementById(selectedNav).style.width = "24em";
@@ -330,6 +371,11 @@ function closeToolNav(n){
     let curTool = "tool" + i;
     document.getElementById(curTool).style.background = sideNavColor2;
   }
+  for (let i = 1; i <= numTools; i++) {
+    for (let j = 1; j <= 3; j++) {
+      closeToolInputNav(i,j);
+    }
+  }
 }
 
 function openToolInputNav(n,m){
@@ -337,6 +383,62 @@ function openToolInputNav(n,m){
   currentTool.setID(n);
   currentTool.setModule(m);
   currentTool.sendModule();
+
+  // let v = toolTypes[m] + n;
+  // document.getElementById(v).style.background = topBarColor;
+  // document.getElementById(v).style.borderColor = topBarColor;
+  // document.getElementById(v).style.borderLeftColor = sideNavColor;
+  //
+  // for (let r = 1; r < toolTypes.length; r++) {
+  //   if (r != m) {
+  //     document.getElementById(toolTypes[r] + n).style.borderLeftColor = logoColor;
+  //     closeToolInputNav(n,r);
+  //   }
+  // }
+
+  if (m==1) {
+    let v = "turtle" + n;
+    document.getElementById(v).style.background = topBarColor;
+    document.getElementById(v).style.borderColor = topBarColor;
+    document.getElementById(v).style.borderLeftColor = sideNavColor;
+
+    document.getElementById("gol" + n).style.borderLeftColor = logoColor;
+    document.getElementById("shift" + n).style.borderLeftColor = logoColor;
+
+    closeToolInputNav(n,2);
+    closeToolInputNav(n,3);
+  }
+  else if (m==2) {
+    let v = "gol" + n;
+    document.getElementById(v).style.background = topBarColor;
+    document.getElementById(v).style.borderColor = topBarColor;
+    document.getElementById(v).style.borderLeftColor = sideNavColor;
+
+    document.getElementById("turtle" + n).style.borderLeftColor = logoColor;
+    document.getElementById("shift" + n).style.borderLeftColor = logoColor;
+
+    closeToolInputNav(n,1);
+    closeToolInputNav(n,3);
+  }
+  else if (m==3) {
+    let v = "shift" + n;
+    document.getElementById(v).style.background = topBarColor;
+    document.getElementById(v).style.borderColor = topBarColor;
+    document.getElementById(v).style.borderLeftColor = sideNavColor;
+
+    document.getElementById("turtle" + n).style.borderLeftColor = logoColor;
+    document.getElementById("gol" + n).style.borderLeftColor = logoColor;
+
+    closeToolInputNav(n,1);
+    closeToolInputNav(n,2);
+  }
+}
+function closeToolInputNav(n,m){
+  let g = toolTypes[m] + n;
+  document.getElementById(g).style.background = logoColor;
+  document.getElementById(g).style.borderRightColor = logoColor;
+  document.getElementById(g).style.borderTopColor = logoColor;
+  document.getElementById(g).style.borderBottomColor = logoColor;
 }
 
 function addSeq(){
