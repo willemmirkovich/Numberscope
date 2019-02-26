@@ -95,19 +95,26 @@
         </select>
 
         <li id="linRecDef1" class="linRecDef"> a<sub>n</sub> = c<sub>1</sub>a<sub>n-1</sub> + ... + c<sub>k</sub>a<sub>n-k</sub></li>
-        <li id="kLabel1" class="kLabel"> k =</li>
-        <select id="kSelect1" class="kSelect" onchange="extendLinRec(n=1)">
-          <option value="1">1</option>
-          <option value="2" selected>2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10</option>
-        </select>
+
+        <div class="kRow">
+          <div class="kLabel">
+            <li id="kLabel1"> k =</li>
+          </div>
+          <div class="kSelect">
+            <select id="kSelect1" onchange="extendLinRec(n=1)">
+              <option value="1">1</option>
+              <option value="2" selected>2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+            </select>
+          </div>
+        </div>
 
         <div class="linRecRow">
           <div class="ListColumn">

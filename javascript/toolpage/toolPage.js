@@ -335,7 +335,7 @@ function openLinRec(n){
   if (document.getElementById(linRecNumber).value == "linRec") {
     // document.getElementById(curLinRecDef).style.visibility = "visible";
     document.getElementById(curLinRecDef).style.fontSize = "2em";
-    document.getElementById(curKLabel).style.visibility = "visible";
+    document.getElementById(curKLabel).style.fontSize = "2em";
     document.getElementById(curKSelect).style.visibility = "visible";
 
     let numK = document.getElementById(curKSelect).value;
@@ -361,7 +361,7 @@ function openLinRec(n){
   else {
     // document.getElementById(curLinRecDef).style.visibility = "hidden";
     document.getElementById(curLinRecDef).style.fontSize = "0";
-    document.getElementById(curKLabel).style.visibility = "hidden";
+    document.getElementById(curKLabel).style.fontSize = "0";
     document.getElementById(curKSelect).style.visibility = "hidden";
     for (let p = 1; p <= 10; p++) {
       curCList = "cList" + p + "_" + n;
