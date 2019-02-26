@@ -43,6 +43,7 @@
     <div id="step3Nav" class="stepNav">
       <a id="step3CloseBtn" href="javascript:void(0)"class="stepClosebtn" onclick="closeNav(n=3)">&#171; </a>
       <a href="#" class="stepAddbtn" onclick="addDraw()">+</a>
+
       <div class="row">
         <div id="drawListNum" class="numColumn">
           <a id="drawNum" href="#">1.</a>
@@ -61,6 +62,7 @@
           <a id="drawRemove1" onclick="removeDraw(n=1)" href="#">&times</a>
         </div>
       </div>
+
       <a id="draw1" href="#" onclick="drawClicked()">Draw!</a>
     </div>
 
@@ -91,84 +93,75 @@
           <option value="recaman"> Recaman</option>
           <option value="linRec"> Linear Recurrence</option>
         </select>
-        <!-- <nav id="linRecNav1" class="linRecNav">
-          <li id="linRecDef1" class="linRecDef"> a<sub>n</sub> = c<sub>1</sub>a<sub>n-1</sub> + ... + c<sub>k</sub>a<sub>n-k</sub></li>
 
-          <div class="linRecKRow">
-            <div class="kLabel">
-              <li class="kequals"> k =</li>
-            </div>
+        <li id="linRecDef1" class="linRecDef"> a<sub>n</sub> = c<sub>1</sub>a<sub>n-1</sub> + ... + c<sub>k</sub>a<sub>n-k</sub></li>
+        <li id="kLabel1" class="kLabel"> k =</li>
+        <select id="kSelect1" class="kSelect" onchange="extendLinRec(n=1)">
+          <option value="1">1</option>
+          <option value="2" selected>2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+        </select>
 
-            <div class="kSelect">
-              <select id="kSelect1" class="kequalsText" onchange="extendLinRec(n=1)">
-                <option value="1"> 1 </option>
-                <option value="2" selected> 2 </option>
-                <option value="3"> 3 </option>
-                <option value="4"> 4 </option>
-                <option value="5"> 5 </option>
-                <option value="6"> 6 </option>
-                <option value="7"> 7 </option>
-                <option value="8"> 8 </option>
-                <option value="9"> 9 </option>
-                <option value="10"> 10 </option>
-              </select>
-            </div>
+        <div class="linRecRow">
+          <div class="ListColumn">
+            <li id="cList1_1"> c<sub>1</sub> : </li>
+            <li id="cList2_1"> c<sub>2</sub> : </li>
+            <li id="cList3_1"> c<sub>3</sub> : </li>
+            <li id="cList4_1"> c<sub>4</sub> : </li>
+            <li id="cList5_1"> c<sub>5</sub> : </li>
+            <li id="cList6_1"> c<sub>6</sub> : </li>
+            <li id="cList7_1"> c<sub>7</sub> : </li>
+            <li id="cList8_1"> c<sub>8</sub> : </li>
+            <li id="cList9_1"> c<sub>9</sub> : </li>
+            <li id="cList10_1"> c<sub>10</sub> : </li>
           </div>
 
-          <div class="linRecRow">
-            <div class="cList">
-              <li> C<sub>1</sub> : </li>
-              <li> C<sub>2</sub> : </li>
-              <li> C<sub>3</sub> : </li>
-              <li> C<sub>4</sub> : </li>
-              <li> C<sub>5</sub> : </li>
-              <li> C<sub>6</sub> : </li>
-              <li> C<sub>7</sub> : </li>
-              <li> C<sub>8</sub> : </li>
-              <li> C<sub>9</sub> : </li>
-              <li> C<sub>10</sub> : </li>
-            </div>
-
-            <div class="cText">
-              <textarea id="c1_1"></textarea>
-              <textarea id="c2_1"></textarea>
-              <textarea id="c3_1"></textarea>
-              <textarea id="c4_1"></textarea>
-              <textarea id="c5_1"></textarea>
-              <textarea id="c6_1"></textarea>
-              <textarea id="c7_1"></textarea>
-              <textarea id="c8_1"></textarea>
-              <textarea id="c9_1"></textarea>
-              <textarea id="c10_1"></textarea>
-            </div>
-
-            <div class="aList">
-              <li> a<sub>0</sub> : </li>
-              <li> a<sub>1</sub> : </li>
-              <li> a<sub>2</sub> : </li>
-              <li> a<sub>3</sub> : </li>
-              <li> a<sub>4</sub> : </li>
-              <li> a<sub>5</sub> : </li>
-              <li> a<sub>6</sub> : </li>
-              <li> a<sub>7</sub> : </li>
-              <li> a<sub>8</sub> : </li>
-              <li> a<sub>9</sub> : </li>
-            </div>
-
-            <div class="cText">
-              <textarea id="a1_1"></textarea>
-              <textarea id="a2_1"></textarea>
-              <textarea id="a3_1"></textarea>
-              <textarea id="a4_1"></textarea>
-              <textarea id="a5_1"></textarea>
-              <textarea id="a6_1"></textarea>
-              <textarea id="a7_1"></textarea>
-              <textarea id="a8_1"></textarea>
-              <textarea id="a9_1"></textarea>
-              <textarea id="a10_1"></textarea>
-            </div>
+          <div class="TextColumn">
+            <textarea id="cText1_1"></textarea>
+            <textarea id="cText2_1"></textarea>
+            <textarea id="cText3_1"></textarea>
+            <textarea id="cText4_1"></textarea>
+            <textarea id="cText5_1"></textarea>
+            <textarea id="cText6_1"></textarea>
+            <textarea id="cText7_1"></textarea>
+            <textarea id="cText8_1"></textarea>
+            <textarea id="cText9_1"></textarea>
+            <textarea id="cText10_1"></textarea>
           </div>
-        </nav> -->
+
+          <div class="ListColumn">
+            <li id="aList1_1"> a<sub>0</sub> : </li>
+            <li id="aList2_1"> a<sub>1</sub> : </li>
+            <li id="aList3_1"> a<sub>2</sub> : </li>
+            <li id="aList4_1"> a<sub>3</sub> : </li>
+            <li id="aList5_1"> a<sub>4</sub> : </li>
+            <li id="aList6_1"> a<sub>5</sub> : </li>
+            <li id="aList7_1"> a<sub>6</sub> : </li>
+            <li id="aList8_1"> a<sub>7</sub> : </li>
+            <li id="aList9_1"> a<sub>8</sub> : </li>
+            <li id="aList10_1"> a<sub>9</sub> : </li>
+          </div>
+
+          <div class="TextColumn">
+            <textarea id="aText1_1"></textarea>
+            <textarea id="aText2_1"></textarea>
+            <textarea id="aText3_1"></textarea>
+            <textarea id="aText4_1"></textarea>
+            <textarea id="aText5_1"></textarea>
+            <textarea id="aText6_1"></textarea>
+            <textarea id="aText7_1"></textarea>
+            <textarea id="aText8_1"></textarea>
+            <textarea id="aText9_1"></textarea>
+            <textarea id="aText10_1"></textarea>
+          </div>
+        </div>
       </div>
     </div>
 

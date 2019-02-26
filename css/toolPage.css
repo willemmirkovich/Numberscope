@@ -378,71 +378,61 @@ header button:hover:not(.active){
   resize: none;
 }
 
-/* .linRecNav{
-  height: 0;
-  margin-top: 1em;
-  overflow-x: hidden;
-  overflow-y: hidden;
-  position: fixed;
-  transition: 0.3s;
-}
-.linRecDef{
-  margin-right: 18em;
-  margin-bottom: .5em;
-}
-.linRecNav textarea{
-  width: 80%;
-  height: 1.25em;
-  padding: .25em;
+.seqInputNav .linRecDef{
+  /* visibility: hidden; */
+  font-size: 0em;
+  width: auto;
+  overflow: hidden;
+  transition: 0;
   margin-top: .5em;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+}
+.seqInputNav .kLabel{
+    float: left;
+    width: 3em;
+    margin-left: 3em;
+    height: auto;
+    overflow: hidden;
+    visibility: hidden;
+    transition: 0;
+}
+.seqInputNav .kSelect{
+    float: left;
+    width: 3em;
+    height: auto;
+    margin-left: -0.5em;
+    margin-right: 1em;
+    margin-bottom: .5em;
+    visibility: hidden;
+}
+
+.ListColumn{
+    float: left;
+    width: 15%;
+    height: auto;
+    margin-left: 2em;
+    overflow: hidden;
+}
+.TextColumn{
+    float: left;
+    width: 15%;
+    height: auto;
+    overflow: hidden;
+}
+.TextColumn textarea{
+  height: 1.25em;
+  padding: none;
+  border: none;
+  margin: none;
   resize: none;
-  font-size: 1.25em;
+  margin-bottom: .41em;
+  overflow: hidden;
+  visibility: hidden;
 }
-.kLabel{
-    float: left;
-    width: 6%;
-    margin-left: 2em;
-    height: auto;
-    text-align: right;
+.ListColumn li{
+  font-size: 0;
 }
-.kSelect{
-    float: left;
-    width: 10.5%;
-    height: auto;
-    margin-left: -.8em;
-}
-.linRecKRow:after {
+.linRecRow:after {
     content: "";
     display: table;
     clear: both;
 }
-.cList{
-    float: left;
-    width: 5%;
-    height: auto;
-    margin-left: 2em;
-    text-align: left;
-}
-.aList{
-    float: left;
-    width: 5%;
-    height: auto;
-    margin-left: 2em;
-    text-align: left;
-}
-.cText{
-    float: left;
-    width: 10%;
-    height: auto;
-}
-.linRecRow:after{
-    content: "";
-    display: table;
-    clear: both;
-} */
-/* @media screen and (max-height: 450px) {
-  .linRecNav {padding-top: 15px;}
-  .linRecNav a {font-size: 18px;}
-} */

@@ -87,7 +87,7 @@ var currentTool = {
 function openExNav() {
     document.getElementById("exampleNav").style.width = "12em";
     document.getElementById("title1").style.marginLeft = "4.5em";
-    document.getElementById("mainCanvas").style.marginLeft = "12em";
+    //document.getElementById("mainCanvas").style.marginLeft = "12em";
 
     let list1 = ["sideNav", "stepNav", "selectNav", "seqInputNav"];
     for (let i = 0; i < list1.length; i++) {
@@ -100,7 +100,7 @@ function openExNav() {
 function closeExNav() {
     document.getElementById("exampleNav").style.width = "0";
     document.getElementById("title1").style.marginLeft = "0";
-    document.getElementById("mainCanvas").style.marginLeft = "0";
+    // document.getElementById("mainCanvas").style.marginLeft = "0";
 
     let list1 = ["sideNav", "stepNav", "selectNav", "seqInputNav"];
     for (let i = 0; i < list1.length; i++) {
@@ -321,28 +321,89 @@ function closeSeqInputNav(n,m){
 
 //Linear Recurrence
 // let linRecHeights = ["8.5em", "11.5em", "14em", "16.5em", "19.5em", "22em", "24.7em", "27.5em", "30em", "34em" ]
-// function openLinRec(n){
-//   let linRecNumber = "builtInSelect" + n;
-//   let linRecNav = "linRecNav" + n;
-//   if (document.getElementById(linRecNumber).value == "linRec") {
-//     let curkSelect = "kSelect" + n;
-//     let linRecNavLength = document.getElementById(curkSelect).value;
-//     let linRecNavLength = parseInt(linRecNavLength, 10) - 1;
-//     let newHeight = linRecHeights[linRecNavLength];
-//     document.getElementById(linRecNav).style.height = newHeight;
-//   }
-//   else {
-//     document.getElementById(linRecNav).style.height = "0";
-//   }
-// }
-// function extendLinRec(n){
-//   let linRecNav = "linRecNav" + n;
-//   let curkSelect = "kSelect" + n;
-//   let linRecNavLength = document.getElementById(curkSelect).value;
-//   let linRecNavLength = parseInt(linRecNavLength, 10) - 1;
-//   let newHeight = linRecHeights[linRecNavLength];
-//   document.getElementById(linRecNav).style.height = newHeight;
-// }
+function openLinRec(n){
+  let linRecNumber = "builtInSelect" + n;
+  let curLinRecDef = "linRecDef" + n;
+  let curKLabel = "kLabel" + n;
+  let curKSelect = "kSelect" + n;
+
+  let curCList = "";
+  let curCText = "";
+  let curAList = "";
+  let curAText = "";
+
+  if (document.getElementById(linRecNumber).value == "linRec") {
+    // document.getElementById(curLinRecDef).style.visibility = "visible";
+    document.getElementById(curLinRecDef).style.fontSize = "2em";
+    document.getElementById(curKLabel).style.visibility = "visible";
+    document.getElementById(curKSelect).style.visibility = "visible";
+
+    let numK = document.getElementById(curKSelect).value;
+    for (let p = 1; p <= 10; p++) {
+      curCList = "cList" + p + "_" + n;
+      curCText = "cText" + p + "_" + n;
+      curAList = "aList" + p + "_" + n;
+      curAText = "aText" + p + "_" + n;
+      if (p <= numK) {
+        document.getElementById(curCList).style.fontSize = "2em";
+        document.getElementById(curCText).style.visibility = "visible";
+        document.getElementById(curAList).style.fontSize = "2em";
+        document.getElementById(curAText).style.visibility = "visible";
+      }
+      else {
+        document.getElementById(curCList).style.fontSize = "0";
+        document.getElementById(curCText).style.visibility = "hidden";
+        document.getElementById(curAList).style.fontSize = "0";
+        document.getElementById(curAText).style.visibility = "hidden";
+      }
+    }
+  }
+  else {
+    // document.getElementById(curLinRecDef).style.visibility = "hidden";
+    document.getElementById(curLinRecDef).style.fontSize = "0";
+    document.getElementById(curKLabel).style.visibility = "hidden";
+    document.getElementById(curKSelect).style.visibility = "hidden";
+    for (let p = 1; p <= 10; p++) {
+      curCList = "cList" + p + "_" + n;
+      curCText = "cText" + p + "_" + n;
+      curAList = "aList" + p + "_" + n;
+      curAText = "aText" + p + "_" + n;
+
+      document.getElementById(curCList).style.fontSize = "0";
+      document.getElementById(curCText).style.visibility = "hidden";
+      document.getElementById(curAList).style.fontSize = "0";
+      document.getElementById(curAText).style.visibility = "hidden";
+    }
+  }
+}
+function extendLinRec(n){
+  let curKSelect = "kSelect" + n;
+
+  let curCList = "";
+  let curCText = "";
+  let curAList = "";
+  let curAText = "";
+
+  let numK = document.getElementById(curKSelect).value;
+  for (let p = 1; p <= 10; p++) {
+    curCList = "cList" + p + "_" + n;
+    curCText = "cText" + p + "_" + n;
+    curAList = "aList" + p + "_" + n;
+    curAText = "aText" + p + "_" + n;
+    if (p <= numK) {
+      document.getElementById(curCList).style.fontSize = "2em";
+      document.getElementById(curCText).style.visibility = "visible";
+      document.getElementById(curAList).style.fontSize = "2em";
+      document.getElementById(curAText).style.visibility = "visible";
+    }
+    else {
+      document.getElementById(curCList).style.fontSize = "0";
+      document.getElementById(curCText).style.visibility = "hidden";
+      document.getElementById(curAList).style.fontSize = "0";
+      document.getElementById(curAText).style.visibility = "hidden";
+    }
+  }
+}
 
 //Tool Navigation Bars
 function openToolNav(n){
