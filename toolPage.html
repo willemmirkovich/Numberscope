@@ -73,8 +73,8 @@
     <div id="seqNavs">
       <div id="seqNav1" class="selectNav">
         <a id="seqCloseBtn1" href="javascript:void(0)"class="selectClosebtn" onclick="closeSeqNav(n=1)">&#171; </a>
-        <a id="builtIn1" href="#" onclick="openSeqInputNav(n=1,m=1)">Built In</a>
-        <a id="OEIS1" href="#" onclick="openSeqInputNav(n=1,m=2)"> OEIS</a>
+        <a id="builtIn1" href="#" onclick="openSeqInputNav(n=1,m=1)">Built In Sequences</a>
+        <a id="OEIS1" href="#" onclick="openSeqInputNav(n=1,m=2)"> OEIS Number</a>
         <a id="list1" href="#" onclick="openSeqInputNav(n=1,m=3)"> List</a>
         <a id="code1" href="#" onclick="openSeqInputNav(n=1,m=4)">Sage Code</a>
       </div>
@@ -84,9 +84,10 @@
     <div id="builtInInputNavs">
       <div id="builtInInputNav1" class="seqInputNav">
         <a id="builtInCloseBtn1" href="javascript:void(0)"class="closebtn" onclick="closeSeqInputNav(n=1,m=1)">&#171; </a>
-        <li>Built In Sequences </li>
+        <!-- <li>Built In Sequences </li> -->
         <select id="builtInSelect1" onchange="openLinRec(n=1)">
           <option value="primes" selected> Prime Numbers </option>
+          <!-- <option value="natural"> Natural Numbers</option> -->
           <option value="fibonacci"> Fibonacci Numbers</option>
           <option value="lucas"> Lucas Numbers</option>
           <option value="thueMorse"> Thue-Morse</option>

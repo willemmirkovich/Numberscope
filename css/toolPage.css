@@ -308,7 +308,7 @@ header button:hover:not(.active){
     width: 0;
     position: fixed;
     top: 3.365em;
-    left: 36em;
+    left: 48em;
     z-index: 3;
     background-color: var(--topBarColor);
     overflow-x: hidden;
@@ -374,7 +374,7 @@ header button:hover:not(.active){
   .seqInputNav a {font-size: 18px;}
 } */
 .oeisNum{
-  height: 1.5em;
+  height: 1.25em;
   resize: none;
 }
 

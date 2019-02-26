@@ -167,7 +167,7 @@ function openSeqNav(n){
     document.getElementById(curSeqNav).style.width = "0em";
   }
   let selectedNav = "seqNav" + n;
-  document.getElementById(selectedNav).style.width = "12em";
+  document.getElementById(selectedNav).style.width = "24em";
 
   for (let i = 1; i <= numSequences; i++) {
     let curSeq = "seq" + i;
@@ -554,7 +554,7 @@ function addSeq(){
     builtInLink.setAttribute("href", "#");
     fctCall = "openSeqInputNav(n=" + numSequences + ",m=1)";
     builtInLink.setAttribute("onclick", fctCall);
-    builtInLink.innerHTML = "Built In";
+    builtInLink.innerHTML = "Built In Sequences";
     newNav.appendChild(builtInLink);
 
     //OEIS Link
@@ -564,7 +564,7 @@ function addSeq(){
     oeisLink.setAttribute("href", "#");
     fctCall = "openSeqInputNav(n=" + numSequences + ",m=2)";
     oeisLink.setAttribute("onclick", fctCall);
-    oeisLink.innerHTML = "OEIS";
+    oeisLink.innerHTML = "OEIS Number";
     newNav.appendChild(oeisLink);
 
     //List Link
