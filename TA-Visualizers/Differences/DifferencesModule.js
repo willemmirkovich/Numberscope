@@ -6,10 +6,10 @@
 class Differences_MODULE{
 	constructor(config, seq, sketch){
 
-	this.N=config.N;                                   //n is number of terms of top sequence
-	this.Levels=config.Levels;                         //levels is number of layers of the pyramid/trapezoid created by writing the differences.
-	this.Seq=Seq;
-	this.sketch=Sketch;
+	this.n=config.N;                                   //n is number of terms of top sequence
+	this.levels=config.Levels;                         //levels is number of layers of the pyramid/trapezoid created by writing the differences.
+	this.seq=seq;
+	this.sketch=sketch;
 	}
 
 	drawDifferences(n,levels,sequence)
@@ -53,23 +53,10 @@ class Differences_MODULE{
 	}
 
 	setup(){
-		drawDifferences(this.N,this.Levels,this.Seq);
+		drawDifferences(this.n,this.levels,this.seq);
 		this.sketch.noLoop();
 	}
 	draw(){
 	}
 }
 
-
-function setup() {
-	//createCanvas(640,640);
-	drawDifferences(n,levels,seq);
-	this.sketch.noLoop;
-	//frameRate(30);
-	//var index=49;	
-  // put setup code here
-}
-function draw() {
-	
-
-}
