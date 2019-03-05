@@ -5,7 +5,7 @@ var sideNavColor2 = "#70cad1";
 var numSequences = 1;
 var numTools = 1;
 var numDraw = 1;
-var toolTypes = ["empty","turtle", "gol", "shift"];
+var toolTypes = ["empty","turtle", "gol", "shift", "finite"];
 
 // var activeSequences = []
 // var activeTool = []
@@ -287,8 +287,6 @@ function closeSeqInputNav(n,m){
     document.getElementById(g).style.borderRightColor = logoColor;
     document.getElementById(g).style.borderTopColor = logoColor;
     document.getElementById(g).style.borderBottomColor = logoColor;
-    // let linRecNav = "linRecNav" + n;
-    // document.getElementById(linRecNav).style.height = "0em";
   }
   else if (m==2) {
     let f = "oeisInputNav" + n;
@@ -320,7 +318,6 @@ function closeSeqInputNav(n,m){
 }
 
 //Linear Recurrence
-// let linRecHeights = ["8.5em", "11.5em", "14em", "16.5em", "19.5em", "22em", "24.7em", "27.5em", "30em", "34em" ]
 function openLinRec(n){
   let linRecNumber = "builtInSelect" + n;
   let curLinRecDef = "linRecDef" + n;
@@ -465,9 +462,11 @@ function openToolInputNav(n,m){
 
     document.getElementById("gol" + n).style.borderLeftColor = logoColor;
     document.getElementById("shift" + n).style.borderLeftColor = logoColor;
+    document.getElementById("finite" + n).style.borderLeftColor = logoColor;
 
     closeToolInputNav(n,2);
     closeToolInputNav(n,3);
+    closeToolInputNav(n,4);
   }
   else if (m==2) {
     let v = "gol" + n;
@@ -477,9 +476,11 @@ function openToolInputNav(n,m){
 
     document.getElementById("turtle" + n).style.borderLeftColor = logoColor;
     document.getElementById("shift" + n).style.borderLeftColor = logoColor;
+    document.getElementById("finite" + n).style.borderLeftColor = logoColor;
 
     closeToolInputNav(n,1);
     closeToolInputNav(n,3);
+    closeToolInputNav(n,4);
   }
   else if (m==3) {
     let v = "shift" + n;
@@ -489,9 +490,25 @@ function openToolInputNav(n,m){
 
     document.getElementById("turtle" + n).style.borderLeftColor = logoColor;
     document.getElementById("gol" + n).style.borderLeftColor = logoColor;
+    document.getElementById("finite" + n).style.borderLeftColor = logoColor;
 
     closeToolInputNav(n,1);
     closeToolInputNav(n,2);
+    closeToolInputNav(n,4);
+  }
+  else if (m==4) {
+    let v = "finite" + n;
+    document.getElementById(v).style.background = topBarColor;
+    document.getElementById(v).style.borderColor = topBarColor;
+    document.getElementById(v).style.borderLeftColor = sideNavColor;
+
+    document.getElementById("turtle" + n).style.borderLeftColor = logoColor;
+    document.getElementById("gol" + n).style.borderLeftColor = logoColor;
+    document.getElementById("shift" + n).style.borderLeftColor = logoColor;
+
+    closeToolInputNav(n,1);
+    closeToolInputNav(n,2);
+    closeToolInputNav(n,3);
   }
 }
 function closeToolInputNav(n,m){
@@ -502,6 +519,7 @@ function closeToolInputNav(n,m){
   document.getElementById(g).style.borderBottomColor = logoColor;
 }
 
+//Add Functions
 function addSeq(){
   if(numSequences < 10){
     let seqLetter = String.fromCharCode(97 + numSequences);
@@ -631,6 +649,7 @@ function addSeq(){
     newId = "oeisNum" + numSequences;
     newText.setAttribute("id", newId);
     newText.setAttribute("class", "oeisNum");
+    newText.setAttribute("maxlength", "7");
     newNav.appendChild(newText);
 
     document.getElementById("oeisInputNavs").append(newNav);
@@ -747,6 +766,16 @@ function addTool(){
       shiftLink.innerHTML = "Shift Comparision";
       newNav.appendChild(shiftLink);
 
+      //Finite Differences Link
+      let finiteLink = document.createElement('a');
+      let finiteId = "finite" + numTools;
+      finiteLink.setAttribute("id", finiteId);
+      finiteLink.setAttribute("href", "#");
+      fctCall = "openToolInputNav(n=" + numTools + ",m=4)";
+      finiteLink.setAttribute("onclick", fctCall);
+      finiteLink.innerHTML = "Finite Differences";
+      newNav.appendChild(finiteLink);
+
       document.getElementById("toolNavs").append(newNav);
     }
   }
@@ -806,6 +835,7 @@ function addDraw(){
     document.getElementById("drawRemoveBtns").append(a);
   }
 }
+//Remove Function
 function removeDraw(n){
 
 }

@@ -73,6 +73,19 @@
     <div id="seqNavs">
       <div id="seqNav1" class="selectNav">
         <a id="seqCloseBtn1" href="javascript:void(0)"class="selectClosebtn" onclick="closeSeqNav(n=1)">&#171; </a>
+
+        <!-- <div class="seqNameRow">
+          <div class="seqNameText">
+            <li>Name:</li>
+          </div>
+          <div class="seqNameInput">
+            <textarea></textarea>
+          </div>
+        </div> -->
+        <!-- <form>
+          Name: <input type="text"><br>
+        </form> -->
+
         <a id="builtIn1" href="#" onclick="openSeqInputNav(n=1,m=1)">Built In Sequences</a>
         <a id="OEIS1" href="#" onclick="openSeqInputNav(n=1,m=2)"> OEIS Number</a>
         <a id="list1" href="#" onclick="openSeqInputNav(n=1,m=3)"> List</a>
@@ -132,7 +145,7 @@
           </div>
 
           <div class="TextColumn">
-            <textarea id="cText1_1"></textarea>
+            <!-- <input type="text" id="cText1_1"></br>
             <textarea id="cText2_1"></textarea>
             <textarea id="cText3_1"></textarea>
             <textarea id="cText4_1"></textarea>
@@ -141,7 +154,18 @@
             <textarea id="cText7_1"></textarea>
             <textarea id="cText8_1"></textarea>
             <textarea id="cText9_1"></textarea>
-            <textarea id="cText10_1"></textarea>
+            <textarea id="cText10_1"></textarea> -->
+
+            <input type="text" id="cText1_1"></br>
+            <input type="text" id="cText2_1"></br>
+            <input type="text" id="cText3_1"></br>
+            <input type="text" id="cText4_1"></br>
+            <input type="text" id="cText5_1"></br>
+            <input type="text" id="cText6_1"></br>
+            <input type="text" id="cText7_1"></br>
+            <input type="text" id="cText8_1"></br>
+            <input type="text" id="cText9_1"></br>
+            <input type="text" id="cText10_1"></br>
           </div>
 
           <div class="ListColumn">
@@ -158,7 +182,7 @@
           </div>
 
           <div class="TextColumn">
-            <textarea id="aText1_1"></textarea>
+            <!-- <textarea id="aText1_1"></textarea>
             <textarea id="aText2_1"></textarea>
             <textarea id="aText3_1"></textarea>
             <textarea id="aText4_1"></textarea>
@@ -167,7 +191,18 @@
             <textarea id="aText7_1"></textarea>
             <textarea id="aText8_1"></textarea>
             <textarea id="aText9_1"></textarea>
-            <textarea id="aText10_1"></textarea>
+            <textarea id="aText10_1"></textarea> -->
+
+            <input type="text" id="aText1_1"></br>
+            <input type="text" id="aText2_1"></br>
+            <input type="text" id="aText3_1"></br>
+            <input type="text" id="aText4_1"></br>
+            <input type="text" id="aText5_1"></br>
+            <input type="text" id="aText6_1"></br>
+            <input type="text" id="aText7_1"></br>
+            <input type="text" id="aText8_1"></br>
+            <input type="text" id="aText9_1"></br>
+            <input type="text" id="aText10_1"></br>
           </div>
         </div>
       </div>
@@ -177,7 +212,7 @@
       <div id="oeisInputNav1" class="seqInputNav">
         <a id="oeisCloseBtn1" href="javascript:void(0)"class="closebtn" onclick="closeSeqInputNav(n=1,m=2)">&#171; </a>
         <li>OEIS Number: </li>
-        <textarea id="oeisNum1" class="oeisNum"></textarea>
+        <textarea id="oeisNum1" class="oeisNum" maxlength="7"></textarea>
       </div>
     </div>
 
@@ -204,6 +239,7 @@
         <a id="turtle1" href="#" onclick="openToolInputNav(n=1,m=1)">Turtle Walk</a>
         <a id="gol1" href="#" onclick="openToolInputNav(n=1,m=2)">Game of Life</a>
         <a id="shift1" href="#" onclick="openToolInputNav(n=1,m=3)">Shift Comparison</a>
+        <a id="finite1" href="#" onclick="openToolInputNav(n=1,m=4)">Finite Differences</a> 
       </div>
     </div>
 

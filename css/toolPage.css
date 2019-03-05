@@ -110,6 +110,7 @@ header button:hover:not(.active){
     background-color: var(--topBarColor);
     overflow-x: hidden;
     transition: 0.3s;
+    white-space: nowrap;
 }
 .exNav a {
     font-family: "Infinity", sans-serif;
@@ -258,6 +259,7 @@ header button:hover:not(.active){
     background-color: var(--logoColor);
     overflow-x: hidden;
     transition: 0.3s;
+    white-space: nowrap;
 }
 .selectNav a {
     font-family: "Infinity", sans-serif;
@@ -302,6 +304,61 @@ header button:hover:not(.active){
   .selectNav a {font-size: 18px;}
 } */
 
+.selectNav form{
+  font-family: "Infinity", sans-serif;
+  text-align: center;
+  text-decoration: none;
+  font-size: 2.5em;
+  color: #ffffff;
+  display: block;
+  transition: 0.3s;
+}
+.selectNav input[type=text], select, textarea{
+  /* width: auto;
+  font-size: 10 */
+  /* padding: .25em;
+  margin-top: .25em;
+  border: 1px solid #ccc;
+  border-radius: 4px; */
+}
+
+/* .seqNameRow .seqNameText{
+  float: left;
+  width: 40%;
+  height: auto;
+  overflow: hidden;
+}
+.seqNameRow .seqNameInput{
+  float: left;
+  width: 60%;
+  height: 3em;
+  overflow: hidden;
+}
+.seqNameText li{
+  font-family: "Infinity", sans-serif;
+  text-align: center;
+  text-decoration: none;
+  font-size: 2.5em;
+  color: #ffffff;
+  display: block;
+  transition: 0.3s;
+}
+.seqNameInput input[type=text], select, textarea{
+  font-size: 2.5em;
+  width: 60%;
+  height: 2em;
+  padding: .25em;
+  margin-top: .25em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.seqNameRow:after{
+  content: "";
+  display: table;
+  clear: both;
+} */
+
+
 /*Seq Input Navigation Bars*/
 .seqInputNav {
     height: 100%;
@@ -313,6 +370,7 @@ header button:hover:not(.active){
     background-color: var(--topBarColor);
     overflow-x: hidden;
     transition: 0.3s;
+    /* white-space: nowrap; */
 }
 .seqInputNav a {
     font-family: "Infinity", sans-serif;
@@ -386,7 +444,6 @@ header button:hover:not(.active){
   transition: 0;
   margin-top: .5em;
 }
-
 .kRow .kLabel{
     float: left;
     width: 15%;
@@ -427,15 +484,17 @@ header button:hover:not(.active){
     height: auto;
     overflow: hidden;
 }
-.TextColumn textarea{
+.TextColumn input[type=text]{
   height: 1.25em;
   padding: none;
   border: none;
   margin: none;
   resize: none;
-  margin-bottom: .41em;
+  /* margin-bottom: .41em; */
+  margin-bottom: .69em;
   overflow: hidden;
   visibility: hidden;
+  font-size: 1em;
 }
 .ListColumn li{
   font-size: 0;
