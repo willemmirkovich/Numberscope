@@ -236,6 +236,10 @@ header button:hover:not(.active){
   background-color: var(--logoColor);
 }
 
+#canvasArea{
+  z-index: -1;
+}
+
 #mainCanvas{
   position: fixed;
   left: 12em;
