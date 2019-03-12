@@ -10,7 +10,7 @@ var toolTypes = ["empty","turtle", "gol", "shift", "finite"];
 // var activeSequences = []
 // var activeTool = []
 
-builtInNames = ["primes","fibonacci","lucas","thueMorse","recaman","linRec"]
+builtInNames = ["primes", "natural", "fibonacci","lucas","thueMorse","recaman","linRec"]
 inputTypesNames = ["builtIn", "OEIS", "list", "code"]
 moduleNames = ["turtle", "gameOfLife","shiftCompare"]
 
@@ -323,6 +323,8 @@ function openLinRec(n){
   let curLinRecDef = "linRecDef" + n;
   let curKLabel = "kLabel" + n;
   let curKSelect = "kSelect" + n;
+  let curCTextCol = "cTextCol" + n;
+  let curATextCol = "aTextCol" + n;
 
   let curCList = "";
   let curCText = "";
@@ -330,9 +332,10 @@ function openLinRec(n){
   let curAText = "";
 
   if (document.getElementById(linRecNumber).value == "linRec") {
-    // document.getElementById(curLinRecDef).style.visibility = "visible";
     document.getElementById(curLinRecDef).style.fontSize = "2em";
-    document.getElementById(curKLabel).style.fontSize = "2em";
+    document.getElementById(curLinRecDef).style.opacity = "1";
+    document.getElementById(curKLabel).style.opacity = "1";
+    document.getElementById(curKLabel).style.visibility = "visible";
     document.getElementById(curKSelect).style.visibility = "visible";
 
     let numK = document.getElementById(curKSelect).value;
@@ -343,22 +346,36 @@ function openLinRec(n){
       curAText = "aText" + p + "_" + n;
       if (p <= numK) {
         document.getElementById(curCList).style.fontSize = "2em";
-        document.getElementById(curCText).style.visibility = "visible";
         document.getElementById(curAList).style.fontSize = "2em";
+        document.getElementById(curCList).style.opacity = "1";
+        document.getElementById(curAList).style.opacity = "1";
+
+        document.getElementById(curCText).style.opacity = "1";
+        document.getElementById(curAText).style.opacity = "1";
+        document.getElementById(curCText).style.visibility = "visible";
         document.getElementById(curAText).style.visibility = "visible";
       }
       else {
         document.getElementById(curCList).style.fontSize = "0";
-        document.getElementById(curCText).style.visibility = "hidden";
         document.getElementById(curAList).style.fontSize = "0";
+        document.getElementById(curCList).style.opacity = "0";
+        document.getElementById(curAList).style.opacity = "0";
+
+        document.getElementById(curCText).style.opacity = "0";
+        document.getElementById(curAText).style.opacity = "0";
+        document.getElementById(curCText).style.visibility = "hidden";
         document.getElementById(curAText).style.visibility = "hidden";
       }
     }
   }
   else {
-    // document.getElementById(curLinRecDef).style.visibility = "hidden";
+    //// document.getElementById(curLinRecDef).style.visibility = "hidden";
     document.getElementById(curLinRecDef).style.fontSize = "0";
-    document.getElementById(curKLabel).style.fontSize = "0";
+    document.getElementById(curLinRecDef).style.opacity = "0";
+    //// document.getElementById(curKLabel).style.fontSize = "0";
+
+    document.getElementById(curKLabel).style.opacity = "0";
+    document.getElementById(curKLabel).style.visibility = "hidden";
     document.getElementById(curKSelect).style.visibility = "hidden";
     for (let p = 1; p <= 10; p++) {
       curCList = "cList" + p + "_" + n;
@@ -367,11 +384,34 @@ function openLinRec(n){
       curAText = "aText" + p + "_" + n;
 
       document.getElementById(curCList).style.fontSize = "0";
-      document.getElementById(curCText).style.visibility = "hidden";
       document.getElementById(curAList).style.fontSize = "0";
+      document.getElementById(curCList).style.opacity = "0";
+      document.getElementById(curAList).style.opacity = "0";
+
+      document.getElementById(curCText).style.opacity = "0";
+      document.getElementById(curAText).style.opacity = "0";
+      document.getElementById(curCText).style.visibility = "hidden";
       document.getElementById(curAText).style.visibility = "hidden";
     }
   }
+
+  let curNatForm = "natForm" + n;
+  let curNatCheck = "natCheck" + n;
+  if (document.getElementById(linRecNumber).value == "natural") {
+    document.getElementById(curNatForm).style.fontSize = "2em";
+    document.getElementById(curNatForm).style.opacity = "1";
+    document.getElementById(curNatCheck).style.opacity = "1";
+    document.getElementById(curNatCheck).style.width = "1.5em";
+    document.getElementById(curNatCheck).style.height = "1.5em";
+  }
+  else {
+    document.getElementById(curNatForm).style.fontSize = "0";
+    document.getElementById(curNatForm).style.opacity = "0";
+    document.getElementById(curNatCheck).style.opacity = "0";
+    document.getElementById(curNatCheck).style.width = "0";
+    document.getElementById(curNatCheck).style.height = "0";
+  }
+
 }
 function extendLinRec(n){
   let curKSelect = "kSelect" + n;
@@ -389,14 +429,24 @@ function extendLinRec(n){
     curAText = "aText" + p + "_" + n;
     if (p <= numK) {
       document.getElementById(curCList).style.fontSize = "2em";
-      document.getElementById(curCText).style.visibility = "visible";
       document.getElementById(curAList).style.fontSize = "2em";
+      document.getElementById(curCList).style.opacity = "1";
+      document.getElementById(curAList).style.opacity = "1";
+
+      document.getElementById(curCText).style.opacity = "1";
+      document.getElementById(curAText).style.opacity = "1";
+      document.getElementById(curCText).style.visibility = "visible";
       document.getElementById(curAText).style.visibility = "visible";
     }
     else {
       document.getElementById(curCList).style.fontSize = "0";
-      document.getElementById(curCText).style.visibility = "hidden";
       document.getElementById(curAList).style.fontSize = "0";
+      document.getElementById(curCList).style.opacity = "0";
+      document.getElementById(curAList).style.opacity = "0";
+
+      document.getElementById(curCText).style.opacity = "0";
+      document.getElementById(curAText).style.opacity = "0";
+      document.getElementById(curCText).style.visibility = "hidden";
       document.getElementById(curAText).style.visibility = "hidden";
     }
   }
@@ -607,7 +657,7 @@ function addSeq(){
 
     document.getElementById("seqNavs").append(newNav);
     ///////////////////////////////////////////////
-    //Create Function Input Nav
+    //Create Built In Functions Input Nav
     newNav = document.createElement("div");
     newId = "builtInInputNav" + numSequences;
     newNav.setAttribute("id", newId);
@@ -623,6 +673,166 @@ function addSeq(){
     a.innerHTML = "&#171";
     newNav.appendChild(a);
 
+    //create select nav
+    a = document.createElement('select');
+    let selectId = "builtInSelect" + numSequences;
+    a.setAttribute("id", selectId);
+    fctCall = "openLinRec(n=" + numSequences + ")";
+    a.setAttribute("onchange", fctCall);
+
+    //create options
+    let builtInOptions = ["primes", "natural", "fibonacci",
+    "lucas", "thueMorse", "recaman", "linRec"];
+    let builtInOptionNames = ["Prime Numbers", "Natural Numbers",
+    "Fibonacci Numbers", "Lucas Numbers", "Thue-Morse", "Recaman", "Linear Recurrence"];
+
+    for (let q = 0; q < builtInOptions.length; q++) {
+      let curOption = document.createElement('option');
+      curOption.setAttribute("value", builtInOptions[q]);
+      curOption.innerHTML = builtInOptionNames[q];
+      if (q==0) {
+        curOption.selected = true;
+      }
+      a.appendChild(curOption);
+    }
+
+    newNav.appendChild(a);
+
+    //Create Natural Number checkbox
+    a = document.createElement('form');
+    let formId = "natForm" + numSequences;
+    a.setAttribute("id", formId);
+    a.setAttribute("class", "natNumForm");
+
+    let newNatCheck = document.createElement('input');
+    let natCheckId = "natCheck" + numSequences;
+    newNatCheck.setAttribute("id", natCheckId);
+    newNatCheck.setAttribute("type", "checkbox");
+    newNatCheck.setAttribute("value", "include0");
+    a.appendChild(newNatCheck);
+
+    let newNatLabel = document.createElement('label');
+    newNatLabel.setAttribute("for", natCheckId);
+    newNatLabel.innerHTML = " Include 0";
+    a.appendChild(newNatLabel);
+
+    let linebreak = document.createElement("br");
+    a.appendChild(linebreak);
+
+    newNav.appendChild(a);
+
+    //create Linear Recurrence Nav
+    a = document.createElement('li');
+    let newLinRecDefId = "linRecDef" + numSequences;
+    a.setAttribute("id", newLinRecDefId);
+    a.setAttribute("class", "linRecDef");
+    a.innerHTML = "a<sub>n</sub> = c<sub>1</sub>a<sub>n-1</sub> + ... + c<sub>k</sub>a<sub>n-k</sub>";
+    newNav.appendChild(a);
+    ////////////////////////////
+    let newKRow = document.createElement('div');
+    newKRow.setAttribute("class", "kRow");
+    //
+    let newKLabelDiv = document.createElement('div');
+    newKLabelDiv.setAttribute("class", "kLabel");
+    let kLabelLi = document.createElement('li');
+    let kLabelId = "kLabel" + numSequences;
+    kLabelLi.setAttribute("id", kLabelId);
+    kLabelLi.innerHTML = " k =";
+    newKLabelDiv.appendChild(kLabelLi);
+
+    newKRow.appendChild(newKLabelDiv);
+    //
+    let newKSelectDiv = document.createElement('div');
+    newKSelectDiv.setAttribute("class", "kSelect");
+
+    let kSelect = document.createElement('select');
+    let kSelectId = "kSelect" + numSequences;
+    kSelect.setAttribute("id", kSelectId);
+    fctCall = "extendLinRec(n=" + numSequences + ")";
+    kSelect.setAttribute("onchange", fctCall);
+
+    for (let h = 1; h <= 10 ; h++) {
+      let curKOption = document.createElement('option');
+      curKOption.setAttribute("value", h);
+      curKOption.innerHTML = h;
+      if (h==2) {
+        curKOption.selected = true;
+      }
+      kSelect.appendChild(curKOption);
+    }
+
+    newKSelectDiv.appendChild(kSelect)
+
+    newKRow.appendChild(newKSelectDiv);
+    //
+    newNav.appendChild(newKRow);
+    //////////////////////////////////////
+    let newLinRecDiv = document.createElement('div');
+    newLinRecDiv.setAttribute("class", "linRecRow");
+    //
+    let newCListDiv = document.createElement('div');
+    newCListDiv.setAttribute("class", "ListColumn");
+
+    for (let aa = 1; aa <=10; aa++) {
+      let curCList = document.createElement('li');
+      let curCListId = "cList" + aa + "_" + numSequences;
+      curCList.setAttribute("id", curCListId);
+      let curCListHTML = " c<sub>" + aa + "</sub> : ";
+      curCList.innerHTML = curCListHTML;
+      newCListDiv.appendChild(curCList);
+    }
+
+    newLinRecDiv.appendChild(newCListDiv);
+    //
+    let newCTextDiv = document.createElement('div');
+    newCTextDiv.setAttribute("class", "TextColumn");
+
+    for (let ab = 1; ab <=10; ab++) {
+      let curCText = document.createElement('input');
+      curCText.setAttribute("type", "text");
+      let curCTextId = "cText" + ab + "_" + numSequences;
+      curCText.setAttribute("id", curCTextId);
+      newCTextDiv.appendChild(curCText);
+
+      let cTextlinebreak = document.createElement("br");
+      newCTextDiv.appendChild(cTextlinebreak);
+    }
+
+    newLinRecDiv.appendChild(newCTextDiv);
+    //
+    let newAListDiv = document.createElement('div');
+    newAListDiv.setAttribute("class", "ListColumn");
+
+    for (let ac = 1; ac <=10; ac++) {
+      let curAList = document.createElement('li');
+      let curAListId = "aList" + ac + "_" + numSequences;
+      curAList.setAttribute("id", curAListId);
+      let acc = ac - 1;
+      let curAListHTML = " a<sub>" + acc + "</sub> : ";
+      curAList.innerHTML = curAListHTML;
+      newAListDiv.appendChild(curAList);
+    }
+
+    newLinRecDiv.appendChild(newAListDiv);
+    //
+    let newATextDiv = document.createElement('div');
+    newATextDiv.setAttribute("class", "TextColumn");
+
+    for (let ad = 1; ad <=10; ad++) {
+      let curAText = document.createElement('input');
+      curAText.setAttribute("type", "text");
+      let curATextId = "aText" + ad + "_" + numSequences;
+      curAText.setAttribute("id", curATextId);
+      newATextDiv.appendChild(curAText);
+
+      let aTextlinebreak = document.createElement("br");
+      newATextDiv.appendChild(aTextlinebreak);
+    }
+
+    newLinRecDiv.appendChild(newATextDiv);
+    //
+    newNav.appendChild(newLinRecDiv);
+    ////////////////////////////////////////
     document.getElementById("builtInInputNavs").append(newNav);
 
     //Create OEIS Input Nav
@@ -670,6 +880,16 @@ function addSeq(){
     a.innerHTML = "&#171";
     newNav.appendChild(a);
 
+    a = document.createElement('li');
+    a.innerHTML = "List:";
+    newNav.appendChild(a);
+
+    a = document.createElement('textarea');
+    let listTextId = "listText" + numSequences;
+    a.setAttribute("id", listTextId);
+    a.setAttribute("placeholder", "1,2,3,4,5,...");
+    newNav.appendChild(a);
+
     document.getElementById("listInputNavs").append(newNav);
 
     //Create Code Input Nav
@@ -686,6 +906,15 @@ function addSeq(){
     fctCall = "closeSeqInputNav(n=" + numSequences + ",m=4)";
     a.setAttribute("onclick", fctCall);
     a.innerHTML = "&#171";
+    newNav.appendChild(a);
+
+    a = document.createElement('li');
+    a.innerHTML = "Code:";
+    newNav.appendChild(a);
+
+    a = document.createElement('textarea');
+    let codeTextId = "codeText" + numSequences;
+    a.setAttribute("id", codeTextId);
     newNav.appendChild(a);
 
     document.getElementById("codeInputNavs").append(newNav);

@@ -436,6 +436,29 @@ header button:hover:not(.active){
   resize: none;
 }
 
+/*Natural Number Checkbox*/
+.seqInputNav .natNumForm{
+  font-family: "Infinity", sans-serif;
+  text-align: center;
+  text-decoration: none;
+  font-size: 0em;
+  color: #ffffff;
+  display: block;
+  transition: 0.3s;
+  opacity: 1;
+  margin-top: .25em;
+}
+.seqInputNav .natNumForm input[type=checkbox]{
+  /* width: 1.5em;
+  height: 1.5em; */
+  width: 0;
+  height: 0;
+  transition: 0.3s;
+  opacity: 1;
+  color: var(--sideNavColor2);
+}
+
+/*Linear Recurrence Input*/
 .seqInputNav .linRecDef{
   /* visibility: hidden; */
   font-size: 0em;
@@ -450,10 +473,13 @@ header button:hover:not(.active){
     margin-left: 8em;
     height: auto;
     overflow: hidden;
-    visibility: visible;
+    visibility: hidden;
+    opacity: 1;
+    transition: 0.3s;
 }
 .kLabel li{
-  font-size: 0;
+  font-size: 2em;
+  opacity: 1;
 }
 .kRow .kSelect{
     float: left;
@@ -477,6 +503,7 @@ header button:hover:not(.active){
     height: auto;
     margin-left: 2em;
     overflow: hidden;
+    opacity: 1;
 }
 .TextColumn{
     float: left;
@@ -495,6 +522,7 @@ header button:hover:not(.active){
   overflow: hidden;
   visibility: hidden;
   font-size: 1em;
+  opacity: 1;
 }
 .ListColumn li{
   font-size: 0;

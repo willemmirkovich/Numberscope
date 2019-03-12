@@ -99,16 +99,22 @@
         <a id="builtInCloseBtn1" href="javascript:void(0)"class="closebtn" onclick="closeSeqInputNav(n=1,m=1)">&#171; </a>
         <!-- <li>Built In Sequences </li> -->
         <select id="builtInSelect1" onchange="openLinRec(n=1)">
-          <option value="primes" selected> Prime Numbers </option>
-          <!-- <option value="natural"> Natural Numbers</option> -->
-          <option value="fibonacci"> Fibonacci Numbers</option>
-          <option value="lucas"> Lucas Numbers</option>
-          <option value="thueMorse"> Thue-Morse</option>
-          <option value="recaman"> Recaman</option>
-          <option value="linRec"> Linear Recurrence</option>
+          <option value="primes" selected>Prime Numbers</option>
+          <option value="natural">Natural Numbers</option>
+          <option value="fibonacci">Fibonacci Numbers</option>
+          <option value="lucas">Lucas Numbers</option>
+          <option value="thueMorse">Thue-Morse</option>
+          <option value="recaman">Recaman</option>
+          <option value="linRec">Linear Recurrence</option>
         </select>
 
-        <li id="linRecDef1" class="linRecDef"> a<sub>n</sub> = c<sub>1</sub>a<sub>n-1</sub> + ... + c<sub>k</sub>a<sub>n-k</sub></li>
+        <form id="natForm1" class="natNumForm">
+          <input id="natCheck1" type="checkbox" value="include0"></input>
+          <label for="natCheck1">Include 0</label>
+          <br>
+        </form>
+
+        <li id="linRecDef1" class="linRecDef">a<sub>n</sub> = c<sub>1</sub>a<sub>n-1</sub> + ... + c<sub>k</sub>a<sub>n-k</sub></li>
 
         <div class="kRow">
           <div class="kLabel">
@@ -219,15 +225,15 @@
     <div id="listInputNavs">
       <div id="listInputNav1" class="seqInputNav">
         <a id="listCloseBtn1" href="javascript:void(0)"class="closebtn" onclick="closeSeqInputNav(n=1,m=3)">&#171; </a>
-        <li>List: </li>
-        <textarea id="listText1">1,2,3,4,5</textarea>
+        <li>List:</li>
+        <textarea id="listText1" placeholder="1,2,3,4,5,..."></textarea>
       </div>
     </div>
 
     <div id="codeInputNavs">
       <div id="codeInputNav1" class="seqInputNav">
         <a id="listCloseBtn1" href="javascript:void(0)"class="closebtn" onclick="closeSeqInputNav(n=1,m=4)">&#171; </a>
-        <li>Code: </li>
+        <li>Code:</li>
         <textarea id="codeText1"></textarea>
       </div>
     </div>
@@ -239,7 +245,7 @@
         <a id="turtle1" href="#" onclick="openToolInputNav(n=1,m=1)">Turtle Walk</a>
         <a id="gol1" href="#" onclick="openToolInputNav(n=1,m=2)">Game of Life</a>
         <a id="shift1" href="#" onclick="openToolInputNav(n=1,m=3)">Shift Comparison</a>
-        <a id="finite1" href="#" onclick="openToolInputNav(n=1,m=4)">Finite Differences</a> 
+        <a id="finite1" href="#" onclick="openToolInputNav(n=1,m=4)">Finite Differences</a>
       </div>
     </div>
 
