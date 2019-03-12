@@ -50,6 +50,7 @@ class Differences_MODULE{
 		firstX=firstX+(1/2)*xDelta;                                           //Moves line forward half for pyramid shape.
 
 	}
+	
 	}
 
 	setup(){
