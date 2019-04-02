@@ -215,12 +215,6 @@ function openSeqInputNav(n,m){
     document.getElementById(v).style.borderColor = topBarColor;
     document.getElementById(v).style.borderLeftColor = sideNavColor;
 
-    // let linRecNumber = "builtInSelect" + n;
-    // let linRecNav = "linRecNav" + n;
-    // if (document.getElementById(linRecNumber).value == "linRec") {
-    //   extendLinRec(n);
-    // }
-
     document.getElementById("OEIS" + n).style.borderLeftColor = logoColor;
     document.getElementById("list" + n).style.borderLeftColor = logoColor;
     document.getElementById("code" + n).style.borderLeftColor = logoColor;
@@ -492,74 +486,74 @@ function openToolInputNav(n,m){
   currentTool.setModule(m);
   currentTool.sendModule();
 
-  // let v = toolTypes[m] + n;
-  // document.getElementById(v).style.background = topBarColor;
-  // document.getElementById(v).style.borderColor = topBarColor;
-  // document.getElementById(v).style.borderLeftColor = sideNavColor;
+  let v = toolTypes[m] + n;
+  document.getElementById(v).style.background = topBarColor;
+  document.getElementById(v).style.borderColor = topBarColor;
+  document.getElementById(v).style.borderLeftColor = sideNavColor;
+
+  for (let r = 1; r < toolTypes.length; r++) {
+    if (r != m) {
+      document.getElementById(toolTypes[r] + n).style.borderLeftColor = logoColor;
+      closeToolInputNav(n,r);
+    }
+  }
+
+  // if (m==1) {
+  //   let v = "turtle" + n;
+  //   document.getElementById(v).style.background = topBarColor;
+  //   document.getElementById(v).style.borderColor = topBarColor;
+  //   document.getElementById(v).style.borderLeftColor = sideNavColor;
   //
-  // for (let r = 1; r < toolTypes.length; r++) {
-  //   if (r != m) {
-  //     document.getElementById(toolTypes[r] + n).style.borderLeftColor = logoColor;
-  //     closeToolInputNav(n,r);
-  //   }
+  //   document.getElementById("gol" + n).style.borderLeftColor = logoColor;
+  //   document.getElementById("shift" + n).style.borderLeftColor = logoColor;
+  //   document.getElementById("finite" + n).style.borderLeftColor = logoColor;
+  //
+  //   closeToolInputNav(n,2);
+  //   closeToolInputNav(n,3);
+  //   closeToolInputNav(n,4);
   // }
-
-  if (m==1) {
-    let v = "turtle" + n;
-    document.getElementById(v).style.background = topBarColor;
-    document.getElementById(v).style.borderColor = topBarColor;
-    document.getElementById(v).style.borderLeftColor = sideNavColor;
-
-    document.getElementById("gol" + n).style.borderLeftColor = logoColor;
-    document.getElementById("shift" + n).style.borderLeftColor = logoColor;
-    document.getElementById("finite" + n).style.borderLeftColor = logoColor;
-
-    closeToolInputNav(n,2);
-    closeToolInputNav(n,3);
-    closeToolInputNav(n,4);
-  }
-  else if (m==2) {
-    let v = "gol" + n;
-    document.getElementById(v).style.background = topBarColor;
-    document.getElementById(v).style.borderColor = topBarColor;
-    document.getElementById(v).style.borderLeftColor = sideNavColor;
-
-    document.getElementById("turtle" + n).style.borderLeftColor = logoColor;
-    document.getElementById("shift" + n).style.borderLeftColor = logoColor;
-    document.getElementById("finite" + n).style.borderLeftColor = logoColor;
-
-    closeToolInputNav(n,1);
-    closeToolInputNav(n,3);
-    closeToolInputNav(n,4);
-  }
-  else if (m==3) {
-    let v = "shift" + n;
-    document.getElementById(v).style.background = topBarColor;
-    document.getElementById(v).style.borderColor = topBarColor;
-    document.getElementById(v).style.borderLeftColor = sideNavColor;
-
-    document.getElementById("turtle" + n).style.borderLeftColor = logoColor;
-    document.getElementById("gol" + n).style.borderLeftColor = logoColor;
-    document.getElementById("finite" + n).style.borderLeftColor = logoColor;
-
-    closeToolInputNav(n,1);
-    closeToolInputNav(n,2);
-    closeToolInputNav(n,4);
-  }
-  else if (m==4) {
-    let v = "finite" + n;
-    document.getElementById(v).style.background = topBarColor;
-    document.getElementById(v).style.borderColor = topBarColor;
-    document.getElementById(v).style.borderLeftColor = sideNavColor;
-
-    document.getElementById("turtle" + n).style.borderLeftColor = logoColor;
-    document.getElementById("gol" + n).style.borderLeftColor = logoColor;
-    document.getElementById("shift" + n).style.borderLeftColor = logoColor;
-
-    closeToolInputNav(n,1);
-    closeToolInputNav(n,2);
-    closeToolInputNav(n,3);
-  }
+  // else if (m==2) {
+  //   let v = "gol" + n;
+  //   document.getElementById(v).style.background = topBarColor;
+  //   document.getElementById(v).style.borderColor = topBarColor;
+  //   document.getElementById(v).style.borderLeftColor = sideNavColor;
+  //
+  //   document.getElementById("turtle" + n).style.borderLeftColor = logoColor;
+  //   document.getElementById("shift" + n).style.borderLeftColor = logoColor;
+  //   document.getElementById("finite" + n).style.borderLeftColor = logoColor;
+  //
+  //   closeToolInputNav(n,1);
+  //   closeToolInputNav(n,3);
+  //   closeToolInputNav(n,4);
+  // }
+  // else if (m==3) {
+  //   let v = "shift" + n;
+  //   document.getElementById(v).style.background = topBarColor;
+  //   document.getElementById(v).style.borderColor = topBarColor;
+  //   document.getElementById(v).style.borderLeftColor = sideNavColor;
+  //
+  //   document.getElementById("turtle" + n).style.borderLeftColor = logoColor;
+  //   document.getElementById("gol" + n).style.borderLeftColor = logoColor;
+  //   document.getElementById("finite" + n).style.borderLeftColor = logoColor;
+  //
+  //   closeToolInputNav(n,1);
+  //   closeToolInputNav(n,2);
+  //   closeToolInputNav(n,4);
+  // }
+  // else if (m==4) {
+  //   let v = "finite" + n;
+  //   document.getElementById(v).style.background = topBarColor;
+  //   document.getElementById(v).style.borderColor = topBarColor;
+  //   document.getElementById(v).style.borderLeftColor = sideNavColor;
+  //
+  //   document.getElementById("turtle" + n).style.borderLeftColor = logoColor;
+  //   document.getElementById("gol" + n).style.borderLeftColor = logoColor;
+  //   document.getElementById("shift" + n).style.borderLeftColor = logoColor;
+  //
+  //   closeToolInputNav(n,1);
+  //   closeToolInputNav(n,2);
+  //   closeToolInputNav(n,3);
+  // }
 }
 function closeToolInputNav(n,m){
   let g = toolTypes[m] + n;
@@ -1015,6 +1009,8 @@ function addDraw(){
     /////////////////////////////////////
     let a = document.createElement('a');
     a.innerHTML = numDraw + ".";
+    let numDrawId = "drawNum" + numDraw;
+    a.setAttribute("id", numDrawId);
     a.setAttribute("href", "#");
     a.setAttribute("class", "numColumn");
     document.getElementById("drawListNum").append(a);
@@ -1030,8 +1026,12 @@ function addDraw(){
       let opt = document.createElement("option");
       opt.innerHTML = "{" + seqLetter + "<sub>n</sub>}";
 
-      let valueName = "s" + i;
+      let valueName = i;
       opt.setAttribute("value", valueName);
+
+      if (i==1) {
+        opt.selected = true;
+      }
 
       document.getElementById(selIDName).append(opt);
     }
@@ -1047,8 +1047,12 @@ function addDraw(){
       let opt = document.createElement("option");
       opt.innerHTML = "Tool " + i;
 
-      let valueName = "t" + i;
+      let valueName = i;
       opt.setAttribute("value", valueName);
+
+      if (i==1) {
+        opt.selected = true;
+      }
 
       document.getElementById(selIDName).append(opt);
     }
@@ -1066,7 +1070,39 @@ function addDraw(){
 }
 //Remove Function
 function removeDraw(n){
+  if(numDraw > 1){
+    for (let w = n; w < numDraw; w++) {
+      let next = w + 1;
 
+      let curSelectSeq = "selectSeq" + w;
+      let nextSelectSeq = "selectSeq" + next;
+
+      document.getElementById(curSelectSeq).value = document.getElementById(nextSelectSeq).value;
+
+      let curSelectTool = "selectTool" + w;
+      let nextSelectTool = "selectTool" + next;
+
+      document.getElementById(curSelectTool).value = document.getElementById(nextSelectTool).value;
+    }
+
+    let lastSelectSeqName = "selectSeq" + numDraw;
+    let lastSelectSeq = document.getElementById(lastSelectSeqName);
+    lastSelectSeq.parentNode.removeChild(lastSelectSeq);
+
+    let lastSelectToolName = "selectTool" + numDraw;
+    let lastSelectTool = document.getElementById(lastSelectToolName);
+    lastSelectTool.parentNode.removeChild(lastSelectTool);
+
+    let lastDrawNumName = "drawNum" + numDraw;
+    let lastDrawNum = document.getElementById(lastDrawNumName);
+    lastDrawNum.parentNode.removeChild(lastDrawNum);
+
+    let lastDrawRemoveName = "drawRemove" + numDraw;
+    let lastDrawRemove = document.getElementById(lastDrawRemoveName);
+    lastDrawRemove.parentNode.removeChild(lastDrawRemove);
+
+    numDraw -= 1;
+  }
 }
 function drawClicked(){
   closeNav(n=3);
