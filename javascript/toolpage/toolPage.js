@@ -187,6 +187,7 @@ function openSeqNav(n){
 }
 function closeSeqNav(n){
   //selection is considered finalized here
+  //if statement causes bug when Linear Recurrence Option is selected
   if(currentSequence.setType != undefined){
     currentSequence.setValue();
     currentSequence.setParameters({m: 4}); //this temp, should get it from input box or something
