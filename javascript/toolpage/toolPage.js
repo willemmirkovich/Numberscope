@@ -7,12 +7,15 @@ var numTools = 1;
 var numDraw = 1;
 var toolTypes = ["empty","turtle", "gol", "shift", "finite"];
 
+
+
 // var activeSequences = []
 // var activeTool = []
 
-builtInNames = ["primes", "natural", "fibonacci","lucas","thueMorse","recaman","linRec"]
-inputTypesNames = ["builtIn", "OEIS", "list", "code"]
-moduleNames = ["turtle", "gameOfLife","shiftCompare"]
+const builtInNames = ["primes", "natural", "fibonacci","lucas","thueMorse","recaman","linRec"]
+const inputTypesNames = ["builtIn", "OEIS", "list", "code"]
+const moduleNames = ["turtle", "gameOfLife","shiftCompare"]
+
 
 var currentSequence = {
   ID: undefined,
@@ -42,9 +45,20 @@ var currentSequence = {
       console.error("Not Implemented: " + this.inputType + " input")
     }
   },
-  setParameters: function(params){
-      this.parameters = params;
-      console.error("Not Implemented: parameters")
+  setParameters: function(){
+      if (this.inputValue == 'linRec') {
+        console.log(this)
+        this.parameters['seedList'] = []
+        this.parameters['coefficientList'] = []
+        a_list = []
+        for (let i = 0; i < 2; i++) {
+          this.parameters['seedList'].push(parseInt(document.getElementById('aList' + (i + 1) + '_' + this.ID).value))
+          this.parameters['coefficientList'].push(parseInt(document.getElementById('cList' + (i + 1) + '_' + this.ID).value))
+        }
+        console.log(this.parameters)
+      }
+      this.parameters['m'] = 5;
+      // console.error("Not Implemented: parameters")
   },
   sendSequence: function(){
     if(this.inputValue == undefined){ console.log("Not setting input since it is undefined for input type: " + this.inputType)}
@@ -54,7 +68,7 @@ var currentSequence = {
     this.ID = undefined;
     this.inputType = undefined;
     this.inputValue = undefined;
-    this.parameters = undefined;
+    this.parameters = {};
   }
 }
 
@@ -68,16 +82,13 @@ var currentTool = {
   setModule: function(m){
     this.moduleName = moduleNames[m - 1];
     //this config is temporary
-    this.config = {
-      rotMap: {0: -10, 1: 30, 2: 60, 3:180},
-      stepSize: 20,
-      bgColor: 'gray'
-    };
   },
-  setConfig: function(){
-    console.log("Not implemented");
+  setConfig: function(config){
+    this.config = config
+    // console.log("Not implemented");
   },
   sendModule: function(){
+    console.log("Sending module: " + this.moduleName)
     NScore.receiveModule(Object.assign({}, {ID: this.ID, moduleName: this.moduleName, config: this.config}))
   }
 };
@@ -159,6 +170,11 @@ function closeNav(n){
 
 //Sequence Navigation Bars
 function openSeqNav(n){
+  if (currentSequence.setType != undefined) {
+    currentSequence.setValue();
+    currentSequence.setParameters(); //this temp, should get it from input box or something
+    currentSequence.sendSequence();
+  }
   currentSequence.refresh();
   currentSequence.setID(n);
   document.getElementById("title1").innerHTML = "Pick an Input Method";
@@ -189,7 +205,7 @@ function closeSeqNav(n){
   //selection is considered finalized here
   if(currentSequence.setType != undefined){
     currentSequence.setValue();
-    currentSequence.setParameters({m: 4}); //this temp, should get it from input box or something
+    currentSequence.setParameters(); //this temp, should get it from input box or something
     currentSequence.sendSequence();
   }
   let selectedNav = "seqNav" + n;
@@ -490,6 +506,17 @@ function openToolInputNav(n,m){
   //Tool selection is made here
   currentTool.setID(n);
   currentTool.setModule(m);
+  currentTool.setConfig({
+    rotMap: {
+      0: -10,
+      1: 30,
+      2: 60,
+      3: 180,
+      4: -70
+    },
+    stepSize: 40*n,
+    bgColor: 40*n
+  })
   currentTool.sendModule();
 
   // let v = toolTypes[m] + n;
@@ -1030,7 +1057,8 @@ function addDraw(){
       let opt = document.createElement("option");
       opt.innerHTML = "{" + seqLetter + "<sub>n</sub>}";
 
-      let valueName = "s" + i;
+      // let valueName = "s" + i;
+      let valueName = i;
       opt.setAttribute("value", valueName);
 
       document.getElementById(selIDName).append(opt);
@@ -1047,7 +1075,8 @@ function addDraw(){
       let opt = document.createElement("option");
       opt.innerHTML = "Tool " + i;
 
-      let valueName = "t" + i;
+      // let valueName = "t" + i;
+      let valueName = i;
       opt.setAttribute("value", valueName);
 
       document.getElementById(selIDName).append(opt);
@@ -1084,3 +1113,40 @@ function drawClicked(){
   document.getElementById("canvasArea").style.width = "100%";
   NScore.beginDraw(seqVizPairs);
 }
+
+
+$('#form2').jsonForm({
+  schema: {
+    MOD: {
+      type: 'number',
+      title: 'mod',
+      required: true
+    },
+    STUFF: {
+      type: 'number',
+      title: 'stuff1'
+    },
+    STUFF2: {
+      type: 'number',
+      title: 'stuff2'
+    },
+    BG_COLOR: {
+      type: 'string',
+      title: 'background color',
+      format: 'color'
+    },
+    STROKE_COLOR:{
+      type:'string',
+      title: 'Line color',
+      format:'color'
+    }
+  },
+  onSubmit: function (errors, values) {
+    if (errors) {
+      console.log("ERROR")
+    } else {
+      console.log("Resulting object: ")
+      console.log(values)
+    }
+  }
+});

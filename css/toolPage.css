@@ -57,13 +57,18 @@ header button:hover:not(.active){
 }
 
 #canvasArea {
-    position: fixed;
-    left: 192px;
-    top: 53.833px;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 100%;
+  position: fixed;
+  left: 192px;
+  top: 53.833px;
+  display: flex;
+  align-content: flex-start;
+  flex-wrap: wrap;
+  height: 100%;
+  width: 100%;
+}
+
+.canvasClass {
+  padding: 3px;
 }
 
 /*Main Side Navagation Bar*/
