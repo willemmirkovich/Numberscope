@@ -6,6 +6,7 @@ var numSequences = 1;
 var numTools = 1;
 var numDraw = 1;
 var toolTypes = ["empty","turtle", "gol", "shift", "finite"];
+var toolNames = ["empty","Turtle Walk", "Game of Life", "Shift Comparison", "Finite Differences"];
 
 // var activeSequences = []
 // var activeTool = []
@@ -960,45 +961,56 @@ function addTool(){
       a.innerHTML = "&#171";
       newNav.appendChild(a);
 
+
+      for (let  j = 1; j < toolTypes.length; j++) {
+        let curLink = document.createElement('a');
+        let curId = toolTypes[j] + numTools;
+        curLink.setAttribute("id", curId);
+        curLink.setAttribute("href", "#");
+        fctCall = "openToolInputNav(n=" + numTools + ",m=" + j + ")";
+        curLink.setAttribute("onclick", fctCall);
+        curLink.innerHTML = toolNames[j];
+        newNav.appendChild(curLink);
+      }
       //Turtle Walk Link
-      let turtleLink = document.createElement('a');
-      let turtleId = "turtle" + numTools;
-      turtleLink.setAttribute("id", turtleId);
-      turtleLink.setAttribute("href", "#");
-      fctCall = "openToolInputNav(n=" + numTools + ",m=1)";
-      turtleLink.setAttribute("onclick", fctCall);
-      turtleLink.innerHTML = "Turtle Walk";
-      newNav.appendChild(turtleLink);
-
-      //Game of Life Link
-      let golLink = document.createElement('a');
-      let golId = "gol" + numTools;
-      golLink.setAttribute("id", golId);
-      golLink.setAttribute("href", "#");
-      fctCall = "openToolInputNav(n=" + numTools + ",m=2)";
-      golLink.setAttribute("onclick", fctCall);
-      golLink.innerHTML = "Game of Life";
-      newNav.appendChild(golLink);
-
-      //Shift Comparision Link
-      let shiftLink = document.createElement('a');
-      let shiftId = "shift" + numTools;
-      shiftLink.setAttribute("id", shiftId);
-      shiftLink.setAttribute("href", "#");
-      fctCall = "openToolInputNav(n=" + numTools + ",m=3)";
-      shiftLink.setAttribute("onclick", fctCall);
-      shiftLink.innerHTML = "Shift Comparision";
-      newNav.appendChild(shiftLink);
-
-      //Finite Differences Link
-      let finiteLink = document.createElement('a');
-      let finiteId = "finite" + numTools;
-      finiteLink.setAttribute("id", finiteId);
-      finiteLink.setAttribute("href", "#");
-      fctCall = "openToolInputNav(n=" + numTools + ",m=4)";
-      finiteLink.setAttribute("onclick", fctCall);
-      finiteLink.innerHTML = "Finite Differences";
-      newNav.appendChild(finiteLink);
+      // let turtleLink = document.createElement('a');
+      // let turtleId = "turtle" + numTools;
+      // turtleLink.setAttribute("id", turtleId);
+      // turtleLink.setAttribute("href", "#");
+      // fctCall = "openToolInputNav(n=" + numTools + ",m=1)";
+      // turtleLink.setAttribute("onclick", fctCall);
+      // turtleLink.innerHTML = "Turtle Walk";
+      // newNav.appendChild(turtleLink);
+      //
+      // //Game of Life Link
+      // let golLink = document.createElement('a');
+      // let golId = "gol" + numTools;
+      // golLink.setAttribute("id", golId);
+      // golLink.setAttribute("href", "#");
+      // fctCall = "openToolInputNav(n=" + numTools + ",m=2)";
+      // golLink.setAttribute("onclick", fctCall);
+      // golLink.innerHTML = "Game of Life";
+      // newNav.appendChild(golLink);
+      //
+      // //Shift Comparision Link
+      // let shiftLink = document.createElement('a');
+      // let shiftId = "shift" + numTools;
+      // shiftLink.setAttribute("id", shiftId);
+      // shiftLink.setAttribute("href", "#");
+      // fctCall = "openToolInputNav(n=" + numTools + ",m=3)";
+      // shiftLink.setAttribute("onclick", fctCall);
+      // shiftLink.innerHTML = "Shift Comparision";
+      // newNav.appendChild(shiftLink);
+      //
+      // //Finite Differences Link
+      // let finiteLink = document.createElement('a');
+      // let finiteId = "finite" + numTools;
+      // finiteLink.setAttribute("id", finiteId);
+      // finiteLink.setAttribute("href", "#");
+      // fctCall = "openToolInputNav(n=" + numTools + ",m=4)";
+      // finiteLink.setAttribute("onclick", fctCall);
+      // finiteLink.innerHTML = "Finite Differences";
+      // newNav.appendChild(finiteLink);
 
       document.getElementById("toolNavs").append(newNav);
     }
