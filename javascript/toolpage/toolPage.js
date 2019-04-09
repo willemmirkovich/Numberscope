@@ -5,16 +5,15 @@ var sideNavColor2 = "#70cad1";
 var numSequences = 1;
 var numTools = 1;
 var numDraw = 1;
-var toolTypes = ["empty","turtle", "gol", "shift", "finite"];
-
-
+var toolTypes = ["empty", "turtle", "gol", "shift", "finite"];
+var toolNames = ["empty", "Turtle Walk", "Game of Life", "Shift Comparison", "Finite Differences"];
 
 // var activeSequences = []
 // var activeTool = []
 
-const builtInNames = ["primes", "natural", "fibonacci","lucas","thueMorse","recaman","linRec"]
+const builtInNames = ["primes", "natural", "fibonacci", "lucas", "thueMorse", "recaman", "linRec"]
 const inputTypesNames = ["builtIn", "OEIS", "list", "code"]
-const moduleNames = ["turtle", "gameOfLife","shiftCompare"]
+const moduleNames = ["turtle", "gameOfLife", "shiftCompare"]
 
 
 var currentSequence = {
@@ -22,49 +21,57 @@ var currentSequence = {
   inputType: undefined,
   inputValue: undefined,
   parameters: {},
-  setID: function(n){
+  setID: function (n) {
     this.ID = n;
   },
-  setType: function(m){
-    this.inputType =  inputTypesNames[m - 1];
+  setType: function (m) {
+    this.inputType = inputTypesNames[m - 1];
   },
-  setValue: function(){
-    if(this.inputType == "builtIn"){
-      this.inputValue = document.getElementById(this.inputType + "Select" +  this.ID).value
+  setValue: function () {
+    if (this.inputType == "builtIn") {
+      this.inputValue = document.getElementById(this.inputType + "Select" + this.ID).value
     }
-    if(this.inputType == "OEIS"){
+    if (this.inputType == "OEIS") {
       this.inputValue = undefined;
       console.error("Not Implemented: " + this.inputType + " input")
     }
-    if(this.inputType == "list"){
+    if (this.inputType == "list") {
       this.inputValue = undefined;
       console.error("Not Implemented: " + this.inputType + " input")
     }
-    if(this.inputType == "code"){
+    if (this.inputType == "code") {
       this.inputValue = undefined;
       console.error("Not Implemented: " + this.inputType + " input")
     }
   },
-  setParameters: function(){
-      if (this.inputValue == 'linRec') {
-        console.log(this)
-        this.parameters['seedList'] = []
-        this.parameters['coefficientList'] = []
-        a_list = []
-        for (let i = 0; i < 2; i++) {
-          this.parameters['seedList'].push(parseInt(document.getElementById('aList' + (i + 1) + '_' + this.ID).value))
-          this.parameters['coefficientList'].push(parseInt(document.getElementById('cList' + (i + 1) + '_' + this.ID).value))
-        }
-        console.log(this.parameters)
+  setParameters: function () {
+    if (this.inputValue == 'linRec') {
+      console.log(this)
+      this.parameters['seedList'] = []
+      this.parameters['coefficientList'] = []
+      a_list = []
+      for (let i = 0; i < 2; i++) {
+        this.parameters['seedList'].push(parseInt(document.getElementById('aList' + (i + 1) + '_' + this.ID).value))
+        this.parameters['coefficientList'].push(parseInt(document.getElementById('cList' + (i + 1) + '_' + this.ID).value))
       }
-      this.parameters['m'] = 5;
-      // console.error("Not Implemented: parameters")
+      console.log(this.parameters)
+    }
+    this.parameters['m'] = 5;
+    // console.error("Not Implemented: parameters")
   },
-  sendSequence: function(){
-    if(this.inputValue == undefined){ console.log("Not setting input since it is undefined for input type: " + this.inputType)}
-    else{NScore.receiveSequence(Object.assign({}, {ID: this.ID, inputType: this.inputType, inputValue: this.inputValue, parameters: this.parameters}))}
+  sendSequence: function () {
+    if (this.inputValue == undefined) {
+      console.log("Not setting input since it is undefined for input type: " + this.inputType)
+    } else {
+      NScore.receiveSequence(Object.assign({}, {
+        ID: this.ID,
+        inputType: this.inputType,
+        inputValue: this.inputValue,
+        parameters: this.parameters
+      }))
+    }
   },
-  refresh: function(){
+  refresh: function () {
     this.ID = undefined;
     this.inputType = undefined;
     this.inputValue = undefined;
@@ -76,68 +83,70 @@ var currentTool = {
   ID: undefined,
   moduleName: undefined,
   config: undefined,
-  setID: function(n){
+  setID: function (n) {
     this.ID = n;
   },
-  setModule: function(m){
+  setModule: function (m) {
     this.moduleName = moduleNames[m - 1];
     //this config is temporary
   },
-  setConfig: function(config){
+  setConfig: function (config) {
     this.config = config
     // console.log("Not implemented");
   },
-  sendModule: function(){
+  sendModule: function () {
     console.log("Sending module: " + this.moduleName)
-    NScore.receiveModule(Object.assign({}, {ID: this.ID, moduleName: this.moduleName, config: this.config}))
+    NScore.receiveModule(Object.assign({}, {
+      ID: this.ID,
+      moduleName: this.moduleName,
+      config: this.config
+    }))
   }
 };
 
-
 //Example Navigation Bar
 function openExNav() {
-    document.getElementById("exampleNav").style.width = "12em";
-    document.getElementById("title1").style.marginLeft = "4.5em";
-    //document.getElementById("mainCanvas").style.marginLeft = "12em";
+  document.getElementById("exampleNav").style.width = "12em";
+  document.getElementById("title1").style.marginLeft = "4.5em";
+  //document.getElementById("mainCanvas").style.marginLeft = "12em";
 
-    let list1 = ["sideNav", "stepNav", "selectNav", "seqInputNav"];
-    for (let i = 0; i < list1.length; i++) {
-      let elements = document.getElementsByClassName(list1[i]);
-      for(let j = 0, length = elements.length; j < length; j++) {
-        elements[j].style.marginLeft = "12em";
-      }
+  let list1 = ["sideNav", "stepNav", "selectNav", "seqInputNav"];
+  for (let i = 0; i < list1.length; i++) {
+    let elements = document.getElementsByClassName(list1[i]);
+    for (let j = 0, length = elements.length; j < length; j++) {
+      elements[j].style.marginLeft = "12em";
     }
+  }
 }
+
 function closeExNav() {
-    document.getElementById("exampleNav").style.width = "0";
-    document.getElementById("title1").style.marginLeft = "0";
-    // document.getElementById("mainCanvas").style.marginLeft = "0";
+  document.getElementById("exampleNav").style.width = "0";
+  document.getElementById("title1").style.marginLeft = "0";
+  // document.getElementById("mainCanvas").style.marginLeft = "0";
 
-    let list1 = ["sideNav", "stepNav", "selectNav", "seqInputNav"];
-    for (let i = 0; i < list1.length; i++) {
-      let elements = document.getElementsByClassName(list1[i]);
-      for(let j = 0, length = elements.length; j < length; j++) {
-        elements[j].style.marginLeft = "0em";
-      }
+  let list1 = ["sideNav", "stepNav", "selectNav", "seqInputNav"];
+  for (let i = 0; i < list1.length; i++) {
+    let elements = document.getElementsByClassName(list1[i]);
+    for (let j = 0, length = elements.length; j < length; j++) {
+      elements[j].style.marginLeft = "0em";
     }
+  }
 }
 
-function openNav(n){
-  if(n == 1){
+function openNav(n) {
+  if (n == 1) {
     document.getElementById("title1").innerHTML = "Pick an Integer Sequence";
     document.getElementById("step1Nav").style.width = "12em";
     document.getElementById("step1").style.background = sideNavColor2;
     closeNav(2);
     closeNav(3);
-  }
-  else if (n == 2) {
+  } else if (n == 2) {
     document.getElementById("title1").innerHTML = "Pick a Visualization Tool";
     document.getElementById("step2Nav").style.width = "12em";
     document.getElementById("step2").style.background = sideNavColor2;
     closeNav(1);
     closeNav(3);
-  }
-  else if (n == 3) {
+  } else if (n == 3) {
     document.getElementById("title1").innerHTML = "Pick Sequence to Draw";
     document.getElementById("step3Nav").style.width = "36em";
     document.getElementById("step3").style.background = sideNavColor2;
@@ -146,30 +155,29 @@ function openNav(n){
     closeNav(2);
   }
 }
-function closeNav(n){
-  if (n==1) {
+
+function closeNav(n) {
+  if (n == 1) {
     document.getElementById("step1Nav").style.width = "0";
     document.getElementById("step1").style.background = sideNavColor;
 
     for (let k = 1; k <= numSequences; k++) {
       closeSeqNav(k);
     }
-  }
-  else if (n==2) {
+  } else if (n == 2) {
     document.getElementById("step2Nav").style.width = "0";
     document.getElementById("step2").style.background = sideNavColor;
     for (let k = 1; k <= numTools; k++) {
       closeToolNav(k);
     }
-  }
-  else if (n==3) {
+  } else if (n == 3) {
     document.getElementById("step3Nav").style.width = "0";
     document.getElementById("step3").style.background = sideNavColor;
   }
 }
 
 //Sequence Navigation Bars
-function openSeqNav(n){
+function openSeqNav(n) {
   if (currentSequence.setType != undefined) {
     currentSequence.setValue();
     currentSequence.setParameters(); //this temp, should get it from input box or something
@@ -189,21 +197,22 @@ function openSeqNav(n){
     let curSeq = "seq" + i;
     if (i == n) {
       document.getElementById(curSeq).style.background = logoColor;
-    }
-    else {
+    } else {
       document.getElementById(curSeq).style.background = sideNavColor2;
     }
   }
 
   for (let i = 1; i <= numSequences; i++) {
     for (let j = 1; j <= 4; j++) {
-      closeSeqInputNav(i,j);
+      closeSeqInputNav(i, j);
     }
   }
 }
-function closeSeqNav(n){
+
+function closeSeqNav(n) {
   //selection is considered finalized here
-  if(currentSequence.setType != undefined){
+  //if statement causes bug when Linear Recurrence Option is selected
+  if (currentSequence.setType != undefined) {
     currentSequence.setValue();
     currentSequence.setParameters(); //this temp, should get it from input box or something
     currentSequence.sendSequence();
@@ -216,14 +225,14 @@ function closeSeqNav(n){
   }
   for (let i = 1; i <= numSequences; i++) {
     for (let j = 1; j <= 4; j++) {
-      closeSeqInputNav(i,j);
+      closeSeqInputNav(i, j);
     }
   }
 }
 
-function openSeqInputNav(n,m){
+function openSeqInputNav(n, m) {
   currentSequence.setType(m);
-  if (m==1) {
+  if (m == 1) {
     let u = "builtInInputNav" + n;
     document.getElementById(u).style.width = "24em";
     let v = "builtIn" + n;
@@ -231,21 +240,14 @@ function openSeqInputNav(n,m){
     document.getElementById(v).style.borderColor = topBarColor;
     document.getElementById(v).style.borderLeftColor = sideNavColor;
 
-    // let linRecNumber = "builtInSelect" + n;
-    // let linRecNav = "linRecNav" + n;
-    // if (document.getElementById(linRecNumber).value == "linRec") {
-    //   extendLinRec(n);
-    // }
-
     document.getElementById("OEIS" + n).style.borderLeftColor = logoColor;
     document.getElementById("list" + n).style.borderLeftColor = logoColor;
     document.getElementById("code" + n).style.borderLeftColor = logoColor;
 
-    closeSeqInputNav(n,3);
-    closeSeqInputNav(n,4);
-    closeSeqInputNav(n,2);
-  }
-  else if (m==2) {
+    closeSeqInputNav(n, 3);
+    closeSeqInputNav(n, 4);
+    closeSeqInputNav(n, 2);
+  } else if (m == 2) {
     let u = "oeisInputNav" + n;
     document.getElementById(u).style.width = "12em";
     let v = "OEIS" + n;
@@ -257,11 +259,10 @@ function openSeqInputNav(n,m){
     document.getElementById("list" + n).style.borderLeftColor = logoColor;
     document.getElementById("code" + n).style.borderLeftColor = logoColor;
 
-    closeSeqInputNav(n,4);
-    closeSeqInputNav(n,3);
-    closeSeqInputNav(n,1);
-  }
-  else if (m==3) {
+    closeSeqInputNav(n, 4);
+    closeSeqInputNav(n, 3);
+    closeSeqInputNav(n, 1);
+  } else if (m == 3) {
     let u = "listInputNav" + n;
     document.getElementById(u).style.width = "24em";
     let v = "list" + n
@@ -273,11 +274,10 @@ function openSeqInputNav(n,m){
     document.getElementById("OEIS" + n).style.borderLeftColor = logoColor;
     document.getElementById("code" + n).style.borderLeftColor = logoColor;
 
-    closeSeqInputNav(n,4);
-    closeSeqInputNav(n,2);
-    closeSeqInputNav(n,1);
-  }
-  else if (m==4) {
+    closeSeqInputNav(n, 4);
+    closeSeqInputNav(n, 2);
+    closeSeqInputNav(n, 1);
+  } else if (m == 4) {
     let u = "codeInputNav" + n;
     document.getElementById(u).style.width = "24em";
     let v = "code" + n;
@@ -289,13 +289,14 @@ function openSeqInputNav(n,m){
     document.getElementById("OEIS" + n).style.borderLeftColor = logoColor;
     document.getElementById("list" + n).style.borderLeftColor = logoColor;
 
-    closeSeqInputNav(n,3);
-    closeSeqInputNav(n,2);
-    closeSeqInputNav(n,1);
+    closeSeqInputNav(n, 3);
+    closeSeqInputNav(n, 2);
+    closeSeqInputNav(n, 1);
   }
 }
-function closeSeqInputNav(n,m){
-  if (m==1) {
+
+function closeSeqInputNav(n, m) {
+  if (m == 1) {
     let f = "builtInInputNav" + n;
     document.getElementById(f).style.width = "0";
     let g = "builtIn" + n;
@@ -303,8 +304,7 @@ function closeSeqInputNav(n,m){
     document.getElementById(g).style.borderRightColor = logoColor;
     document.getElementById(g).style.borderTopColor = logoColor;
     document.getElementById(g).style.borderBottomColor = logoColor;
-  }
-  else if (m==2) {
+  } else if (m == 2) {
     let f = "oeisInputNav" + n;
     document.getElementById(f).style.width = "0";
     let g = "OEIS" + n;
@@ -312,8 +312,7 @@ function closeSeqInputNav(n,m){
     document.getElementById(g).style.borderRightColor = logoColor;
     document.getElementById(g).style.borderTopColor = logoColor;
     document.getElementById(g).style.borderBottomColor = logoColor;
-  }
-  else if (m==3) {
+  } else if (m == 3) {
     let f = "listInputNav" + n;
     document.getElementById(f).style.width = "0";
     let g = "list" + n;
@@ -321,8 +320,7 @@ function closeSeqInputNav(n,m){
     document.getElementById(g).style.borderRightColor = logoColor;
     document.getElementById(g).style.borderTopColor = logoColor;
     document.getElementById(g).style.borderBottomColor = logoColor;
-  }
-  else if (m==4) {
+  } else if (m == 4) {
     let f = "codeInputNav" + n;
     document.getElementById(f).style.width = "0";
     let g = "code" + n;
@@ -334,7 +332,7 @@ function closeSeqInputNav(n,m){
 }
 
 //Linear Recurrence
-function openLinRec(n){
+function openLinRec(n) {
   let linRecNumber = "builtInSelect" + n;
   let curLinRecDef = "linRecDef" + n;
   let curKLabel = "kLabel" + n;
@@ -370,8 +368,7 @@ function openLinRec(n){
         document.getElementById(curAText).style.opacity = "1";
         document.getElementById(curCText).style.visibility = "visible";
         document.getElementById(curAText).style.visibility = "visible";
-      }
-      else {
+      } else {
         document.getElementById(curCList).style.fontSize = "0";
         document.getElementById(curAList).style.fontSize = "0";
         document.getElementById(curCList).style.opacity = "0";
@@ -383,8 +380,7 @@ function openLinRec(n){
         document.getElementById(curAText).style.visibility = "hidden";
       }
     }
-  }
-  else {
+  } else {
     //// document.getElementById(curLinRecDef).style.visibility = "hidden";
     document.getElementById(curLinRecDef).style.fontSize = "0";
     document.getElementById(curLinRecDef).style.opacity = "0";
@@ -419,8 +415,7 @@ function openLinRec(n){
     document.getElementById(curNatCheck).style.opacity = "1";
     document.getElementById(curNatCheck).style.width = "1.5em";
     document.getElementById(curNatCheck).style.height = "1.5em";
-  }
-  else {
+  } else {
     document.getElementById(curNatForm).style.fontSize = "0";
     document.getElementById(curNatForm).style.opacity = "0";
     document.getElementById(curNatCheck).style.opacity = "0";
@@ -429,7 +424,8 @@ function openLinRec(n){
   }
 
 }
-function extendLinRec(n){
+
+function extendLinRec(n) {
   let curKSelect = "kSelect" + n;
 
   let curCList = "";
@@ -453,8 +449,7 @@ function extendLinRec(n){
       document.getElementById(curAText).style.opacity = "1";
       document.getElementById(curCText).style.visibility = "visible";
       document.getElementById(curAText).style.visibility = "visible";
-    }
-    else {
+    } else {
       document.getElementById(curCList).style.fontSize = "0";
       document.getElementById(curAList).style.fontSize = "0";
       document.getElementById(curCList).style.opacity = "0";
@@ -469,7 +464,7 @@ function extendLinRec(n){
 }
 
 //Tool Navigation Bars
-function openToolNav(n){
+function openToolNav(n) {
   for (let i = 1; i <= numTools; i++) {
     // let curToolNav = "toolNav" + i;
     // document.getElementById(curToolNav).style.width = "0em";
@@ -482,13 +477,13 @@ function openToolNav(n){
     let curTool = "tool" + i;
     if (i == n) {
       document.getElementById(curTool).style.background = logoColor;
-    }
-    else {
+    } else {
       document.getElementById(curTool).style.background = sideNavColor2;
     }
   }
 }
-function closeToolNav(n){
+
+function closeToolNav(n) {
   let selectedNav = "toolNav" + n;
   document.getElementById(selectedNav).style.width = "0";
   for (let i = 1; i <= numTools; i++) {
@@ -497,12 +492,12 @@ function closeToolNav(n){
   }
   for (let i = 1; i <= numTools; i++) {
     for (let j = 1; j <= 3; j++) {
-      closeToolInputNav(i,j);
+      closeToolInputNav(i, j);
     }
   }
 }
 
-function openToolInputNav(n,m){
+function openToolInputNav(n, m) {
   //Tool selection is made here
   currentTool.setID(n);
   currentTool.setModule(m);
@@ -514,81 +509,83 @@ function openToolInputNav(n,m){
       3: 180,
       4: -70
     },
-    stepSize: 40*n,
-    bgColor: 40*n
+    stepSize: 40 * n,
+    bgColor: 40 * n
   })
   currentTool.sendModule();
 
-  // let v = toolTypes[m] + n;
-  // document.getElementById(v).style.background = topBarColor;
-  // document.getElementById(v).style.borderColor = topBarColor;
-  // document.getElementById(v).style.borderLeftColor = sideNavColor;
+
+  let v = toolTypes[m] + n;
+  document.getElementById(v).style.background = topBarColor;
+  document.getElementById(v).style.borderColor = topBarColor;
+  document.getElementById(v).style.borderLeftColor = sideNavColor;
+
+  for (let r = 1; r < toolTypes.length; r++) {
+    if (r != m) {
+      document.getElementById(toolTypes[r] + n).style.borderLeftColor = logoColor;
+      closeToolInputNav(n, r);
+    }
+  }
+
+  // if (m==1) {
+  //   let v = "turtle" + n;
+  //   document.getElementById(v).style.background = topBarColor;
+  //   document.getElementById(v).style.borderColor = topBarColor;
+  //   document.getElementById(v).style.borderLeftColor = sideNavColor;
   //
-  // for (let r = 1; r < toolTypes.length; r++) {
-  //   if (r != m) {
-  //     document.getElementById(toolTypes[r] + n).style.borderLeftColor = logoColor;
-  //     closeToolInputNav(n,r);
-  //   }
+  //   document.getElementById("gol" + n).style.borderLeftColor = logoColor;
+  //   document.getElementById("shift" + n).style.borderLeftColor = logoColor;
+  //   document.getElementById("finite" + n).style.borderLeftColor = logoColor;
+  //
+  //   closeToolInputNav(n,2);
+  //   closeToolInputNav(n,3);
+  //   closeToolInputNav(n,4);
   // }
-
-  if (m==1) {
-    let v = "turtle" + n;
-    document.getElementById(v).style.background = topBarColor;
-    document.getElementById(v).style.borderColor = topBarColor;
-    document.getElementById(v).style.borderLeftColor = sideNavColor;
-
-    document.getElementById("gol" + n).style.borderLeftColor = logoColor;
-    document.getElementById("shift" + n).style.borderLeftColor = logoColor;
-    document.getElementById("finite" + n).style.borderLeftColor = logoColor;
-
-    closeToolInputNav(n,2);
-    closeToolInputNav(n,3);
-    closeToolInputNav(n,4);
-  }
-  else if (m==2) {
-    let v = "gol" + n;
-    document.getElementById(v).style.background = topBarColor;
-    document.getElementById(v).style.borderColor = topBarColor;
-    document.getElementById(v).style.borderLeftColor = sideNavColor;
-
-    document.getElementById("turtle" + n).style.borderLeftColor = logoColor;
-    document.getElementById("shift" + n).style.borderLeftColor = logoColor;
-    document.getElementById("finite" + n).style.borderLeftColor = logoColor;
-
-    closeToolInputNav(n,1);
-    closeToolInputNav(n,3);
-    closeToolInputNav(n,4);
-  }
-  else if (m==3) {
-    let v = "shift" + n;
-    document.getElementById(v).style.background = topBarColor;
-    document.getElementById(v).style.borderColor = topBarColor;
-    document.getElementById(v).style.borderLeftColor = sideNavColor;
-
-    document.getElementById("turtle" + n).style.borderLeftColor = logoColor;
-    document.getElementById("gol" + n).style.borderLeftColor = logoColor;
-    document.getElementById("finite" + n).style.borderLeftColor = logoColor;
-
-    closeToolInputNav(n,1);
-    closeToolInputNav(n,2);
-    closeToolInputNav(n,4);
-  }
-  else if (m==4) {
-    let v = "finite" + n;
-    document.getElementById(v).style.background = topBarColor;
-    document.getElementById(v).style.borderColor = topBarColor;
-    document.getElementById(v).style.borderLeftColor = sideNavColor;
-
-    document.getElementById("turtle" + n).style.borderLeftColor = logoColor;
-    document.getElementById("gol" + n).style.borderLeftColor = logoColor;
-    document.getElementById("shift" + n).style.borderLeftColor = logoColor;
-
-    closeToolInputNav(n,1);
-    closeToolInputNav(n,2);
-    closeToolInputNav(n,3);
-  }
+  // else if (m==2) {
+  //   let v = "gol" + n;
+  //   document.getElementById(v).style.background = topBarColor;
+  //   document.getElementById(v).style.borderColor = topBarColor;
+  //   document.getElementById(v).style.borderLeftColor = sideNavColor;
+  //
+  //   document.getElementById("turtle" + n).style.borderLeftColor = logoColor;
+  //   document.getElementById("shift" + n).style.borderLeftColor = logoColor;
+  //   document.getElementById("finite" + n).style.borderLeftColor = logoColor;
+  //
+  //   closeToolInputNav(n,1);
+  //   closeToolInputNav(n,3);
+  //   closeToolInputNav(n,4);
+  // }
+  // else if (m==3) {
+  //   let v = "shift" + n;
+  //   document.getElementById(v).style.background = topBarColor;
+  //   document.getElementById(v).style.borderColor = topBarColor;
+  //   document.getElementById(v).style.borderLeftColor = sideNavColor;
+  //
+  //   document.getElementById("turtle" + n).style.borderLeftColor = logoColor;
+  //   document.getElementById("gol" + n).style.borderLeftColor = logoColor;
+  //   document.getElementById("finite" + n).style.borderLeftColor = logoColor;
+  //
+  //   closeToolInputNav(n,1);
+  //   closeToolInputNav(n,2);
+  //   closeToolInputNav(n,4);
+  // }
+  // else if (m==4) {
+  //   let v = "finite" + n;
+  //   document.getElementById(v).style.background = topBarColor;
+  //   document.getElementById(v).style.borderColor = topBarColor;
+  //   document.getElementById(v).style.borderLeftColor = sideNavColor;
+  //
+  //   document.getElementById("turtle" + n).style.borderLeftColor = logoColor;
+  //   document.getElementById("gol" + n).style.borderLeftColor = logoColor;
+  //   document.getElementById("shift" + n).style.borderLeftColor = logoColor;
+  //
+  //   closeToolInputNav(n,1);
+  //   closeToolInputNav(n,2);
+  //   closeToolInputNav(n,3);
+  // }
 }
-function closeToolInputNav(n,m){
+
+function closeToolInputNav(n, m) {
   let g = toolTypes[m] + n;
   document.getElementById(g).style.background = logoColor;
   document.getElementById(g).style.borderRightColor = logoColor;
@@ -597,8 +594,8 @@ function closeToolInputNav(n,m){
 }
 
 //Add Functions
-function addSeq(){
-  if(numSequences < 10){
+function addSeq() {
+  if (numSequences < 10) {
     let seqLetter = String.fromCharCode(97 + numSequences);
     numSequences += 1;
 
@@ -709,15 +706,17 @@ function addSeq(){
 
     //create options
     let builtInOptions = ["primes", "natural", "fibonacci",
-    "lucas", "thueMorse", "recaman", "linRec"];
+      "lucas", "thueMorse", "recaman", "linRec"
+    ];
     let builtInOptionNames = ["Prime Numbers", "Natural Numbers",
-    "Fibonacci Numbers", "Lucas Numbers", "Thue-Morse", "Recaman", "Linear Recurrence"];
+      "Fibonacci Numbers", "Lucas Numbers", "Thue-Morse", "Recaman", "Linear Recurrence"
+    ];
 
     for (let q = 0; q < builtInOptions.length; q++) {
       let curOption = document.createElement('option');
       curOption.setAttribute("value", builtInOptions[q]);
       curOption.innerHTML = builtInOptionNames[q];
-      if (q==0) {
+      if (q == 0) {
         curOption.selected = true;
       }
       a.appendChild(curOption);
@@ -778,11 +777,11 @@ function addSeq(){
     fctCall = "extendLinRec(n=" + numSequences + ")";
     kSelect.setAttribute("onchange", fctCall);
 
-    for (let h = 1; h <= 10 ; h++) {
+    for (let h = 1; h <= 10; h++) {
       let curKOption = document.createElement('option');
       curKOption.setAttribute("value", h);
       curKOption.innerHTML = h;
-      if (h==2) {
+      if (h == 2) {
         curKOption.selected = true;
       }
       kSelect.appendChild(curKOption);
@@ -800,7 +799,7 @@ function addSeq(){
     let newCListDiv = document.createElement('div');
     newCListDiv.setAttribute("class", "ListColumn");
 
-    for (let aa = 1; aa <=10; aa++) {
+    for (let aa = 1; aa <= 10; aa++) {
       let curCList = document.createElement('li');
       let curCListId = "cList" + aa + "_" + numSequences;
       curCList.setAttribute("id", curCListId);
@@ -814,7 +813,7 @@ function addSeq(){
     let newCTextDiv = document.createElement('div');
     newCTextDiv.setAttribute("class", "TextColumn");
 
-    for (let ab = 1; ab <=10; ab++) {
+    for (let ab = 1; ab <= 10; ab++) {
       let curCText = document.createElement('input');
       curCText.setAttribute("type", "text");
       let curCTextId = "cText" + ab + "_" + numSequences;
@@ -830,7 +829,7 @@ function addSeq(){
     let newAListDiv = document.createElement('div');
     newAListDiv.setAttribute("class", "ListColumn");
 
-    for (let ac = 1; ac <=10; ac++) {
+    for (let ac = 1; ac <= 10; ac++) {
       let curAList = document.createElement('li');
       let curAListId = "aList" + ac + "_" + numSequences;
       curAList.setAttribute("id", curAListId);
@@ -845,7 +844,7 @@ function addSeq(){
     let newATextDiv = document.createElement('div');
     newATextDiv.setAttribute("class", "TextColumn");
 
-    for (let ad = 1; ad <=10; ad++) {
+    for (let ad = 1; ad <= 10; ad++) {
       let curAText = document.createElement('input');
       curAText.setAttribute("type", "text");
       let curATextId = "aText" + ad + "_" + numSequences;
@@ -947,8 +946,9 @@ function addSeq(){
     document.getElementById("codeInputNavs").append(newNav);
   }
 }
-function addTool(){
-  if(numTools < 10){
+
+function addTool() {
+  if (numTools < 10) {
     let toolNum = numTools + 1;
     numTools += 1;
 
@@ -992,56 +992,70 @@ function addTool(){
       a.innerHTML = "&#171";
       newNav.appendChild(a);
 
+
+      for (let j = 1; j < toolTypes.length; j++) {
+        let curLink = document.createElement('a');
+        let curId = toolTypes[j] + numTools;
+        curLink.setAttribute("id", curId);
+        curLink.setAttribute("href", "#");
+        fctCall = "openToolInputNav(n=" + numTools + ",m=" + j + ")";
+        curLink.setAttribute("onclick", fctCall);
+        curLink.innerHTML = toolNames[j];
+        newNav.appendChild(curLink);
+      }
       //Turtle Walk Link
-      let turtleLink = document.createElement('a');
-      let turtleId = "turtle" + numTools;
-      turtleLink.setAttribute("id", turtleId);
-      turtleLink.setAttribute("href", "#");
-      fctCall = "openToolInputNav(n=" + numTools + ",m=1)";
-      turtleLink.setAttribute("onclick", fctCall);
-      turtleLink.innerHTML = "Turtle Walk";
-      newNav.appendChild(turtleLink);
-
-      //Game of Life Link
-      let golLink = document.createElement('a');
-      let golId = "gol" + numTools;
-      golLink.setAttribute("id", golId);
-      golLink.setAttribute("href", "#");
-      fctCall = "openToolInputNav(n=" + numTools + ",m=2)";
-      golLink.setAttribute("onclick", fctCall);
-      golLink.innerHTML = "Game of Life";
-      newNav.appendChild(golLink);
-
-      //Shift Comparision Link
-      let shiftLink = document.createElement('a');
-      let shiftId = "shift" + numTools;
-      shiftLink.setAttribute("id", shiftId);
-      shiftLink.setAttribute("href", "#");
-      fctCall = "openToolInputNav(n=" + numTools + ",m=3)";
-      shiftLink.setAttribute("onclick", fctCall);
-      shiftLink.innerHTML = "Shift Comparision";
-      newNav.appendChild(shiftLink);
-
-      //Finite Differences Link
-      let finiteLink = document.createElement('a');
-      let finiteId = "finite" + numTools;
-      finiteLink.setAttribute("id", finiteId);
-      finiteLink.setAttribute("href", "#");
-      fctCall = "openToolInputNav(n=" + numTools + ",m=4)";
-      finiteLink.setAttribute("onclick", fctCall);
-      finiteLink.innerHTML = "Finite Differences";
-      newNav.appendChild(finiteLink);
+      // let turtleLink = document.createElement('a');
+      // let turtleId = "turtle" + numTools;
+      // turtleLink.setAttribute("id", turtleId);
+      // turtleLink.setAttribute("href", "#");
+      // fctCall = "openToolInputNav(n=" + numTools + ",m=1)";
+      // turtleLink.setAttribute("onclick", fctCall);
+      // turtleLink.innerHTML = "Turtle Walk";
+      // newNav.appendChild(turtleLink);
+      //
+      // //Game of Life Link
+      // let golLink = document.createElement('a');
+      // let golId = "gol" + numTools;
+      // golLink.setAttribute("id", golId);
+      // golLink.setAttribute("href", "#");
+      // fctCall = "openToolInputNav(n=" + numTools + ",m=2)";
+      // golLink.setAttribute("onclick", fctCall);
+      // golLink.innerHTML = "Game of Life";
+      // newNav.appendChild(golLink);
+      //
+      // //Shift Comparision Link
+      // let shiftLink = document.createElement('a');
+      // let shiftId = "shift" + numTools;
+      // shiftLink.setAttribute("id", shiftId);
+      // shiftLink.setAttribute("href", "#");
+      // fctCall = "openToolInputNav(n=" + numTools + ",m=3)";
+      // shiftLink.setAttribute("onclick", fctCall);
+      // shiftLink.innerHTML = "Shift Comparision";
+      // newNav.appendChild(shiftLink);
+      //
+      // //Finite Differences Link
+      // let finiteLink = document.createElement('a');
+      // let finiteId = "finite" + numTools;
+      // finiteLink.setAttribute("id", finiteId);
+      // finiteLink.setAttribute("href", "#");
+      // fctCall = "openToolInputNav(n=" + numTools + ",m=4)";
+      // finiteLink.setAttribute("onclick", fctCall);
+      // finiteLink.innerHTML = "Finite Differences";
+      // newNav.appendChild(finiteLink);
 
       document.getElementById("toolNavs").append(newNav);
     }
   }
 }
-function addDraw(){
-  if(numDraw < 10){
+
+function addDraw() {
+  if (numDraw < 10) {
     numDraw += 1;
     /////////////////////////////////////
     let a = document.createElement('a');
     a.innerHTML = numDraw + ".";
+    let numDrawId = "drawNum" + numDraw;
+    a.setAttribute("id", numDrawId);
     a.setAttribute("href", "#");
     a.setAttribute("class", "numColumn");
     document.getElementById("drawListNum").append(a);
@@ -1057,9 +1071,12 @@ function addDraw(){
       let opt = document.createElement("option");
       opt.innerHTML = "{" + seqLetter + "<sub>n</sub>}";
 
-      // let valueName = "s" + i;
       let valueName = i;
       opt.setAttribute("value", valueName);
+
+      if (i == 1) {
+        opt.selected = true;
+      }
 
       document.getElementById(selIDName).append(opt);
     }
@@ -1075,9 +1092,12 @@ function addDraw(){
       let opt = document.createElement("option");
       opt.innerHTML = "Tool " + i;
 
-      // let valueName = "t" + i;
       let valueName = i;
       opt.setAttribute("value", valueName);
+
+      if (i == 1) {
+        opt.selected = true;
+      }
 
       document.getElementById(selIDName).append(opt);
     }
@@ -1094,11 +1114,44 @@ function addDraw(){
   }
 }
 //Remove Function
-function removeDraw(n){
+function removeDraw(n) {
+  if (numDraw > 1) {
+    for (let w = n; w < numDraw; w++) {
+      let next = w + 1;
 
+      let curSelectSeq = "selectSeq" + w;
+      let nextSelectSeq = "selectSeq" + next;
+
+      document.getElementById(curSelectSeq).value = document.getElementById(nextSelectSeq).value;
+
+      let curSelectTool = "selectTool" + w;
+      let nextSelectTool = "selectTool" + next;
+
+      document.getElementById(curSelectTool).value = document.getElementById(nextSelectTool).value;
+    }
+
+    let lastSelectSeqName = "selectSeq" + numDraw;
+    let lastSelectSeq = document.getElementById(lastSelectSeqName);
+    lastSelectSeq.parentNode.removeChild(lastSelectSeq);
+
+    let lastSelectToolName = "selectTool" + numDraw;
+    let lastSelectTool = document.getElementById(lastSelectToolName);
+    lastSelectTool.parentNode.removeChild(lastSelectTool);
+
+    let lastDrawNumName = "drawNum" + numDraw;
+    let lastDrawNum = document.getElementById(lastDrawNumName);
+    lastDrawNum.parentNode.removeChild(lastDrawNum);
+
+    let lastDrawRemoveName = "drawRemove" + numDraw;
+    let lastDrawRemove = document.getElementById(lastDrawRemoveName);
+    lastDrawRemove.parentNode.removeChild(lastDrawRemove);
+
+    numDraw -= 1;
+  }
 }
-function drawClicked(){
-  closeNav(n=3);
+
+function drawClicked() {
+  closeNav(n = 3);
   document.getElementById("canvasArea").style.width = "100%";
   document.getElementById("canvasArea").style.height = "100%";
   NScore.clearCanvasArea();
@@ -1106,14 +1159,16 @@ function drawClicked(){
   let drawToolList = document.getElementById("drawToolList").children;
   let seqCount = drawSeqList.length;
   let seqVizPairs = [];
-  for(i = 0; i<seqCount; i++){
-    seqVizPairs.push({seqID: drawSeqList[i].value, toolID: drawToolList[i].value});
+  for (i = 0; i < seqCount; i++) {
+    seqVizPairs.push({
+      seqID: drawSeqList[i].value,
+      toolID: drawToolList[i].value
+    });
   }
-  closeNav(n=3);
+  closeNav(n = 3);
   document.getElementById("canvasArea").style.width = "100%";
   NScore.beginDraw(seqVizPairs);
 }
-
 
 $('#form2').jsonForm({
   schema: {
@@ -1135,10 +1190,10 @@ $('#form2').jsonForm({
       title: 'background color',
       format: 'color'
     },
-    STROKE_COLOR:{
-      type:'string',
+    STROKE_COLOR: {
+      type: 'string',
       title: 'Line color',
-      format:'color'
+      format: 'color'
     }
   },
   onSubmit: function (errors, values) {

@@ -1,5 +1,9 @@
-@font-face { font-family: Infinity; src: url('../resources/toolpage/Infinity.ttf'); }
-:root{
+@font-face {
+  font-family: Infinity;
+  src: url('../resources/toolpage/Infinity.ttf');
+}
+
+:root {
   --logoColor: #afafdc;
   --topBarColor: #f75c03;
   --sideNavColor: #416788;
@@ -7,7 +11,7 @@
 }
 
 /*Body*/
-body{
+body {
   margin: 0;
   background-image: url("../resources/toolpage/background4.jpg");
   background-attachment: fixed;
@@ -17,7 +21,7 @@ body{
 }
 
 /*Header*/
-header{
+header {
   background-color: var(--topBarColor);
   position: fixed;
   top: 0;
@@ -25,7 +29,8 @@ header{
   height: 3.365em;
   overflow: hidden;
 }
-header a{
+
+header a {
   float: left;
   position: relative;
   left: 4.5em;
@@ -35,7 +40,8 @@ header a{
   text-decoration: none;
   transition: 0.5s
 }
-header button{
+
+header button {
   float: right;
   font-family: "Infinity", sans-serif;
   font-size: 2em;
@@ -48,10 +54,12 @@ header button{
   margin-top: .2em;
   margin-right: .4em;
 }
-header button:hover:not(.active){
+
+header button:hover:not(.active) {
   color: #000000;
 }
-#Upload{
+
+#Upload {
   padding-left: 1em;
   padding-right: 1em;
 }
@@ -72,7 +80,7 @@ header button:hover:not(.active){
 }
 
 /*Main Side Navagation Bar*/
-.sideNav{
+.sideNav {
   margin: 0;
   padding: 0;
   list-style-type: none;
@@ -85,6 +93,7 @@ header button:hover:not(.active){
   color: #ffffff;
   transition: margin-left 0.3s
 }
+
 .sideNav a {
   display: block;
   margin-bottom: 0em;
@@ -92,53 +101,61 @@ header button:hover:not(.active){
   text-align: center;
   transition: margin-left 0.3s;
 }
-.sideNav a:hover{
+
+.sideNav a:hover {
   transition: 0.3s;
-  background-color: var(--sideNavColor2)!important;
+  background-color: var(--sideNavColor2) !important;
 }
-#logo{
+
+#logo {
   background-color: var(--logoColor);
   margin-bottom: 0em;
   padding: .5em;
 }
-#logo:hover{
-  background-color: var(--logoColor)!important;
+
+#logo:hover {
+  background-color: var(--logoColor) !important;
 }
 
 /*Examples Navigation Bar*/
 .exNav {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background-color: var(--topBarColor);
-    overflow-x: hidden;
-    transition: 0.3s;
-    white-space: nowrap;
+  height: 100%;
+  width: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: var(--topBarColor);
+  overflow-x: hidden;
+  transition: 0.3s;
+  white-space: nowrap;
 }
+
 .exNav a {
-    font-family: "Infinity", sans-serif;
-    text-align: center;
-    text-decoration: none;
-    font-size: 2em;
-    color: #ffffff;
-    display: block;
-    transition: 0.3s;
+  font-family: "Infinity", sans-serif;
+  text-align: center;
+  text-decoration: none;
+  font-size: 2em;
+  color: #ffffff;
+  display: block;
+  transition: 0.3s;
 }
+
 .exNav a:hover {
-  background-color: var(--sideNavColor)!important;
+  background-color: var(--sideNavColor) !important;
   color: #f1f1f1;
 }
+
 .exNav .closebtn {
-    top: 0;
-    font-size: 2.15em;
-    padding-top: .1em;
-    padding-bottom: .3em;
+  top: 0;
+  font-size: 2.15em;
+  padding-top: .1em;
+  padding-bottom: .3em;
 }
-#exCloseBtn:hover{
-  background-color: var(--topBarColor)!important;
+
+#exCloseBtn:hover {
+  background-color: var(--topBarColor) !important;
 }
+
 /* @media screen and (max-height: 450px) {
   .exNav {padding-top: 15px;}
   .exNav a {font-size: 18px;}
@@ -146,78 +163,89 @@ header button:hover:not(.active){
 
 /*Step Navigation Bars*/
 .stepNav {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    top: 3.365em;
-    left: 12em;
-    z-index: 10;
-    background-color: var(--sideNavColor2);
-    overflow-x: hidden;
-    transition: 0.3s;
+  height: 100%;
+  width: 0;
+  position: fixed;
+  top: 3.365em;
+  left: 12em;
+  z-index: 10;
+  background-color: var(--sideNavColor2);
+  overflow-x: hidden;
+  transition: 0.3s;
 }
+
 .stepNav a {
-    float: left;
-    width: 100%;
-    font-family: "Infinity", sans-serif;
-    text-align: center;
-    text-decoration: none;
-    font-size: 3em;
-    color: #ffffff;
-    display: block;
-    transition: 0.3s;
+  float: left;
+  width: 100%;
+  font-family: "Infinity", sans-serif;
+  text-align: center;
+  text-decoration: none;
+  font-size: 3em;
+  color: #ffffff;
+  display: block;
+  transition: 0.3s;
 }
+
 .stepNav a:hover {
-  background-color: var(--logoColor)!important;
+  background-color: var(--logoColor) !important;
   color: #f1f1f1;
 }
+
 .stepNav .stepClosebtn {
-    top: 0;
-    font-size: 2.15em;
-    width: 50%;
-}
-.stepNav .stepClosebtn:hover{
-  background-color: var(--sideNavColor2)!important;
-}
-.stepNav .stepAddbtn{
   top: 0;
   font-size: 2.15em;
   width: 50%;
 }
+
+.stepNav .stepClosebtn:hover {
+  background-color: var(--sideNavColor2) !important;
+}
+
+.stepNav .stepAddbtn {
+  top: 0;
+  font-size: 2.15em;
+  width: 50%;
+}
+
 /* @media screen and (max-height: 450px) {
   .stepNav {padding-top: 15px;}
   .stepNav a {font-size: 18px;}
 } */
-.mainColumn{
-    float: left;
-    width: 40%;
-    height: auto;
-}
-.numColumn{
-    float: left;
-    width: 10%;
-    height: auto;
-}
-.xColumn{
-    float: left;
-    width: 10%;
-    height: auto;
-}
-/* Clear floats after the columns */
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-.numColumn a:hover{
-  background-color: var(--sideNavColor2)!important;
-}
-.xColumn a:hover{
-  background-color: var(--sideNavColor2)!important;
-  color: var(--logoColor)!important;
+.mainColumn {
+  float: left;
+  width: 40%;
+  height: auto;
 }
 
-.stepNav select{
+.numColumn {
+  float: left;
+  width: 10%;
+  height: auto;
+}
+
+.xColumn {
+  float: left;
+  width: 10%;
+  height: auto;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.numColumn a:hover {
+  background-color: var(--sideNavColor2) !important;
+}
+
+.xColumn a:hover {
+  background-color: var(--sideNavColor2) !important;
+  color: var(--logoColor) !important;
+}
+
+.stepNav select {
   font-family: "Infinity", sans-serif;
   font-size: 3em;
   color: #ffffff;
@@ -227,6 +255,7 @@ header button:hover:not(.active){
   padding: .033em;
   margin: 0;
 }
+
 .stepNav option {
   position: absolute;
   background-color: #f1f1f1;
@@ -234,21 +263,23 @@ header button:hover:not(.active){
   top: 100%;
   border-style: none;
 }
+
 .stepNav option:active {
   background-color: var(--logoColor);
 }
-.select-selected{
+
+.select-selected {
   background-color: var(--logoColor);
 }
 
-#canvasArea{
+#canvasArea {
   z-index: -1;
 }
 
-#mainCanvas{
+#mainCanvas {
   position: fixed;
   left: 12em;
-  top:3.365em;
+  top: 3.365em;
   width: 0;
   height: 100%;
   z-index: 1;
@@ -259,37 +290,40 @@ header button:hover:not(.active){
 
 /*Select Navigation Bars*/
 .selectNav {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    top: 3.365em;
-    left: 24em;
-    z-index: 4;
-    background-color: var(--logoColor);
-    overflow-x: hidden;
-    transition: 0.3s;
-    white-space: nowrap;
+  height: 100%;
+  width: 0;
+  position: fixed;
+  top: 3.365em;
+  left: 24em;
+  z-index: 4;
+  background-color: var(--logoColor);
+  overflow-x: hidden;
+  transition: 0.3s;
+  white-space: nowrap;
 }
+
 .selectNav a {
-    font-family: "Infinity", sans-serif;
-    /* padding: .217em; */
-    border: solid;
-    border-width: .217em;
-    border-color: var(--logoColor);
-    /* border-left-color: var(--sideNavColor); */
-    text-align: center;
-    text-decoration: none;
-    font-size: 2.5em;
-    color: #ffffff;
-    display: block;
-    transition: 0.3s;
+  font-family: "Infinity", sans-serif;
+  /* padding: .217em; */
+  border: solid;
+  border-width: .217em;
+  border-color: var(--logoColor);
+  /* border-left-color: var(--sideNavColor); */
+  text-align: center;
+  text-decoration: none;
+  font-size: 2.5em;
+  color: #ffffff;
+  display: block;
+  transition: 0.3s;
 }
+
 .selectNav a:hover {
-  background-color: var(--topBarColor)!important;
-  border-color: var(--topBarColor)!important;
-  border-left-color: var(--sideNavColor)!important;
+  background-color: var(--topBarColor) !important;
+  border-color: var(--topBarColor) !important;
+  border-left-color: var(--sideNavColor) !important;
   color: #f1f1f1;
 }
+
 /* #toolNav a {
   padding: .28em;
   font-size: 2em;
@@ -300,20 +334,22 @@ header button:hover:not(.active){
   padding: 0;
 } */
 .selectNav .selectClosebtn {
-    top: 0;
-    font-size: 2.15em;
-    border-width: 0;
-    padding: 0;
+  top: 0;
+  font-size: 2.15em;
+  border-width: 0;
+  padding: 0;
 }
-.selectNav .selectClosebtn:hover{
-  background-color: var(--logoColor)!important;
+
+.selectNav .selectClosebtn:hover {
+  background-color: var(--logoColor) !important;
 }
+
 /* @media screen and (max-height: 450px) {
   .selectNav {padding-top: 15px;}
   .selectNav a {font-size: 18px;}
 } */
 
-.selectNav form{
+.selectNav form {
   font-family: "Infinity", sans-serif;
   text-align: center;
   text-decoration: none;
@@ -322,7 +358,10 @@ header button:hover:not(.active){
   display: block;
   transition: 0.3s;
 }
-.selectNav input[type=text], select, textarea{
+
+.selectNav input[type=text],
+select,
+textarea {
   /* width: auto;
   font-size: 10 */
   /* padding: .25em;
@@ -370,36 +409,39 @@ header button:hover:not(.active){
 
 /*Seq Input Navigation Bars*/
 .seqInputNav {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    top: 3.365em;
-    left: 48em;
-    z-index: 3;
-    background-color: var(--topBarColor);
-    overflow-x: hidden;
-    transition: 0.3s;
-    /* white-space: nowrap; */
+  height: 100%;
+  width: 0;
+  position: fixed;
+  top: 3.365em;
+  left: 48em;
+  z-index: 3;
+  background-color: var(--topBarColor);
+  overflow-x: hidden;
+  transition: 0.3s;
+  /* white-space: nowrap; */
 }
+
 .seqInputNav a {
-    font-family: "Infinity", sans-serif;
-    text-align: center;
-    text-decoration: none;
-    font-size: 2em;
-    color: #ffffff;
-    display: block;
-    transition: 0.3s;
+  font-family: "Infinity", sans-serif;
+  text-align: center;
+  text-decoration: none;
+  font-size: 2em;
+  color: #ffffff;
+  display: block;
+  transition: 0.3s;
 }
+
 .seqInputNav li {
-    font-family: "Infinity", sans-serif;
-    text-align: center;
-    text-decoration: none;
-    font-size: 2em;
-    color: #ffffff;
-    display: block;
-    transition: 0.3s;
+  font-family: "Infinity", sans-serif;
+  text-align: center;
+  text-decoration: none;
+  font-size: 2em;
+  color: #ffffff;
+  display: block;
+  transition: 0.3s;
 }
-.seqInputNav select{
+
+.seqInputNav select {
   font-family: "Infinity", sans-serif;
   font-size: 2em;
   color: #ffffff;
@@ -409,6 +451,7 @@ header button:hover:not(.active){
   padding: .033em;
   margin: 0;
 }
+
 .seqInputNav option {
   position: absolute;
   background-color: #f1f1f1;
@@ -416,13 +459,18 @@ header button:hover:not(.active){
   top: 100%;
   border-style: none;
 }
+
 .seqInputNav option:active {
   background-color: var(--logoColor);
 }
-.select-selected{
+
+.select-selected {
   background-color: var(--logoColor);
 }
-.seqInputNav input[type=text], select, textarea {
+
+.seqInputNav input[type=text],
+select,
+textarea {
   width: 80%;
   height: 21em;
   padding: .25em;
@@ -432,21 +480,23 @@ header button:hover:not(.active){
   resize: vertical;
   font-size: 1.25em;
 }
+
 .seqInputNav .closebtn {
-    top: 0;
-    font-size: 2.15em;
+  top: 0;
+  font-size: 2.15em;
 }
+
 /* @media screen and (max-height: 450px) {
   .seqInputNav {padding-top: 15px;}
   .seqInputNav a {font-size: 18px;}
 } */
-.oeisNum{
+.oeisNum {
   height: 1.25em;
   resize: none;
 }
 
 /*Natural Number Checkbox*/
-.seqInputNav .natNumForm{
+.seqInputNav .natNumForm {
   font-family: "Infinity", sans-serif;
   text-align: center;
   text-decoration: none;
@@ -457,7 +507,8 @@ header button:hover:not(.active){
   opacity: 1;
   margin-top: .25em;
 }
-.seqInputNav .natNumForm input[type=checkbox]{
+
+.seqInputNav .natNumForm input[type=checkbox] {
   /* width: 1.5em;
   height: 1.5em; */
   width: 0;
@@ -468,7 +519,7 @@ header button:hover:not(.active){
 }
 
 /*Linear Recurrence Input*/
-.seqInputNav .linRecDef{
+.seqInputNav .linRecDef {
   /* visibility: hidden; */
   font-size: 0em;
   width: auto;
@@ -476,51 +527,57 @@ header button:hover:not(.active){
   transition: 0;
   margin-top: .5em;
 }
-.kRow .kLabel{
-    float: left;
-    width: 15%;
-    margin-left: 8em;
-    height: auto;
-    overflow: hidden;
-    visibility: hidden;
-    opacity: 1;
-    transition: 0.3s;
+
+.kRow .kLabel {
+  float: left;
+  width: 15%;
+  margin-left: 8em;
+  height: auto;
+  overflow: hidden;
+  visibility: hidden;
+  opacity: 1;
+  transition: 0.3s;
 }
-.kLabel li{
+
+.kLabel li {
   font-size: 2em;
   opacity: 1;
 }
-.kRow .kSelect{
-    float: left;
-    width: 20%;
-    height: auto;
-    margin-left: -0.5em;
-    margin-right: 1em;
-    margin-bottom: .5em;
-    visibility: hidden;
-    transition: 0;
-}
-.kRow:after {
-    content: "";
-    display: table;
-    clear: both;
+
+.kRow .kSelect {
+  float: left;
+  width: 20%;
+  height: auto;
+  margin-left: -0.5em;
+  margin-right: 1em;
+  margin-bottom: .5em;
+  visibility: hidden;
+  transition: 0;
 }
 
-.ListColumn{
-    float: left;
-    width: 15%;
-    height: auto;
-    margin-left: 2em;
-    overflow: hidden;
-    opacity: 1;
+.kRow:after {
+  content: "";
+  display: table;
+  clear: both;
 }
-.TextColumn{
-    float: left;
-    width: 15%;
-    height: auto;
-    overflow: hidden;
+
+.ListColumn {
+  float: left;
+  width: 15%;
+  height: auto;
+  margin-left: 2em;
+  overflow: hidden;
+  opacity: 1;
 }
-.TextColumn input[type=text]{
+
+.TextColumn {
+  float: left;
+  width: 15%;
+  height: auto;
+  overflow: hidden;
+}
+
+.TextColumn input[type=text] {
   height: 1.25em;
   padding: none;
   border: none;
@@ -533,11 +590,13 @@ header button:hover:not(.active){
   font-size: 1em;
   opacity: 1;
 }
-.ListColumn li{
+
+.ListColumn li {
   font-size: 0;
 }
+
 .linRecRow:after {
-    content: "";
-    display: table;
-    clear: both;
+  content: "";
+  display: table;
+  clear: both;
 }
