@@ -14,3 +14,4 @@ Things that need to get done:
 - Layout of the sketches acts weird when the browser is resized
 - A pause button to pause all the sketches 
 - builtin examples of sequence/tool pairings
+- some sort of testing environment to help when writing the modules

@@ -957,6 +957,10 @@ function drawClicked() {
   NScore.beginDraw(seqVizPairs);
 }
 
+function clearClicked() {
+  NScore.clearCanvasArea()
+}
+
 addDraw()
 addSeq()
 addTool()
