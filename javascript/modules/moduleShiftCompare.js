@@ -1,4 +1,4 @@
-class ShiftCompare_MODULE{
+class shiftCompare_VIZ{
 	constructor(config, seq, sketch){
 	    //Sketch is your canvas
 	    //config is the parameters you expect
@@ -76,6 +76,14 @@ class ShiftCompare_MODULE{
         
         this.sketch.image(this.img, 0, 0); // Display image to screen.this.sketch.line(50,50,100,100);
 	}
+}
+
+
+const ShiftCompare_MODULE = {
+	viz: shiftCompare_VIZ,
+	name: "Shift Compare",
+	description: "",
+	configSchema: {}
 }
 
 export default ShiftCompare_MODULE;

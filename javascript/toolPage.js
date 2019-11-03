@@ -1,20 +1,28 @@
+
+
 var logoColor = "#afafdc";
 var topBarColor = "#f75c03";
 var sideNavColor = "#416788";
 var sideNavColor2 = "#70cad1";
-var numSequences = 1;
-var numTools = 1;
-var numDraw = 1;
-var toolTypes = ["empty", "turtle", "gol", "shift", "finite"];
-var toolNames = ["empty", "Turtle Walk", "Game of Life", "Shift Comparison", "Finite Differences"];
-
-// var activeSequences = []
-// var activeTool = []
-
-const builtInNames = ["primes", "natural", "fibonacci", "lucas", "thueMorse", "recaman", "linRec"]
+var numSequences = 0;
+var numTools = 0;
+var numDraw = 0;
 const inputTypesNames = ["builtIn", "OEIS", "list", "code"]
-const moduleNames = ["turtle", "gameOfLife", "shiftCompare"]
+// const moduleKeys = ["empty", "turtle", "gameOfLife", "shiftCompare"]
 
+const moduleKeys = Object.keys( NScore.modules );
+const moduleNames =  moduleKeys.map( (key)=>NScore.modules[key].name )
+
+
+//alpha
+//change tool to show modules from NScore.modules programmtically
+//switch to 0 indexing
+//make parameters showable in tools
+
+//make OEIS and list inputs work
+//make other modules work
+
+const seqKeys = Object.keys(NScore.BuiltInSeqs)
 
 var currentSequence = {
   ID: undefined,
@@ -45,18 +53,15 @@ var currentSequence = {
     }
   },
   setParameters: function () {
-    if (this.inputValue == 'linRec') {
-      console.log(this)
-      this.parameters['seedList'] = []
-      this.parameters['coefficientList'] = []
-      a_list = []
-      for (let i = 0; i < 2; i++) {
-        this.parameters['seedList'].push(parseInt(document.getElementById('aList' + (i + 1) + '_' + this.ID).value))
-        this.parameters['coefficientList'].push(parseInt(document.getElementById('cList' + (i + 1) + '_' + this.ID).value))
-      }
-      console.log(this.parameters)
-    }
-    this.parameters['m'] = 5;
+    // console.log("setting parameters");
+    let currentForm = "#" + this.inputValue + "Params" + "Form" + this.ID
+    let collectedParameters = $(currentForm).serializeArray();
+    // console.log(currentForm);
+    // console.log(collectedParameters);
+    collectedParameters.forEach(
+      (formField) => this.parameters[formField.name] = formField.value
+    )
+    // console.log(this.parameters);
     // console.error("Not Implemented: parameters")
   },
   sendSequence: function () {
@@ -79,28 +84,46 @@ var currentSequence = {
   }
 }
 
+
+// Same principle as above
 var currentTool = {
   ID: undefined,
-  moduleName: undefined,
-  config: undefined,
+  moduleKey: undefined,
+  config: {},
   setID: function (n) {
     this.ID = n;
   },
   setModule: function (m) {
-    this.moduleName = moduleNames[m - 1];
+    this.moduleKey = moduleKeys[m];
     //this config is temporary
   },
   setConfig: function (config) {
-    this.config = config
+    let configID = "#" + this.moduleKey + "Config" + this.ID;
+    console.log("config id: ")
+    console.log(configID)
+    let collectedConfig = $(configID).serializeArray()
+    collectedConfig.forEach(
+      ( configField ) => this.config[configField.name] = configField.value
+    )
+    console.log("config: ")
+    console.log(this.config);
     // console.log("Not implemented");
   },
   sendModule: function () {
-    console.log("Sending module: " + this.moduleName)
+
+    // Pass to NScore, gets a return value that might be a possible error
+
+    console.log("Sending module: " + this.moduleKey)
     NScore.receiveModule(Object.assign({}, {
       ID: this.ID,
-      moduleName: this.moduleName,
+      moduleKey: this.moduleKey,
       config: this.config
     }))
+  },
+  refresh: function(){
+    this.ID = undefined;
+    this.moduleKey = undefined;
+    this.config = {};
   }
 };
 
@@ -178,9 +201,9 @@ function closeNav(n) {
 
 //Sequence Navigation Bars
 function openSeqNav(n) {
-  if (currentSequence.setType != undefined) {
+  if (currentSequence.inputType != undefined) {
     currentSequence.setValue();
-    currentSequence.setParameters(); //this temp, should get it from input box or something
+    currentSequence.setParameters(); 
     currentSequence.sendSequence();
   }
   currentSequence.refresh();
@@ -212,7 +235,7 @@ function openSeqNav(n) {
 function closeSeqNav(n) {
   //selection is considered finalized here
   //if statement causes bug when Linear Recurrence Option is selected
-  if (currentSequence.setType != undefined) {
+  if (currentSequence.inputType != undefined) {
     currentSequence.setValue();
     currentSequence.setParameters(); //this temp, should get it from input box or something
     currentSequence.sendSequence();
@@ -235,10 +258,50 @@ function openSeqInputNav(n, m) {
   if (m == 1) {
     let u = "builtInInputNav" + n;
     document.getElementById(u).style.width = "24em";
+    document.getElementById(u).style.padding = "8px";
     let v = "builtIn" + n;
     document.getElementById(v).style.background = topBarColor;
     document.getElementById(v).style.borderColor = topBarColor;
     document.getElementById(v).style.borderLeftColor = sideNavColor;
+
+    showBuiltInParams(n);
+    //attach correct form to u
+    // console.log(NScore.BuiltInSeqs[seqKeys[m]].params)
+    // $('#seqform1').jsonForm({
+    //   schema: {
+    //     MOD: {
+    //       type: 'number',
+    //       title: 'mod',
+    //       required: true
+    //     },
+    //     STUFF: {
+    //       type: 'number',
+    //       title: 'stuff1'
+    //     },
+    //     STUFF2: {
+    //       type: 'number',
+    //       title: 'stuff2'
+    //     },
+    //     BG_COLOR: {
+    //       type: 'string',
+    //       title: 'background color',
+    //       format: 'color'
+    //     },
+    //     STROKE_COLOR: {
+    //       type: 'string',
+    //       title: 'Line color',
+    //       format: 'color'
+    //     }
+    //   },
+    //   onSubmit: function (errors, values) {
+    //     if (errors) {
+    //       console.log("ERROR")
+    //     } else {
+    //       console.log("Resulting object: ")
+    //       console.log(values)
+    //     }
+    //   }
+    // });
 
     document.getElementById("OEIS" + n).style.borderLeftColor = logoColor;
     document.getElementById("list" + n).style.borderLeftColor = logoColor;
@@ -297,132 +360,45 @@ function openSeqInputNav(n, m) {
 
 function closeSeqInputNav(n, m) {
   if (m == 1) {
-    let f = "builtInInputNav" + n;
-    document.getElementById(f).style.width = "0";
-    let g = "builtIn" + n;
-    document.getElementById(g).style.background = logoColor;
-    document.getElementById(g).style.borderRightColor = logoColor;
-    document.getElementById(g).style.borderTopColor = logoColor;
-    document.getElementById(g).style.borderBottomColor = logoColor;
+    var f = "builtInInputNav" + n;
+    var g = "builtIn" + n;
   } else if (m == 2) {
-    let f = "oeisInputNav" + n;
-    document.getElementById(f).style.width = "0";
-    let g = "OEIS" + n;
-    document.getElementById(g).style.background = logoColor;
-    document.getElementById(g).style.borderRightColor = logoColor;
-    document.getElementById(g).style.borderTopColor = logoColor;
-    document.getElementById(g).style.borderBottomColor = logoColor;
+    var f = "oeisInputNav" + n;
+    var g = "OEIS" + n;
   } else if (m == 3) {
-    let f = "listInputNav" + n;
-    document.getElementById(f).style.width = "0";
-    let g = "list" + n;
-    document.getElementById(g).style.background = logoColor;
-    document.getElementById(g).style.borderRightColor = logoColor;
-    document.getElementById(g).style.borderTopColor = logoColor;
-    document.getElementById(g).style.borderBottomColor = logoColor;
+    var f = "listInputNav" + n;
+    var g = "list" + n;
   } else if (m == 4) {
-    let f = "codeInputNav" + n;
-    document.getElementById(f).style.width = "0";
-    let g = "code" + n;
-    document.getElementById(g).style.background = logoColor;
-    document.getElementById(g).style.borderRightColor = logoColor;
-    document.getElementById(g).style.borderTopColor = logoColor;
-    document.getElementById(g).style.borderBottomColor = logoColor;
+    var f = "codeInputNav" + n;
+    var g = "code" + n;
   }
+  document.getElementById(f).style.width = "0";
+  document.getElementById(f).style.padding = "0";
+  document.getElementById(g).style.background = logoColor;
+  document.getElementById(g).style.borderRightColor = logoColor;
+  document.getElementById(g).style.borderTopColor = logoColor;
+  document.getElementById(g).style.borderBottomColor = logoColor;
 }
 
 //Linear Recurrence
-function openLinRec(n) {
-  let linRecNumber = "builtInSelect" + n;
-  let curLinRecDef = "linRecDef" + n;
-  let curKLabel = "kLabel" + n;
-  let curKSelect = "kSelect" + n;
-  let curCTextCol = "cTextCol" + n;
-  let curATextCol = "aTextCol" + n;
-
-  let curCList = "";
-  let curCText = "";
-  let curAList = "";
-  let curAText = "";
-
-  if (document.getElementById(linRecNumber).value == "linRec") {
-    document.getElementById(curLinRecDef).style.fontSize = "2em";
-    document.getElementById(curLinRecDef).style.opacity = "1";
-    document.getElementById(curKLabel).style.opacity = "1";
-    document.getElementById(curKLabel).style.visibility = "visible";
-    document.getElementById(curKSelect).style.visibility = "visible";
-
-    let numK = document.getElementById(curKSelect).value;
-    for (let p = 1; p <= 10; p++) {
-      curCList = "cList" + p + "_" + n;
-      curCText = "cText" + p + "_" + n;
-      curAList = "aList" + p + "_" + n;
-      curAText = "aText" + p + "_" + n;
-      if (p <= numK) {
-        document.getElementById(curCList).style.fontSize = "2em";
-        document.getElementById(curAList).style.fontSize = "2em";
-        document.getElementById(curCList).style.opacity = "1";
-        document.getElementById(curAList).style.opacity = "1";
-
-        document.getElementById(curCText).style.opacity = "1";
-        document.getElementById(curAText).style.opacity = "1";
-        document.getElementById(curCText).style.visibility = "visible";
-        document.getElementById(curAText).style.visibility = "visible";
-      } else {
-        document.getElementById(curCList).style.fontSize = "0";
-        document.getElementById(curAList).style.fontSize = "0";
-        document.getElementById(curCList).style.opacity = "0";
-        document.getElementById(curAList).style.opacity = "0";
-
-        document.getElementById(curCText).style.opacity = "0";
-        document.getElementById(curAText).style.opacity = "0";
-        document.getElementById(curCText).style.visibility = "hidden";
-        document.getElementById(curAText).style.visibility = "hidden";
+function showBuiltInParams(n) {
+  let builtInSeqIndex = "builtInSelect" + n;
+  let choice = $("#" + builtInSeqIndex +" :selected").val();
+  let form =  $("#" + choice + "ParamsForm" + n);
+  form.show();
+  seqKeys.forEach(
+    function( key ){
+      if(key != choice){
+        closeBuiltInParams(n, key)
       }
     }
-  } else {
-    //// document.getElementById(curLinRecDef).style.visibility = "hidden";
-    document.getElementById(curLinRecDef).style.fontSize = "0";
-    document.getElementById(curLinRecDef).style.opacity = "0";
-    //// document.getElementById(curKLabel).style.fontSize = "0";
+  )
+  // Open form belonging to sequence
+}
 
-    document.getElementById(curKLabel).style.opacity = "0";
-    document.getElementById(curKLabel).style.visibility = "hidden";
-    document.getElementById(curKSelect).style.visibility = "hidden";
-    for (let p = 1; p <= 10; p++) {
-      curCList = "cList" + p + "_" + n;
-      curCText = "cText" + p + "_" + n;
-      curAList = "aList" + p + "_" + n;
-      curAText = "aText" + p + "_" + n;
-
-      document.getElementById(curCList).style.fontSize = "0";
-      document.getElementById(curAList).style.fontSize = "0";
-      document.getElementById(curCList).style.opacity = "0";
-      document.getElementById(curAList).style.opacity = "0";
-
-      document.getElementById(curCText).style.opacity = "0";
-      document.getElementById(curAText).style.opacity = "0";
-      document.getElementById(curCText).style.visibility = "hidden";
-      document.getElementById(curAText).style.visibility = "hidden";
-    }
-  }
-
-  let curNatForm = "natForm" + n;
-  let curNatCheck = "natCheck" + n;
-  if (document.getElementById(linRecNumber).value == "natural") {
-    document.getElementById(curNatForm).style.fontSize = "2em";
-    document.getElementById(curNatForm).style.opacity = "1";
-    document.getElementById(curNatCheck).style.opacity = "1";
-    document.getElementById(curNatCheck).style.width = "1.5em";
-    document.getElementById(curNatCheck).style.height = "1.5em";
-  } else {
-    document.getElementById(curNatForm).style.fontSize = "0";
-    document.getElementById(curNatForm).style.opacity = "0";
-    document.getElementById(curNatCheck).style.opacity = "0";
-    document.getElementById(curNatCheck).style.width = "0";
-    document.getElementById(curNatCheck).style.height = "0";
-  }
-
+function closeBuiltInParams(n, key){
+  let form =  $("#" + key + "ParamsForm" + n);
+  form.hide();
 }
 
 function extendLinRec(n) {
@@ -466,8 +442,6 @@ function extendLinRec(n) {
 //Tool Navigation Bars
 function openToolNav(n) {
   for (let i = 1; i <= numTools; i++) {
-    // let curToolNav = "toolNav" + i;
-    // document.getElementById(curToolNav).style.width = "0em";
     closeToolNav(i);
   }
   let selectedNav = "toolNav" + n;
@@ -484,6 +458,11 @@ function openToolNav(n) {
 }
 
 function closeToolNav(n) {
+  if( currentTool.moduleKey != undefined ){
+    currentTool.setConfig();
+    currentTool.sendModule();
+    currentTool.refresh();
+  }
   let selectedNav = "toolNav" + n;
   document.getElementById(selectedNav).style.width = "0";
   for (let i = 1; i <= numTools; i++) {
@@ -491,106 +470,46 @@ function closeToolNav(n) {
     document.getElementById(curTool).style.background = sideNavColor2;
   }
   for (let i = 1; i <= numTools; i++) {
-    for (let j = 1; j <= 3; j++) {
+    for (let j = 0; j < moduleKeys.length; j++) {
       closeToolInputNav(i, j);
     }
   }
 }
 
 function openToolInputNav(n, m) {
-  //Tool selection is made here
   currentTool.setID(n);
   currentTool.setModule(m);
-  currentTool.setConfig({
-    rotMap: {
-      0: -10,
-      1: 30,
-      2: 60,
-      3: 180,
-      4: -70
-    },
-    stepSize: 40 * n,
-    bgColor: 40 * n
-  })
-  currentTool.sendModule();
 
+  let u = moduleKeys[m] + "Config" + n;
+  document.getElementById(u).style.width = "24em";
+  document.getElementById(u).style.padding = "8px";
 
-  let v = toolTypes[m] + n;
+  let v = moduleKeys[m] + n;
   document.getElementById(v).style.background = topBarColor;
   document.getElementById(v).style.borderColor = topBarColor;
   document.getElementById(v).style.borderLeftColor = sideNavColor;
 
-  for (let r = 1; r < toolTypes.length; r++) {
+  for (let r = 0; r < moduleKeys.length; r++) {
     if (r != m) {
-      document.getElementById(toolTypes[r] + n).style.borderLeftColor = logoColor;
+      document.getElementById(moduleKeys[r] + n).style.borderLeftColor = logoColor;
       closeToolInputNav(n, r);
     }
   }
-
-  // if (m==1) {
-  //   let v = "turtle" + n;
-  //   document.getElementById(v).style.background = topBarColor;
-  //   document.getElementById(v).style.borderColor = topBarColor;
-  //   document.getElementById(v).style.borderLeftColor = sideNavColor;
-  //
-  //   document.getElementById("gol" + n).style.borderLeftColor = logoColor;
-  //   document.getElementById("shift" + n).style.borderLeftColor = logoColor;
-  //   document.getElementById("finite" + n).style.borderLeftColor = logoColor;
-  //
-  //   closeToolInputNav(n,2);
-  //   closeToolInputNav(n,3);
-  //   closeToolInputNav(n,4);
-  // }
-  // else if (m==2) {
-  //   let v = "gol" + n;
-  //   document.getElementById(v).style.background = topBarColor;
-  //   document.getElementById(v).style.borderColor = topBarColor;
-  //   document.getElementById(v).style.borderLeftColor = sideNavColor;
-  //
-  //   document.getElementById("turtle" + n).style.borderLeftColor = logoColor;
-  //   document.getElementById("shift" + n).style.borderLeftColor = logoColor;
-  //   document.getElementById("finite" + n).style.borderLeftColor = logoColor;
-  //
-  //   closeToolInputNav(n,1);
-  //   closeToolInputNav(n,3);
-  //   closeToolInputNav(n,4);
-  // }
-  // else if (m==3) {
-  //   let v = "shift" + n;
-  //   document.getElementById(v).style.background = topBarColor;
-  //   document.getElementById(v).style.borderColor = topBarColor;
-  //   document.getElementById(v).style.borderLeftColor = sideNavColor;
-  //
-  //   document.getElementById("turtle" + n).style.borderLeftColor = logoColor;
-  //   document.getElementById("gol" + n).style.borderLeftColor = logoColor;
-  //   document.getElementById("finite" + n).style.borderLeftColor = logoColor;
-  //
-  //   closeToolInputNav(n,1);
-  //   closeToolInputNav(n,2);
-  //   closeToolInputNav(n,4);
-  // }
-  // else if (m==4) {
-  //   let v = "finite" + n;
-  //   document.getElementById(v).style.background = topBarColor;
-  //   document.getElementById(v).style.borderColor = topBarColor;
-  //   document.getElementById(v).style.borderLeftColor = sideNavColor;
-  //
-  //   document.getElementById("turtle" + n).style.borderLeftColor = logoColor;
-  //   document.getElementById("gol" + n).style.borderLeftColor = logoColor;
-  //   document.getElementById("shift" + n).style.borderLeftColor = logoColor;
-  //
-  //   closeToolInputNav(n,1);
-  //   closeToolInputNav(n,2);
-  //   closeToolInputNav(n,3);
-  // }
+  $("#" + u).show()
 }
 
 function closeToolInputNav(n, m) {
-  let g = toolTypes[m] + n;
-  document.getElementById(g).style.background = logoColor;
-  document.getElementById(g).style.borderRightColor = logoColor;
-  document.getElementById(g).style.borderTopColor = logoColor;
-  document.getElementById(g).style.borderBottomColor = logoColor;
+  let u = moduleKeys[m] + "Config" + n;
+  document.getElementById(u).style.width = "0";
+  document.getElementById(u).style.padding = "0";
+  $("#" + u).hide()
+
+
+  let v = moduleKeys[m] + n;
+  document.getElementById(v).style.background = logoColor;
+  document.getElementById(v).style.borderRightColor = logoColor;
+  document.getElementById(v).style.borderTopColor = logoColor;
+  document.getElementById(v).style.borderBottomColor = logoColor;
 }
 
 //Add Functions
@@ -683,9 +602,9 @@ function addSeq() {
     ///////////////////////////////////////////////
     //Create Built In Functions Input Nav
     newNav = document.createElement("div");
+    newNav.setAttribute("class", "seqInputNav");
     newId = "builtInInputNav" + numSequences;
     newNav.setAttribute("id", newId);
-    newNav.setAttribute("class", "seqInputNav");
 
     a = document.createElement('a');
     let closeId = "builtInCloseBtn" + numSequences;
@@ -701,166 +620,41 @@ function addSeq() {
     a = document.createElement('select');
     let selectId = "builtInSelect" + numSequences;
     a.setAttribute("id", selectId);
-    fctCall = "openLinRec(n=" + numSequences + ")";
+    fctCall = "showBuiltInParams(n=" + numSequences + ")";
     a.setAttribute("onchange", fctCall);
 
-    //create options
-    let builtInOptions = ["primes", "natural", "fibonacci",
-      "lucas", "thueMorse", "recaman", "linRec"
-    ];
-    let builtInOptionNames = ["Prime Numbers", "Natural Numbers",
-      "Fibonacci Numbers", "Lucas Numbers", "Thue-Morse", "Recaman", "Linear Recurrence"
-    ];
-
-    for (let q = 0; q < builtInOptions.length; q++) {
+    // seqKeys = Object.keys(NScore.BuiltInSeqs)
+    for (let q = 0; q < seqKeys.length; q++) {
       let curOption = document.createElement('option');
-      curOption.setAttribute("value", builtInOptions[q]);
-      curOption.innerHTML = builtInOptionNames[q];
+      curOption.setAttribute("value", seqKeys[q]);
+      curOption.innerHTML = NScore.BuiltInSeqs[seqKeys[q]].name;
       if (q == 0) {
         curOption.selected = true;
       }
       a.appendChild(curOption);
     }
-
     newNav.appendChild(a);
+    
+    
+    //some form class here
 
-    //Create Natural Number checkbox
-    a = document.createElement('form');
-    let formId = "natForm" + numSequences;
-    a.setAttribute("id", formId);
-    a.setAttribute("class", "natNumForm");
-
-    let newNatCheck = document.createElement('input');
-    let natCheckId = "natCheck" + numSequences;
-    newNatCheck.setAttribute("id", natCheckId);
-    newNatCheck.setAttribute("type", "checkbox");
-    newNatCheck.setAttribute("value", "include0");
-    a.appendChild(newNatCheck);
-
-    let newNatLabel = document.createElement('label');
-    newNatLabel.setAttribute("for", natCheckId);
-    newNatLabel.innerHTML = " Include 0";
-    a.appendChild(newNatLabel);
-
-    let linebreak = document.createElement("br");
-    a.appendChild(linebreak);
-
-    newNav.appendChild(a);
-
-    //create Linear Recurrence Nav
-    a = document.createElement('li');
-    let newLinRecDefId = "linRecDef" + numSequences;
-    a.setAttribute("id", newLinRecDefId);
-    a.setAttribute("class", "linRecDef");
-    a.innerHTML = "a<sub>n</sub> = c<sub>1</sub>a<sub>n-1</sub> + ... + c<sub>k</sub>a<sub>n-k</sub>";
-    newNav.appendChild(a);
-    ////////////////////////////
-    let newKRow = document.createElement('div');
-    newKRow.setAttribute("class", "kRow");
-    //
-    let newKLabelDiv = document.createElement('div');
-    newKLabelDiv.setAttribute("class", "kLabel");
-    let kLabelLi = document.createElement('li');
-    let kLabelId = "kLabel" + numSequences;
-    kLabelLi.setAttribute("id", kLabelId);
-    kLabelLi.innerHTML = " k =";
-    newKLabelDiv.appendChild(kLabelLi);
-
-    newKRow.appendChild(newKLabelDiv);
-    //
-    let newKSelectDiv = document.createElement('div');
-    newKSelectDiv.setAttribute("class", "kSelect");
-
-    let kSelect = document.createElement('select');
-    let kSelectId = "kSelect" + numSequences;
-    kSelect.setAttribute("id", kSelectId);
-    fctCall = "extendLinRec(n=" + numSequences + ")";
-    kSelect.setAttribute("onchange", fctCall);
-
-    for (let h = 1; h <= 10; h++) {
-      let curKOption = document.createElement('option');
-      curKOption.setAttribute("value", h);
-      curKOption.innerHTML = h;
-      if (h == 2) {
-        curKOption.selected = true;
+    seqKeys.forEach(
+      function(key){
+        newForm = document.createElement("form");
+        newFormId = key + "ParamsForm" + numSequences;
+        newForm.setAttribute("id", newFormId)
+        newNav.appendChild(newForm)
       }
-      kSelect.appendChild(curKOption);
-    }
+    )
 
-    newKSelectDiv.appendChild(kSelect)
-
-    newKRow.appendChild(newKSelectDiv);
-    //
-    newNav.appendChild(newKRow);
-    //////////////////////////////////////
-    let newLinRecDiv = document.createElement('div');
-    newLinRecDiv.setAttribute("class", "linRecRow");
-    //
-    let newCListDiv = document.createElement('div');
-    newCListDiv.setAttribute("class", "ListColumn");
-
-    for (let aa = 1; aa <= 10; aa++) {
-      let curCList = document.createElement('li');
-      let curCListId = "cList" + aa + "_" + numSequences;
-      curCList.setAttribute("id", curCListId);
-      let curCListHTML = " c<sub>" + aa + "</sub> : ";
-      curCList.innerHTML = curCListHTML;
-      newCListDiv.appendChild(curCList);
-    }
-
-    newLinRecDiv.appendChild(newCListDiv);
-    //
-    let newCTextDiv = document.createElement('div');
-    newCTextDiv.setAttribute("class", "TextColumn");
-
-    for (let ab = 1; ab <= 10; ab++) {
-      let curCText = document.createElement('input');
-      curCText.setAttribute("type", "text");
-      let curCTextId = "cText" + ab + "_" + numSequences;
-      curCText.setAttribute("id", curCTextId);
-      newCTextDiv.appendChild(curCText);
-
-      let cTextlinebreak = document.createElement("br");
-      newCTextDiv.appendChild(cTextlinebreak);
-    }
-
-    newLinRecDiv.appendChild(newCTextDiv);
-    //
-    let newAListDiv = document.createElement('div');
-    newAListDiv.setAttribute("class", "ListColumn");
-
-    for (let ac = 1; ac <= 10; ac++) {
-      let curAList = document.createElement('li');
-      let curAListId = "aList" + ac + "_" + numSequences;
-      curAList.setAttribute("id", curAListId);
-      let acc = ac - 1;
-      let curAListHTML = " a<sub>" + acc + "</sub> : ";
-      curAList.innerHTML = curAListHTML;
-      newAListDiv.appendChild(curAList);
-    }
-
-    newLinRecDiv.appendChild(newAListDiv);
-    //
-    let newATextDiv = document.createElement('div');
-    newATextDiv.setAttribute("class", "TextColumn");
-
-    for (let ad = 1; ad <= 10; ad++) {
-      let curAText = document.createElement('input');
-      curAText.setAttribute("type", "text");
-      let curATextId = "aText" + ad + "_" + numSequences;
-      curAText.setAttribute("id", curATextId);
-      newATextDiv.appendChild(curAText);
-
-      let aTextlinebreak = document.createElement("br");
-      newATextDiv.appendChild(aTextlinebreak);
-    }
-
-    newLinRecDiv.appendChild(newATextDiv);
-    //
-    newNav.appendChild(newLinRecDiv);
-    ////////////////////////////////////////
+    // newFormId = "builtInInputForm" + numSequences;
+    // newForm.setAttribute("id", newFormId)
+    // $('#builtInInputForm' + numSequences).jsonForm({
+    //   schema: NScore.BuiltInSeqs[seqKeys[m]].params
+    // })
+    // newNav.appendChild(newForm)
+    
     document.getElementById("builtInInputNavs").append(newNav);
-
     //Create OEIS Input Nav
     newNav = document.createElement("div");
     newId = "oeisInputNav" + numSequences;
@@ -944,6 +738,15 @@ function addSeq() {
     newNav.appendChild(a);
 
     document.getElementById("codeInputNavs").append(newNav);
+    seqKeys.forEach(
+      function(key){
+        newFormId = key + "ParamsForm" + numSequences;
+        $("#"+newFormId).jsonForm({
+          schema: NScore.BuiltInSeqs[key].params
+        })
+        $("#"+newFormId).hide()
+      }
+    )
   }
 }
 
@@ -993,55 +796,39 @@ function addTool() {
       newNav.appendChild(a);
 
 
-      for (let j = 1; j < toolTypes.length; j++) {
+      for (let j = 0; j < moduleKeys.length; j++) {
         let curLink = document.createElement('a');
-        let curId = toolTypes[j] + numTools;
+        let curId = moduleKeys[j] + numTools;
         curLink.setAttribute("id", curId);
         curLink.setAttribute("href", "#");
         fctCall = "openToolInputNav(n=" + numTools + ",m=" + j + ")";
         curLink.setAttribute("onclick", fctCall);
-        curLink.innerHTML = toolNames[j];
+        curLink.innerHTML = moduleNames[j];
         newNav.appendChild(curLink);
+
+        toolInputNav = document.createElement("form");
+        toolInputNav.setAttribute("class", "seqInputNav");
+        newConfigId = moduleKeys[j] + "Config" + numTools;
+        toolInputNav.setAttribute("id", newConfigId);
+
+        a = document.createElement('a');
+        let closeId = "ToolInputCloseBtn" + numSequences;
+        a.setAttribute("id", closeId);
+        a.setAttribute("href", "javascript:void(0)");
+        a.setAttribute("class", "closebtn");
+        fctCall = "closeToolInputNav(n=" + numTools + ",m=" + j + ")";
+        a.setAttribute("onclick", fctCall);
+        a.innerHTML = "&#171";
+        toolInputNav.appendChild(a);
+
+        var body = document.getElementsByTagName("body")[0];
+        body.appendChild(toolInputNav);
+        $("#"+newConfigId).jsonForm({
+          schema: NScore.modules[ moduleKeys[j] ].configSchema
+        })
+        // $("#" + newConfigId).hide()
+        
       }
-      //Turtle Walk Link
-      // let turtleLink = document.createElement('a');
-      // let turtleId = "turtle" + numTools;
-      // turtleLink.setAttribute("id", turtleId);
-      // turtleLink.setAttribute("href", "#");
-      // fctCall = "openToolInputNav(n=" + numTools + ",m=1)";
-      // turtleLink.setAttribute("onclick", fctCall);
-      // turtleLink.innerHTML = "Turtle Walk";
-      // newNav.appendChild(turtleLink);
-      //
-      // //Game of Life Link
-      // let golLink = document.createElement('a');
-      // let golId = "gol" + numTools;
-      // golLink.setAttribute("id", golId);
-      // golLink.setAttribute("href", "#");
-      // fctCall = "openToolInputNav(n=" + numTools + ",m=2)";
-      // golLink.setAttribute("onclick", fctCall);
-      // golLink.innerHTML = "Game of Life";
-      // newNav.appendChild(golLink);
-      //
-      // //Shift Comparision Link
-      // let shiftLink = document.createElement('a');
-      // let shiftId = "shift" + numTools;
-      // shiftLink.setAttribute("id", shiftId);
-      // shiftLink.setAttribute("href", "#");
-      // fctCall = "openToolInputNav(n=" + numTools + ",m=3)";
-      // shiftLink.setAttribute("onclick", fctCall);
-      // shiftLink.innerHTML = "Shift Comparision";
-      // newNav.appendChild(shiftLink);
-      //
-      // //Finite Differences Link
-      // let finiteLink = document.createElement('a');
-      // let finiteId = "finite" + numTools;
-      // finiteLink.setAttribute("id", finiteId);
-      // finiteLink.setAttribute("href", "#");
-      // fctCall = "openToolInputNav(n=" + numTools + ",m=4)";
-      // finiteLink.setAttribute("onclick", fctCall);
-      // finiteLink.innerHTML = "Finite Differences";
-      // newNav.appendChild(finiteLink);
 
       document.getElementById("toolNavs").append(newNav);
     }
@@ -1170,38 +957,9 @@ function drawClicked() {
   NScore.beginDraw(seqVizPairs);
 }
 
-$('#form2').jsonForm({
-  schema: {
-    MOD: {
-      type: 'number',
-      title: 'mod',
-      required: true
-    },
-    STUFF: {
-      type: 'number',
-      title: 'stuff1'
-    },
-    STUFF2: {
-      type: 'number',
-      title: 'stuff2'
-    },
-    BG_COLOR: {
-      type: 'string',
-      title: 'background color',
-      format: 'color'
-    },
-    STROKE_COLOR: {
-      type: 'string',
-      title: 'Line color',
-      format: 'color'
-    }
-  },
-  onSubmit: function (errors, values) {
-    if (errors) {
-      console.log("ERROR")
-    } else {
-      console.log("Resulting object: ")
-      console.log(values)
-    }
-  }
-});
+addDraw()
+addSeq()
+addTool()
+openNav(1)
+openSeqNav(1)
+openSeqInputNav(1,1)

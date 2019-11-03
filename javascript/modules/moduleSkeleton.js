@@ -3,21 +3,36 @@
 //An example module
 
 
-class Example_MODULE{
+class Empty_VIZ{
+	/**
+	 *Creates an instance of Empty_MODULE.
+	 * @param {*} config this will hold an 
+	 * @param {*} seq
+	 * @param {*} sketch
+	 * @memberof Empty_MODULE
+	 */
 	constructor(config, seq, sketch){
-	//Sketch is your canvas
-	//config is the parameters you expect
-	//seq is the sequence you are drawing
-
-	//you can define what you want here
 	this.width = sketch.width
 	this.height = sketch.height
 	}
-	//define whatever functions you want
-	setup(){	//This will be called once
-		//runs once
+	setup(){	
+		//will be called once
 	}
-	draw(){		//This will be called everytime to draw
-		//this runs repeatedly
+	draw(){		
+		//you should probably call seq.getElement(n) here
 	}
 }
+
+Empty_SCHEMA = {
+	
+}
+
+
+const Empty_MODULE = {
+	viz: Empty_VIZ,
+	name: "",
+	description: "",
+	configSchema: Empty_SCHEMA
+}
+
+export default Empty_MODULE

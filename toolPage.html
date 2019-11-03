@@ -5,7 +5,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, intial-scale=1.0">
   <title>NUMBERSCOPE</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="./css/toolPage.css">
+  import
 </head>
 
 <body>
@@ -24,8 +26,8 @@
   </div>
 
   <div id="sideNav" class="sideNav">
-    <a id="logo" href="../homepage/homepage.html"> <img src="resources/logo.png" alt="Logo" width="167" height="34">
-    </a>
+    <!-- <a id="logo" href="../homepage/homepage.html"> <img src="resources/logo.png" alt="Logo" width="167" height="34">
+    </a> -->
     <span id="exNavBtn" style="font-size:30px;cursor:pointer" onclick="openExNav()"> &#9776; Examples </span>
     <a id="step1"> <img class="icon" src="resources/toolpage/seq.png" alt="Sequence" width="168" height="73"
         onclick="openNav(n=1)"> </a>
@@ -38,37 +40,29 @@
   <div id="step1Nav" class="stepNav">
     <a id="step1CloseBtn" href="javascript:void(0)" class="stepClosebtn" onclick="closeNav(n=1)">&#171; </a>
     <a id="addSeqBtn" href="#" class="stepAddbtn" onclick="addSeq()">+</a>
-    <a id="seq1" href="#" onclick="openSeqNav(n=1)">{a<sub>n</sub>}</a>
+    <!-- <a id="seq1" href="#" onclick="openSeqNav(n=1)">{a<sub>n</sub>}</a> -->
   </div>
   <div id="step2Nav" class="stepNav">
     <a id="step2CloseBtn" href="javascript:void(0)" class="stepClosebtn" onclick="closeNav(n=2)">&#171; </a>
     <a href="#" class="stepAddbtn" onclick="addTool()">+</a>
-    <a id="tool1" href="#" onclick="openToolNav(n=1)">Tool 1</a>
+    <!-- <a id="tool1" href="#" onclick="openToolNav(n=1)">Tool 1</a> -->
   </div>
   <div id="step3Nav" class="stepNav">
     <a id="step3CloseBtn" href="javascript:void(0)" class="stepClosebtn" onclick="closeNav(n=3)">&#171; </a>
     <a href="#" class="stepAddbtn" onclick="addDraw()">+</a>
 
-    <div class="row">
+    <!-- ROW class capitalized to not conflict with bootstrap -->
+    <div class="ROW">
       <div id="drawListNum" class="numColumn">
-        <a id="drawNum1" href="#">1.</a>
       </div>
       <div id="drawSeqList" class="mainColumn">
-        <select id="selectSeq1">
-          <option value="1" selected>{a<sub>n</sub>}</option>
-        </select>
       </div>
       <div id="drawToolList" class="mainColumn">
-        <select id="selectTool1">
-          <option value="1" selected>Tool 1</option>
-        </select>
       </div>
       <div id="drawRemoveBtns" class="xColumn">
-        <a id="drawRemove1" onclick="removeDraw(n=1)" href="#">&times</a>
       </div>
+      <a id="draw1" href="#" onclick="drawClicked()">Draw!</a>
     </div>
-
-    <a id="draw1" href="#" onclick="drawClicked()">Draw!</a>
   </div>
 
   <div id="canvasArea">
@@ -76,203 +70,44 @@
 
   <!--Sequence Navs-->
   <div id="seqNavs">
-    <div id="seqNav1" class="selectNav">
-      <a id="seqCloseBtn1" href="javascript:void(0)" class="selectClosebtn" onclick="closeSeqNav(n=1)">&#171; </a>
-
-      <!-- <div class="seqNameRow">
-          <div class="seqNameText">
-            <li>Name:</li>
-          </div>
-          <div class="seqNameInput">
-            <textarea></textarea>
-          </div>
-        </div> -->
-      <!-- <form>
-          Name: <input type="text"><br>
-        </form> -->
-
-      <a id="builtIn1" href="#" onclick="openSeqInputNav(n=1,m=1)">Built In Sequences</a>
-      <a id="OEIS1" href="#" onclick="openSeqInputNav(n=1,m=2)"> OEIS Number</a>
-      <a id="list1" href="#" onclick="openSeqInputNav(n=1,m=3)"> List</a>
-      <a id="code1" href="#" onclick="openSeqInputNav(n=1,m=4)">Sage Code</a>
-    </div>
   </div>
 
   <!--Sequence Input Options-->
   <div id="builtInInputNavs">
-    <div id="builtInInputNav1" class="seqInputNav">
-      <a id="builtInCloseBtn1" href="javascript:void(0)" class="closebtn" onclick="closeSeqInputNav(n=1,m=1)">&#171;
-      </a>
-      <!-- <li>Built In Sequences </li> -->
-      <select id="builtInSelect1" onchange="openLinRec(n=1)">
-        <option value="primes" selected>Prime Numbers</option>
-        <option value="natural">Natural Numbers</option>
-        <option value="fibonacci">Fibonacci Numbers</option>
-        <option value="lucas">Lucas Numbers</option>
-        <option value="thueMorse">Thue-Morse</option>
-        <option value="recaman">Recaman</option>
-        <option value="linRec">Linear Recurrence</option>
-      </select>
-
-      <form id="natForm1" class="natNumForm">
-        <input id="natCheck1" type="checkbox" value="include0"></input>
-        <label for="natCheck1">Include 0</label>
-        <br>
-      </form>
-      <form id="form2"></form>
-      <li id="linRecDef1" class="linRecDef">a<sub>n</sub> = c<sub>1</sub>a<sub>n-1</sub> + ... +
-        c<sub>k</sub>a<sub>n-k</sub></li>
-
-      <div class="kRow">
-        <div class="kLabel">
-          <li id="kLabel1"> k =</li>
-        </div>
-        <div class="kSelect">
-          <select id="kSelect1" onchange="extendLinRec(n=1)">
-            <option value="1">1</option>
-            <option value="2" selected>2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="linRecRow">
-        <div class="ListColumn">
-          <li id="cList1_1"> c<sub>1</sub> : </li>
-          <li id="cList2_1"> c<sub>2</sub> : </li>
-          <li id="cList3_1"> c<sub>3</sub> : </li>
-          <li id="cList4_1"> c<sub>4</sub> : </li>
-          <li id="cList5_1"> c<sub>5</sub> : </li>
-          <li id="cList6_1"> c<sub>6</sub> : </li>
-          <li id="cList7_1"> c<sub>7</sub> : </li>
-          <li id="cList8_1"> c<sub>8</sub> : </li>
-          <li id="cList9_1"> c<sub>9</sub> : </li>
-          <li id="cList10_1"> c<sub>10</sub> : </li>
-        </div>
-
-        <div class="TextColumn">
-          <!-- <input type="text" id="cText1_1"></br>
-            <textarea id="cText2_1"></textarea>
-            <textarea id="cText3_1"></textarea>
-            <textarea id="cText4_1"></textarea>
-            <textarea id="cText5_1"></textarea>
-            <textarea id="cText6_1"></textarea>
-            <textarea id="cText7_1"></textarea>
-            <textarea id="cText8_1"></textarea>
-            <textarea id="cText9_1"></textarea>
-            <textarea id="cText10_1"></textarea> -->
-
-          <input type="text" id="cText1_1"></br>
-          <input type="text" id="cText2_1"></br>
-          <input type="text" id="cText3_1"></br>
-          <input type="text" id="cText4_1"></br>
-          <input type="text" id="cText5_1"></br>
-          <input type="text" id="cText6_1"></br>
-          <input type="text" id="cText7_1"></br>
-          <input type="text" id="cText8_1"></br>
-          <input type="text" id="cText9_1"></br>
-          <input type="text" id="cText10_1"></br>
-        </div>
-
-        <div class="ListColumn">
-          <li id="aList1_1"> a<sub>0</sub> : </li>
-          <li id="aList2_1"> a<sub>1</sub> : </li>
-          <li id="aList3_1"> a<sub>2</sub> : </li>
-          <li id="aList4_1"> a<sub>3</sub> : </li>
-          <li id="aList5_1"> a<sub>4</sub> : </li>
-          <li id="aList6_1"> a<sub>5</sub> : </li>
-          <li id="aList7_1"> a<sub>6</sub> : </li>
-          <li id="aList8_1"> a<sub>7</sub> : </li>
-          <li id="aList9_1"> a<sub>8</sub> : </li>
-          <li id="aList10_1"> a<sub>9</sub> : </li>
-        </div>
-
-        <div class="TextColumn">
-          <!-- <textarea id="aText1_1"></textarea>
-            <textarea id="aText2_1"></textarea>
-            <textarea id="aText3_1"></textarea>
-            <textarea id="aText4_1"></textarea>
-            <textarea id="aText5_1"></textarea>
-            <textarea id="aText6_1"></textarea>
-            <textarea id="aText7_1"></textarea>
-            <textarea id="aText8_1"></textarea>
-            <textarea id="aText9_1"></textarea>
-            <textarea id="aText10_1"></textarea> -->
-
-          <input type="text" id="aText1_1"></br>
-          <input type="text" id="aText2_1"></br>
-          <input type="text" id="aText3_1"></br>
-          <input type="text" id="aText4_1"></br>
-          <input type="text" id="aText5_1"></br>
-          <input type="text" id="aText6_1"></br>
-          <input type="text" id="aText7_1"></br>
-          <input type="text" id="aText8_1"></br>
-          <input type="text" id="aText9_1"></br>
-          <input type="text" id="aText10_1"></br>
-        </div>
-      </div>
-    </div>
   </div>
 
   <div id="oeisInputNavs">
-    <div id="oeisInputNav1" class="seqInputNav">
-      <a id="oeisCloseBtn1" href="javascript:void(0)" class="closebtn" onclick="closeSeqInputNav(n=1,m=2)">&#171; </a>
-      <li>OEIS Number: </li>
-      <textarea id="oeisNum1" class="oeisNum" maxlength="7"></textarea>
-    </div>
   </div>
 
   <div id="listInputNavs">
-    <div id="listInputNav1" class="seqInputNav">
-      <a id="listCloseBtn1" href="javascript:void(0)" class="closebtn" onclick="closeSeqInputNav(n=1,m=3)">&#171; </a>
-      <li>List:</li>
-      <textarea id="listText1" placeholder="1,2,3,4,5,..."></textarea>
-    </div>
   </div>
 
   <div id="codeInputNavs">
-    <div id="codeInputNav1" class="seqInputNav">
-      <a id="listCloseBtn1" href="javascript:void(0)" class="closebtn" onclick="closeSeqInputNav(n=1,m=4)">&#171; </a>
-      <li>Code:</li>
-      <textarea id="codeText1"></textarea>
-    </div>
   </div>
 
   <!--Tool Navs-->
   <div id="toolNavs">
-    <div id="toolNav1" class="selectNav">
-      <a id="toolCloseBtn1" href="javascript:void(0)" class="selectClosebtn" onclick="closeToolNav(n=1)">&#171; </a>
-      <a id="turtle1" href="#" onclick="openToolInputNav(n=1,m=1)">Turtle Walk</a>
-      <a id="gol1" href="#" onclick="openToolInputNav(n=1,m=2)">Game of Life</a>
-      <a id="shift1" href="#" onclick="openToolInputNav(n=1,m=3)">Shift Comparison</a>
-      <a id="finite1" href="#" onclick="openToolInputNav(n=1,m=4)">Finite Differences</a>
-    </div>
   </div>
+<!-- 
+  <div id="toolConfigNav">
+
+  </div> -->
 
   <!--Tool Input Navs-->
 
 
 
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.js" defer></script>
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.js"></script>
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.css"
     defer>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js" defer> </script>
-  <script src="https://cdn.jsdelivr.net/npm/jsonform@2.1.3/lib/jsonform.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"> </script>
+  <script src="https://cdn.jsdelivr.net/npm/jsonform@2.1.3/lib/jsonform.min.js"></script> 
 
-  <script src="javascript/lib/loadjs.min.js"></script>
-  <script src="javascript/modules/modules.js" type="module" defer> </script>
-  <script src="javascript/toolpage/NScore.js" type="module" defer> </script>
-  <script src="javascript/toolpage/toolPage.js" defer> </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.min.js"></script>
+  <script type="module" src="javascript/core/NScore.js"></script>
+  <script src="javascript/toolPage.js" defer></script>
 
   <!-- comment below out when not testing -->
   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jasmine/3.4.0/jasmine.min.css"></script>
@@ -281,6 +116,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/3.4.0/boot.min.js"></script>
     <script src="javascript/tests/sequenceTests.js" type="module"></script>
     <script src="javascript/tests/NScoreTests.js" type="module"></script> -->
+
 </body>
 
 </html>
