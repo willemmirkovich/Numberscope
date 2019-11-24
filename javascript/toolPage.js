@@ -12,16 +12,6 @@ const inputTypesNames = ["builtIn", "OEIS", "list", "code"]
 
 const moduleKeys = Object.keys( NScore.modules );
 const moduleNames =  moduleKeys.map( (key)=>NScore.modules[key].name )
-
-
-//alpha
-//change tool to show modules from NScore.modules programmtically
-//switch to 0 indexing
-//make parameters showable in tools
-
-//make OEIS and list inputs work
-//make other modules work
-
 const seqKeys = Object.keys(NScore.BuiltInSeqs)
 
 var currentSequence = {
@@ -44,8 +34,8 @@ var currentSequence = {
       console.error("Not Implemented: " + this.inputType + " input")
     }
     if (this.inputType == "list") {
-      this.inputValue = undefined;
-      console.error("Not Implemented: " + this.inputType + " input")
+      this.inputValue = "[" + document.getElementById("listText" + this.ID).value + "]";
+      // console.error("Not Implemented: " + this.inputType + " input")
     }
     if (this.inputType == "code") {
       this.inputValue = undefined;
@@ -53,16 +43,13 @@ var currentSequence = {
     }
   },
   setParameters: function () {
-    // console.log("setting parameters");
-    let currentForm = "#" + this.inputValue + "Params" + "Form" + this.ID
-    let collectedParameters = $(currentForm).serializeArray();
-    // console.log(currentForm);
-    // console.log(collectedParameters);
-    collectedParameters.forEach(
-      (formField) => this.parameters[formField.name] = formField.value
-    )
-    // console.log(this.parameters);
-    // console.error("Not Implemented: parameters")
+    if (this.inputType == "builtIn"){
+      let currentForm = "#" + this.inputValue + "Params" + "Form" + this.ID
+      let collectedParameters = $(currentForm).serializeArray();
+      collectedParameters.forEach(
+        (formField) => this.parameters[formField.name] = formField.value
+      )
+    }
   },
   sendSequence: function () {
     if (this.inputValue == undefined) {
@@ -675,12 +662,25 @@ function addSeq() {
     newli.innerHTML = "OEIS Number: ";
     newNav.appendChild(newli);
 
-    newText = document.createElement("textarea");
+    // newText = document.createElement("textarea");
+    // newId = "oeisNum" + numSequences;
+    // newText.setAttribute("id", newId);
+    // newText.setAttribute("class", "oeisNum");
+    // newText.setAttribute("maxlength", "7");
+    oeisSelection = document.createElement('select');
     newId = "oeisNum" + numSequences;
-    newText.setAttribute("id", newId);
-    newText.setAttribute("class", "oeisNum");
-    newText.setAttribute("maxlength", "7");
-    newNav.appendChild(newText);
+    oeisSelection.setAttribute("id", newId);
+    for (let q = 0; q < NScore.validOEIS.length; q++) {
+      let curOption = document.createElement('option');
+      curOption.setAttribute("value", NScore.validOEIS[q]);
+      curOption.innerHTML = NScore.validOEIS[q];
+      if (q == 0) {
+        curOption.selected = true;
+      }
+      oeisSelection.appendChild(curOption);
+    }
+    newNav.appendChild(oeisSelection);
+
 
     document.getElementById("oeisInputNavs").append(newNav);
 

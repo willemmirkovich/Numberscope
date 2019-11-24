@@ -1,5 +1,6 @@
 
-import { BuiltInSeqs } from './Sequence.js'
+import { BuiltInSeqs, ListToSeq } from './Sequence.js'
+import {VALIDOEIS} from './validOEIS.js'
 import MODULES from '../modules/modules.js'
 
 
@@ -8,7 +9,8 @@ function stringToArray( strArr ){
 }
 
 export const NScore = function () {
-	var modules = MODULES //  classes to the drawing modules 
+	const modules = MODULES //  classes to the drawing modules 
+	const validOEIS = VALIDOEIS
 	var preparedSequences = []; // sequenceGenerators to be drawn
 	var preparedTools = []; // chosen drawing modules 
 	var liveSketches = []; // p5 sketches being drawn
@@ -107,7 +109,13 @@ export const NScore = function () {
 				console.error("Not Implemented");
 			}
 			if (seqObj.inputType == "list") {
-				console.error("Not Implemented");
+				try {
+					let list = JSON.parse( seqObj.inputValue )
+					preparedSequences[seqObj.ID] = ListToSeq( seqObj.ID, list )
+				}
+				catch(err){
+					console.error("Error initializing seq from list: " + err)
+				}
 			}
 			if (seqObj.inputType == "code") {
 				console.error("Not Implemented");
@@ -165,6 +173,7 @@ export const NScore = function () {
 		preparedSequences: preparedSequences,
 		preparedTools: preparedTools,
 		modules: modules,
+		validOEIS: validOEIS,
 		BuiltInSeqs: BuiltInSeqs
 	}
 }()

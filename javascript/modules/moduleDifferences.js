@@ -16,13 +16,14 @@ class Differences_VIZ {
 	drawDifferences(n, levels, sequence) {
 
 		//changed background color to grey since you can't see what's going on
-		this.sketch.background( 'grey' )
+		this.sketch.background( 'black' )
 
 		n = Math.min(n, sequence.length);
 		levels = Math.min(levels, n - 1);
 		let font, fontSize = 20;
 		this.sketch.textFont("Arial");
 		this.sketch.textSize(fontSize);
+		this.sketch.textStyle(this.sketch.BOLD)
 		let xDelta = 50;
 		let yDelta = 50;
 		let firstX = 30;

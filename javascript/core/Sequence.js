@@ -50,7 +50,7 @@ const BuiltInSeqsGenerators = function () {
                 return cache[n];
             }
         }
-        var sg = new SequenceGenerator(genericLinRec, ID);
+        var sg = new SequenceGenerator(ID, genericLinRec);
         sg.cache = seedList;
         return sg;
     }
@@ -116,7 +116,7 @@ const BuiltInSeqsGenerators = function () {
             }
             return cache[cache.length - 1]
         }
-        let sg = new SequenceGenerator(primes, ID);
+        let sg = new SequenceGenerator(ID, primes);
         sg.cache = [2, 3, 5]
         return sg
     }
@@ -129,7 +129,7 @@ const BuiltInSeqsGenerators = function () {
         fibonacci: fibonacci,
         lucas: lucas,
         primes: primeNumbers,
-        naturals: function(ID){return new SequenceGenerator((n)=>n, ID)}
+        naturals: function(ID){return new SequenceGenerator(ID, (n)=>n)}
     }
 }()
 
@@ -213,6 +213,27 @@ export const BuiltInSeqs = {
 }
 
 
+export function ListToSeq( ID, list ){
+        let listGenerator = function( n ){
+            return list[n]
+        }
+        return new SequenceGenerator( ID, listGenerator )
+}
+
+function OEISToSeq(ID, OEIS){
+    let code = `print(sloane.${OEIS}.list(50000))`
+}
+
+function sageExecute( code ){
+    return $.ajax({
+        type: 'POST',
+        async: false, 
+        url: 'http://aleph.sagemath.org/service', 
+        data: "code=" + code
+    })
+}
+
+
 /**
  *
  * @class SequenceGenerator
@@ -224,11 +245,12 @@ export class SequenceGenerator {
      * @param {*} ID the ID of the sequence
      * @memberof SequenceGenerator
      */
-    constructor(generator, ID) {
+    constructor(ID, generator) {
         this.generator = generator;
         this.ID = ID;
         this.cache = [];
         this.newSize = 1;
+        this.finite = false;
     }
     /**
      * if we need to get the nth element and it's not present in
@@ -264,7 +286,7 @@ export class SequenceGenerator {
      * @memberof SequenceGenerator
      */
     getElement(n) {
-        if (this.cache[n] != undefined) {
+        if (this.cache[n] != undefined || this.finite) {
             // console.log("cache hit")
             return this.cache[n];
         } else {
