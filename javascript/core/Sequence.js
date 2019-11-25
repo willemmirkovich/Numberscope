@@ -255,7 +255,6 @@ class SequenceGenerator {
         this.ID = ID;
         this.cache = [];
         this.newSize = 1;
-        this.finite = false;
     }
     /**
      * if we need to get the nth element and it's not present in

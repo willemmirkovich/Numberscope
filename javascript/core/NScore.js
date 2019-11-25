@@ -47,6 +47,7 @@ export const NScore = function () {
 			let moduleInstance = new moduleClass(config, seq, sketch)
 			sketch.setup = function () {
 				sketch.createCanvas(width, height);
+				sketch.background("white")
 				console.log("divID: " + divID + " WIDTH: " + width + " HEIGHT: " + height)
 				moduleInstance.setup();
 			};

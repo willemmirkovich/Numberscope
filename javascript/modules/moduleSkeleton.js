@@ -6,9 +6,9 @@
 class Empty_VIZ{
 	/**
 	 *Creates an instance of Empty_MODULE.
-	 * @param {*} config this will hold an 
-	 * @param {*} seq
-	 * @param {*} sketch
+	 * @param {*} config parameters passed by the user and defined by schema
+	 * @param {*} seq SequenceGenerator object that provides elements via getElement(i)
+	 * @param {*} sketch the p5 sketch you draw on
 	 * @memberof Empty_MODULE
 	 */
 	constructor(config, seq, sketch){
