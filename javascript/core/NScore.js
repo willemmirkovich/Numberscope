@@ -1,5 +1,5 @@
 
-import { BuiltInSeqs, ListToSeq } from './Sequence.js'
+import { BuiltInSeqs, ListToSeq, OEISToSeq } from './Sequence.js'
 import {VALIDOEIS} from './validOEIS.js'
 import MODULES from '../modules/modules.js'
 
@@ -106,19 +106,24 @@ export const NScore = function () {
 				}
 			}
 			if (seqObj.inputType == "OEIS") {
-				console.error("Not Implemented");
+				if (NScore.validOEIS.includes(seqObj.inputValue)){
+					preparedSequences[seqObj.ID] = OEISToSeq(seqObj.ID, seqObj.inputValue);
+				}
+				else{
+					console.error("Not a valid OEIS sequence")
+				}
 			}
 			if (seqObj.inputType == "list") {
 				try {
 					let list = JSON.parse( seqObj.inputValue )
-					preparedSequences[seqObj.ID] = ListToSeq( seqObj.ID, list )
+					preparedSequences[seqObj.ID] = ListToSeq( seqObj.ID, list );
 				}
 				catch(err){
-					console.error("Error initializing seq from list: " + err)
+					console.error("Error initializing seq from list: " + err);
 				}
 			}
 			if (seqObj.inputType == "code") {
-				console.error("Not Implemented");
+				console.error("Not implemented")
 			}
 		}
 	}
@@ -131,7 +136,7 @@ export const NScore = function () {
 	 * and an ID of a drawing tool, this lets us know to pass which sequence to which
 	 * drawing tool.
 	 */
-	const beginDraw = function (seqVizPairs) {
+	const begin = function (seqVizPairs) {
 		
 		//Figuring out layout
 		//--------------------------------------
@@ -155,7 +160,7 @@ export const NScore = function () {
 		}
 	}
 
-	const clearCanvasArea = function () {
+	const clear = function () {
 		if (liveSketches.length == 0) {
 			return;
 		} else {
@@ -164,17 +169,39 @@ export const NScore = function () {
 			}
 		}
 	}
+
+	const pause = function(){
+		liveSketches.forEach( function(sketch){
+			sketch.noLoop();
+		})
+	}
+
+	const resume = function(){
+		liveSketches.forEach(function(sketch){
+			sketch.loop()
+		})
+	}
+
+	const step = function(){
+		liveSketches.forEach( function(sketch){
+			sketch.redraw();
+		})
+	}
+
 	return {
 		receiveSequence: receiveSequence,
 		receiveModule: receiveModule,
-		beginDraw: beginDraw,
-		clearCanvasArea: clearCanvasArea,
 		liveSketches: liveSketches,
 		preparedSequences: preparedSequences,
 		preparedTools: preparedTools,
 		modules: modules,
 		validOEIS: validOEIS,
-		BuiltInSeqs: BuiltInSeqs
+		BuiltInSeqs: BuiltInSeqs,
+		begin: begin,
+		pause: pause,
+		resume: resume,
+		step: step,
+		clear: clear,
 	}
 }()
 

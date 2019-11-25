@@ -61,8 +61,11 @@
       </div>
       <div id="drawRemoveBtns" class="xColumn">
       </div>
-      <a id="draw1" href="#" onclick="drawClicked()">Draw!</a>
-      <a id="draw1" href="#" onclick="clearClicked()">Clear canvas</a>
+      <a id="draw" href="#" onclick="_draw()">Draw!</a>
+      <a id="pause" href="#" onclick="NScore.pause()">Pause</a>
+      <a id="resume" href="#" onclick="NScore.resume()">Resume</a>
+      <a id="clear" href="#" onclick="NScore.clear()">Clear canvas</a>
+      <a id="step" href="#" onclick="NScore.step()">step</a>
     </div>
   </div>
 
@@ -99,7 +102,7 @@
 
 
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script> -->
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.js"></script>
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.css"
     defer>

@@ -30,16 +30,14 @@ var currentSequence = {
       this.inputValue = document.getElementById(this.inputType + "Select" + this.ID).value
     }
     if (this.inputType == "OEIS") {
-      this.inputValue = undefined;
-      console.error("Not Implemented: " + this.inputType + " input")
+      this.inputValue = document.getElementById("oeisNum" + this.ID).value;
     }
     if (this.inputType == "list") {
       this.inputValue = "[" + document.getElementById("listText" + this.ID).value + "]";
-      // console.error("Not Implemented: " + this.inputType + " input")
     }
     if (this.inputType == "code") {
-      this.inputValue = undefined;
       console.error("Not Implemented: " + this.inputType + " input")
+      // this.inputValue = document.getElementById("codeText" + this.ID);
     }
   },
   setParameters: function () {
@@ -662,24 +660,12 @@ function addSeq() {
     newli.innerHTML = "OEIS Number: ";
     newNav.appendChild(newli);
 
-    // newText = document.createElement("textarea");
-    // newId = "oeisNum" + numSequences;
-    // newText.setAttribute("id", newId);
-    // newText.setAttribute("class", "oeisNum");
-    // newText.setAttribute("maxlength", "7");
-    oeisSelection = document.createElement('select');
+    newText = document.createElement("textarea");
     newId = "oeisNum" + numSequences;
-    oeisSelection.setAttribute("id", newId);
-    for (let q = 0; q < NScore.validOEIS.length; q++) {
-      let curOption = document.createElement('option');
-      curOption.setAttribute("value", NScore.validOEIS[q]);
-      curOption.innerHTML = NScore.validOEIS[q];
-      if (q == 0) {
-        curOption.selected = true;
-      }
-      oeisSelection.appendChild(curOption);
-    }
-    newNav.appendChild(oeisSelection);
+    newText.setAttribute("id", newId);
+    newText.setAttribute("class", "oeisNum");
+    newText.setAttribute("maxlength", "7");
+    newNav.appendChild(newText);
 
 
     document.getElementById("oeisInputNavs").append(newNav);
@@ -735,6 +721,8 @@ function addSeq() {
     a = document.createElement('textarea');
     let codeTextId = "codeText" + numSequences;
     a.setAttribute("id", codeTextId);
+    a.setAttribute("value", "def f(n):\n\treturn n")
+
     newNav.appendChild(a);
 
     document.getElementById("codeInputNavs").append(newNav);
@@ -935,13 +923,13 @@ function removeDraw(n) {
 
     numDraw -= 1;
   }
-}
+};
 
-function drawClicked() {
+function _draw() {
   closeNav(n = 3);
   document.getElementById("canvasArea").style.width = "100%";
   document.getElementById("canvasArea").style.height = "100%";
-  NScore.clearCanvasArea();
+  NScore.clear();
   let drawSeqList = document.getElementById("drawSeqList").children;
   let drawToolList = document.getElementById("drawToolList").children;
   let seqCount = drawSeqList.length;
@@ -954,12 +942,9 @@ function drawClicked() {
   }
   closeNav(n = 3);
   document.getElementById("canvasArea").style.width = "100%";
-  NScore.beginDraw(seqVizPairs);
+  NScore.begin(seqVizPairs);
 }
 
-function clearClicked() {
-  NScore.clearCanvasArea()
-}
 
 addDraw()
 addSeq()

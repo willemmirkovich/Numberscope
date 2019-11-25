@@ -8,10 +8,10 @@ Important files and folders:
 - **javascript/toolpage/toolPage.js**: this file holds the logic for the website interface.
 
 Things that need to get done:
-- Implement other input method for sequence
+- ~~Implement other input method for sequence~~
 - Convert the TA-visualizers to the module format
 - Implement error-handling mechanism for sequence parameters and viz configs.
 - Layout of the sketches acts weird when the browser is resized
-- A pause button to pause all the sketches 
+- ~~A pause button to pause all the sketches~~ 
 - builtin examples of sequence/tool pairings
 - some sort of testing environment to help when writing the modules

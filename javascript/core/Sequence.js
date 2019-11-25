@@ -215,30 +215,23 @@ export const BuiltInSeqs = {
 
 export function ListToSeq( ID, list ){
         let listGenerator = function( n ){
-            return list[n]
+            return list[n];
         }
-        return new SequenceGenerator( ID, listGenerator )
+        return new SequenceGenerator( ID, listGenerator );
 }
 
-function OEISToSeq(ID, OEIS){
-    let code = `print(sloane.${OEIS}.list(50000))`
+export function OEISToSeq(ID, OEIS){
+    return new OEISSequenceGenerator( ID, OEIS );
 }
 
-function sageExecute( code ){
-    return $.ajax({
-        type: 'POST',
-        async: false, 
-        url: 'http://aleph.sagemath.org/service', 
-        data: "code=" + code
-    })
-}
+
 
 
 /**
  *
  * @class SequenceGenerator
  */
-export class SequenceGenerator {
+class SequenceGenerator {
     /**
      *Creates an instance of SequenceGenerator.
      * @param {*} generator a function that takes a natural number and returns a number, it can optionally take the cache as a second argument
@@ -298,39 +291,69 @@ export class SequenceGenerator {
     }
 }
 
-// const sageUtils = function(){
 
-//     this.result = null;
-    
-//     execute_code = function(code){
-//         $.post('http://aleph.sagemath.org/service', "code=" + code, function (data) {
-//             this.result = JSON.parse(data.stdout);
-//         });
-//     }
+/**
+ *
+ *
+ * @param {*} code arbitrary sage code to be executed on aleph
+ * @returns ajax response object
+ */
+function sageExecute( code ){
+    return $.ajax({
+        type: 'POST',
+        async: false, 
+        url: 'http://aleph.sagemath.org/service', 
+        data: "code=" + code
+    })
+}
 
-//     return {
-//         execute_code: execute_code
-//     }
-// }()
+async function sageExecuteAsync( code ){
+    return await $.ajax({
+        type: 'POST', 
+        url: 'http://aleph.sagemath.org/service', 
+        data: "code=" + code
+    })
+}
 
-// export class AsyncSequenceGenerator {
-//     constructor(generator, ID) {
-//         this.generator = generator;
-//         this.ID = ID;
-//         this.cache = [];
-//         this.newSize = 1;
-//     }
-//     resizeCache(n) {
-//     }
-//     fillCache() {
-//     }
-//     async getElement(n) {
-//         if (this.cache[n] != undefined) {
-//             return this.cache[n];
-//         } else {
-//             this.resizeCache(n);
-//             this.fillCache();
-//             await this.generator
-//         }
-//     }
-// }
+
+class OEISSequenceGenerator {
+        constructor(ID, OEIS) {
+            this.OEIS = OEIS;
+            this.ID = ID;
+            this.cache = [];
+            this.newSize = 1;
+            this.prefillCache()
+        }
+        oeisFetch( n ){
+            let code = `print(sloane.${this.OEIS}.list(${n}))`;
+            let resp = sageExecute( code );
+            return JSON.parse( resp.responseJSON.stdout )
+        }
+        async prefillCache(){
+            this.resizeCache( 3000 );
+            let code = `print(sloane.${this.OEIS}.list(${this.newSize}))`;
+            let resp = await sageExecuteAsync( code );
+            console.log(resp)
+            this.cache = this.cache.concat(JSON.parse( resp.stdout ))
+        } 
+        resizeCache(n) {
+            this.newSize = this.cache.length * 2;
+            if (n + 1 > this.newSize) {
+                this.newSize = n + 1;
+            }
+        }      
+        fillCache() {
+            let newList = this.oeisFetch( this.newSize );
+            this.cache = this.cache.concat( newList );
+        }
+        getElement(n) {
+            if( this.cache[n] != undefined){
+                return this.cache[n];
+            }
+            else{
+                this.resizeCache();
+                this.fillCache();
+                return this.cache[n];
+            }
+        }
+    }
