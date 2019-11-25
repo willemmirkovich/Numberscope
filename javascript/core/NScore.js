@@ -1,7 +1,8 @@
 import {
 	BuiltInSeqs,
 	ListToSeq,
-	OEISToSeq
+	OEISToSeq,
+	BuiltInNameToSeq
 } from './Sequence.js'
 import {
 	VALIDOEIS
@@ -104,7 +105,8 @@ export const NScore = function () {
 							seqObj.parameters['coefficientList'] = stringToArray(seqObj.parameters['coefficientList']);
 							seqObj.parameters['seedList'] = stringToArray(seqObj.parameters['seedList']);
 						}
-						preparedSequences[seqObj.ID] = BuiltInSeqs[seqObj.inputValue].generator(seqObj.parameters);
+						// preparedSequences[seqObj.ID] = BuiltInSeqs[seqObj.inputValue].generator(seqObj.parameters);
+						preparedSequences[seqObj.ID] = BuiltInNameToSeq(seqObj.ID, seqObj.inputValue, seqObj.parameters)
 					} catch (err) {
 						console.error("Error initializing built in seq: " + err)
 					}

@@ -6,19 +6,16 @@ const BuiltInSeqsGenerators = function () {
     /**
      *  Generates linear recurrence
      *
-     * @param {*} ID the ID of the sequence
      * @param {*} coefficientList a list of coefficients for the linear recurrence
      * @param {*} seedList the initial values for the recurrence
      * @param {*} m mod
      * @returns returns a linear SequenceGenerator
      */
     function linearRecurrence({
-        ID,
         coefficientList,
         seedList,
         m
     }) {
-        console.log("ID: " + ID + " | coefList: " + coefficientList);
         if (coefficientList.length != seedList.length) {
             //Number of seeds should match the number of coefficients
             console.log("number of coefficients not equal to number of seeds ");
@@ -31,6 +28,10 @@ const BuiltInSeqsGenerators = function () {
                 seedList[i] = seedList[i] % m;
             }
             var genericLinRec = function (n, cache) {
+                if( n < seedList.length){
+                    cache[n] = seedList[n]
+                    return cache[n] 
+                }
                 for (let i = cache.length; i <= n; i++) {
                     let sum = 0;
                     for (let j = 0; j < k; j++) {
@@ -42,6 +43,11 @@ const BuiltInSeqsGenerators = function () {
             }
         } else {
             var genericLinRec = function (n, cache) {
+                if( n < seedList.length){
+                    cache[n] = seedList[n]
+                    return cache[n] 
+                }
+
                 for (let i = cache.length; i <= n; i++) {
                     let sum = 0;
                     for (let j = 0; j < k; j++) {
@@ -52,9 +58,7 @@ const BuiltInSeqsGenerators = function () {
                 return cache[n];
             }
         }
-        var sg = new SequenceGenerator(ID, genericLinRec);
-        sg.cache = seedList;
-        return sg;
+        return genericLinRec
     }
 
 
@@ -63,16 +67,13 @@ const BuiltInSeqsGenerators = function () {
     /**
      * Returns a generator to the fibonacci sequence
      *
-     * @param {*} ID the ID of the sequence
      * @param {*} m mod
      * @returns returns a fibonacci SequenceGenerator
      */
     function fibonacci({
-        ID,
         m
     }) {
         return linearRecurrence({
-            ID: ID,
             coefficientList: [1, 1],
             seedList: [1, 1],
             m
@@ -82,16 +83,13 @@ const BuiltInSeqsGenerators = function () {
     /**
      * Returns a generator to the lucas sequence
      *
-     * @param {*} ID the ID of the sequence
      * @param {*} m mod
      * @returns returns a lucas SequenceGenerator
      */
     function lucas({
-        ID,
         m
     }) {
         return linearRecurrence({
-            ID: ID,
             coefficientList: [1, 1],
             seedList: [2, 1],
             m
@@ -102,12 +100,9 @@ const BuiltInSeqsGenerators = function () {
     /**
      * Returns a generator to the primes sequence
      *
-     * @param {*} ID the ID of the sequence
      * @returns returns a primes SequenceGenerator
      */
-    function primeNumbers({
-        ID
-    }) {
+    function primeNumbers() {
         const primes = function (n, cache) {
             let i = cache[cache.length - 1] + 1
             let k = 0
@@ -126,11 +121,19 @@ const BuiltInSeqsGenerators = function () {
             }
             return cache[cache.length - 1]
         }
-        let sg = new SequenceGenerator(ID, primes);
-        sg.cache = [2, 3, 5]
-        return sg
+        return primes
     }
 
+    function naturals({
+        includezero
+    }){
+        if(includezero){
+            return ( (n) => n )
+        }
+        else{
+            return ( (n) => n + 1 )
+        }
+    }
 
     // This return allows the object to expose the above functions
     // new functions defined above should be passed in the returned object below    
@@ -139,13 +142,9 @@ const BuiltInSeqsGenerators = function () {
         fibonacci: fibonacci,
         lucas: lucas,
         primes: primeNumbers,
-        naturals: function (ID) {
-            return new SequenceGenerator(ID, (n) => n)
-        }
+        naturals: naturals
     }
 }()
-
-
 
 const BuiltInSeqsParams = function () {
     const linearRecurrence = {
@@ -222,6 +221,11 @@ export const BuiltInSeqs = {
         generator: BuiltInSeqsGenerators['naturals'],
         params: BuiltInSeqsParams['naturals']
     }
+}
+
+export function BuiltInNameToSeq(ID, seqName, seqParams){
+    let generator = BuiltInSeqs[seqName].generator(seqParams)
+    return new SequenceGenerator(ID, generator)
 }
 
 
