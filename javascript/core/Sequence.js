@@ -1,6 +1,3 @@
-
-
-
 /**
  * The BuiltInSeqs holds functions that return SequenceGenerator to common sequences
  */
@@ -15,7 +12,12 @@ const BuiltInSeqsGenerators = function () {
      * @param {*} m mod
      * @returns returns a linear SequenceGenerator
      */
-    function linearRecurrence({ID,coefficientList,seedList,m}) {
+    function linearRecurrence({
+        ID,
+        coefficientList,
+        seedList,
+        m
+    }) {
         console.log("ID: " + ID + " | coefList: " + coefficientList);
         if (coefficientList.length != seedList.length) {
             //Number of seeds should match the number of coefficients
@@ -54,7 +56,7 @@ const BuiltInSeqsGenerators = function () {
         sg.cache = seedList;
         return sg;
     }
-    
+
 
 
 
@@ -65,7 +67,10 @@ const BuiltInSeqsGenerators = function () {
      * @param {*} m mod
      * @returns returns a fibonacci SequenceGenerator
      */
-    function fibonacci({ID,m}) {
+    function fibonacci({
+        ID,
+        m
+    }) {
         return linearRecurrence({
             ID: ID,
             coefficientList: [1, 1],
@@ -81,7 +86,10 @@ const BuiltInSeqsGenerators = function () {
      * @param {*} m mod
      * @returns returns a lucas SequenceGenerator
      */
-    function lucas({ID, m}) {
+    function lucas({
+        ID,
+        m
+    }) {
         return linearRecurrence({
             ID: ID,
             coefficientList: [1, 1],
@@ -97,7 +105,9 @@ const BuiltInSeqsGenerators = function () {
      * @param {*} ID the ID of the sequence
      * @returns returns a primes SequenceGenerator
      */
-    function primeNumbers({ID}) {
+    function primeNumbers({
+        ID
+    }) {
         const primes = function (n, cache) {
             let i = cache[cache.length - 1] + 1
             let k = 0
@@ -125,17 +135,19 @@ const BuiltInSeqsGenerators = function () {
     // This return allows the object to expose the above functions
     // new functions defined above should be passed in the returned object below    
     return {
-        linRec:linearRecurrence,
+        linRec: linearRecurrence,
         fibonacci: fibonacci,
         lucas: lucas,
         primes: primeNumbers,
-        naturals: function(ID){return new SequenceGenerator(ID, (n)=>n)}
+        naturals: function (ID) {
+            return new SequenceGenerator(ID, (n) => n)
+        }
     }
 }()
 
 
 
-const BuiltInSeqsParams = function() {
+const BuiltInSeqsParams = function () {
     const linearRecurrence = {
         coefficientList: {
             type: 'string',
@@ -173,7 +185,7 @@ const BuiltInSeqsParams = function() {
             required: false
         }
     }
-    
+
     return {
         linRec: linearRecurrence,
         naturals: naturals,
@@ -186,42 +198,42 @@ const BuiltInSeqsParams = function() {
 
 export const BuiltInSeqs = {
     linRec: {
-        name: "Linear Recurrence", 
-        generator: BuiltInSeqsGenerators['linRec'], 
+        name: "Linear Recurrence",
+        generator: BuiltInSeqsGenerators['linRec'],
         params: BuiltInSeqsParams['linRec']
     },
     fibonacci: {
-        name: "Fibonacci", 
+        name: "Fibonacci",
         generator: BuiltInSeqsGenerators['fibonacci'],
         params: BuiltInSeqsParams['fibonacci']
     },
     lucas: {
-        name: "Lucas", 
+        name: "Lucas",
         generator: BuiltInSeqsGenerators['lucas'],
         params: BuiltInSeqsParams['lucas']
     },
     primes: {
-        name: "Primes", 
+        name: "Primes",
         generator: BuiltInSeqsGenerators['primes'],
         params: BuiltInSeqsParams['primes']
     },
     naturals: {
-        name: "Naturals", 
+        name: "Naturals",
         generator: BuiltInSeqsGenerators['naturals'],
         params: BuiltInSeqsParams['naturals']
     }
 }
 
 
-export function ListToSeq( ID, list ){
-        let listGenerator = function( n ){
-            return list[n];
-        }
-        return new SequenceGenerator( ID, listGenerator );
+export function ListToSeq(ID, list) {
+    let listGenerator = function (n) {
+        return list[n];
+    }
+    return new SequenceGenerator(ID, listGenerator);
 }
 
-export function OEISToSeq(ID, OEIS){
-    return new OEISSequenceGenerator( ID, OEIS );
+export function OEISToSeq(ID, OEIS) {
+    return new OEISSequenceGenerator(ID, OEIS);
 }
 
 
@@ -252,7 +264,7 @@ class SequenceGenerator {
      * @param {*} n 
      * @memberof SequenceGenerator
      */
-    resizeCache(n){
+    resizeCache(n) {
         this.newSize = this.cache.length * 2;
         if (n + 1 > this.newSize) {
             this.newSize = n + 1;
@@ -298,62 +310,61 @@ class SequenceGenerator {
  * @param {*} code arbitrary sage code to be executed on aleph
  * @returns ajax response object
  */
-function sageExecute( code ){
+function sageExecute(code) {
     return $.ajax({
         type: 'POST',
-        async: false, 
-        url: 'http://aleph.sagemath.org/service', 
+        async: false,
+        url: 'http://aleph.sagemath.org/service',
         data: "code=" + code
     })
 }
 
-async function sageExecuteAsync( code ){
+async function sageExecuteAsync(code) {
     return await $.ajax({
-        type: 'POST', 
-        url: 'http://aleph.sagemath.org/service', 
+        type: 'POST',
+        url: 'http://aleph.sagemath.org/service',
         data: "code=" + code
     })
 }
 
 
 class OEISSequenceGenerator {
-        constructor(ID, OEIS) {
-            this.OEIS = OEIS;
-            this.ID = ID;
-            this.cache = [];
-            this.newSize = 1;
-            this.prefillCache()
-        }
-        oeisFetch( n ){
-            let code = `print(sloane.${this.OEIS}.list(${n}))`;
-            let resp = sageExecute( code );
-            return JSON.parse( resp.responseJSON.stdout )
-        }
-        async prefillCache(){
-            this.resizeCache( 3000 );
-            let code = `print(sloane.${this.OEIS}.list(${this.newSize}))`;
-            let resp = await sageExecuteAsync( code );
-            console.log(resp)
-            this.cache = this.cache.concat(JSON.parse( resp.stdout ))
-        } 
-        resizeCache(n) {
-            this.newSize = this.cache.length * 2;
-            if (n + 1 > this.newSize) {
-                this.newSize = n + 1;
-            }
-        }      
-        fillCache() {
-            let newList = this.oeisFetch( this.newSize );
-            this.cache = this.cache.concat( newList );
-        }
-        getElement(n) {
-            if( this.cache[n] != undefined){
-                return this.cache[n];
-            }
-            else{
-                this.resizeCache();
-                this.fillCache();
-                return this.cache[n];
-            }
+    constructor(ID, OEIS) {
+        this.OEIS = OEIS;
+        this.ID = ID;
+        this.cache = [];
+        this.newSize = 1;
+        this.prefillCache()
+    }
+    oeisFetch(n) {
+        let code = `print(sloane.${this.OEIS}.list(${n}))`;
+        let resp = sageExecute(code);
+        return JSON.parse(resp.responseJSON.stdout)
+    }
+    async prefillCache() {
+        this.resizeCache(3000);
+        let code = `print(sloane.${this.OEIS}.list(${this.newSize}))`;
+        let resp = await sageExecuteAsync(code);
+        console.log(resp)
+        this.cache = this.cache.concat(JSON.parse(resp.stdout))
+    }
+    resizeCache(n) {
+        this.newSize = this.cache.length * 2;
+        if (n + 1 > this.newSize) {
+            this.newSize = n + 1;
         }
     }
+    fillCache() {
+        let newList = this.oeisFetch(this.newSize);
+        this.cache = this.cache.concat(newList);
+    }
+    getElement(n) {
+        if (this.cache[n] != undefined) {
+            return this.cache[n];
+        } else {
+            this.resizeCache();
+            this.fillCache();
+            return this.cache[n];
+        }
+    }
+}

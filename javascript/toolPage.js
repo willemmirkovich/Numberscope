@@ -1,5 +1,3 @@
-
-
 var logoColor = "#afafdc";
 var topBarColor = "#f75c03";
 var sideNavColor = "#416788";
@@ -10,8 +8,8 @@ var numDraw = 0;
 const inputTypesNames = ["builtIn", "OEIS", "list", "code"]
 // const moduleKeys = ["empty", "turtle", "gameOfLife", "shiftCompare"]
 
-const moduleKeys = Object.keys( NScore.modules );
-const moduleNames =  moduleKeys.map( (key)=>NScore.modules[key].name )
+const moduleKeys = Object.keys(NScore.modules);
+const moduleNames = moduleKeys.map((key) => NScore.modules[key].name)
 const seqKeys = Object.keys(NScore.BuiltInSeqs)
 
 var currentSequence = {
@@ -41,7 +39,7 @@ var currentSequence = {
     }
   },
   setParameters: function () {
-    if (this.inputType == "builtIn"){
+    if (this.inputType == "builtIn") {
       let currentForm = "#" + this.inputValue + "Params" + "Form" + this.ID
       let collectedParameters = $(currentForm).serializeArray();
       collectedParameters.forEach(
@@ -88,7 +86,7 @@ var currentTool = {
     console.log(configID)
     let collectedConfig = $(configID).serializeArray()
     collectedConfig.forEach(
-      ( configField ) => this.config[configField.name] = configField.value
+      (configField) => this.config[configField.name] = configField.value
     )
     console.log("config: ")
     console.log(this.config);
@@ -105,7 +103,7 @@ var currentTool = {
       config: this.config
     }))
   },
-  refresh: function(){
+  refresh: function () {
     this.ID = undefined;
     this.moduleKey = undefined;
     this.config = {};
@@ -188,7 +186,7 @@ function closeNav(n) {
 function openSeqNav(n) {
   if (currentSequence.inputType != undefined) {
     currentSequence.setValue();
-    currentSequence.setParameters(); 
+    currentSequence.setParameters();
     currentSequence.sendSequence();
   }
   currentSequence.refresh();
@@ -368,12 +366,12 @@ function closeSeqInputNav(n, m) {
 //Linear Recurrence
 function showBuiltInParams(n) {
   let builtInSeqIndex = "builtInSelect" + n;
-  let choice = $("#" + builtInSeqIndex +" :selected").val();
-  let form =  $("#" + choice + "ParamsForm" + n);
+  let choice = $("#" + builtInSeqIndex + " :selected").val();
+  let form = $("#" + choice + "ParamsForm" + n);
   form.show();
   seqKeys.forEach(
-    function( key ){
-      if(key != choice){
+    function (key) {
+      if (key != choice) {
         closeBuiltInParams(n, key)
       }
     }
@@ -381,8 +379,8 @@ function showBuiltInParams(n) {
   // Open form belonging to sequence
 }
 
-function closeBuiltInParams(n, key){
-  let form =  $("#" + key + "ParamsForm" + n);
+function closeBuiltInParams(n, key) {
+  let form = $("#" + key + "ParamsForm" + n);
   form.hide();
 }
 
@@ -443,7 +441,7 @@ function openToolNav(n) {
 }
 
 function closeToolNav(n) {
-  if( currentTool.moduleKey != undefined ){
+  if (currentTool.moduleKey != undefined) {
     currentTool.setConfig();
     currentTool.sendModule();
     currentTool.refresh();
@@ -619,12 +617,12 @@ function addSeq() {
       a.appendChild(curOption);
     }
     newNav.appendChild(a);
-    
-    
+
+
     //some form class here
 
     seqKeys.forEach(
-      function(key){
+      function (key) {
         newForm = document.createElement("form");
         newFormId = key + "ParamsForm" + numSequences;
         newForm.setAttribute("id", newFormId)
@@ -638,7 +636,7 @@ function addSeq() {
     //   schema: NScore.BuiltInSeqs[seqKeys[m]].params
     // })
     // newNav.appendChild(newForm)
-    
+
     document.getElementById("builtInInputNavs").append(newNav);
     //Create OEIS Input Nav
     newNav = document.createElement("div");
@@ -727,12 +725,12 @@ function addSeq() {
 
     document.getElementById("codeInputNavs").append(newNav);
     seqKeys.forEach(
-      function(key){
+      function (key) {
         newFormId = key + "ParamsForm" + numSequences;
-        $("#"+newFormId).jsonForm({
+        $("#" + newFormId).jsonForm({
           schema: NScore.BuiltInSeqs[key].params
         })
-        $("#"+newFormId).hide()
+        $("#" + newFormId).hide()
       }
     )
   }
@@ -811,11 +809,11 @@ function addTool() {
 
         var body = document.getElementsByTagName("body")[0];
         body.appendChild(toolInputNav);
-        $("#"+newConfigId).jsonForm({
-          schema: NScore.modules[ moduleKeys[j] ].configSchema
+        $("#" + newConfigId).jsonForm({
+          schema: NScore.modules[moduleKeys[j]].configSchema
         })
         // $("#" + newConfigId).hide()
-        
+
       }
 
       document.getElementById("toolNavs").append(newNav);
@@ -951,4 +949,4 @@ addSeq()
 addTool()
 openNav(1)
 openSeqNav(1)
-openSeqInputNav(1,1)
+openSeqInputNav(1, 1)

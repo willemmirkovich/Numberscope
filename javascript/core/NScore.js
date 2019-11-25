@@ -1,11 +1,16 @@
-
-import { BuiltInSeqs, ListToSeq, OEISToSeq } from './Sequence.js'
-import {VALIDOEIS} from './validOEIS.js'
+import {
+	BuiltInSeqs,
+	ListToSeq,
+	OEISToSeq
+} from './Sequence.js'
+import {
+	VALIDOEIS
+} from './validOEIS.js'
 import MODULES from '../modules/modules.js'
 
 
-function stringToArray( strArr ){
-	return JSON.parse( "[" + strArr +"]" )
+function stringToArray(strArr) {
+	return JSON.parse("[" + strArr + "]")
 }
 
 export const NScore = function () {
@@ -94,31 +99,28 @@ export const NScore = function () {
 					seqObj.parameters['ID'] = seqObj.ID;
 					try {
 						// for linRec these two parameters are strings, we have to conver them to arrays
-						if( seqObj.inputValue == "linRec" ){
-							seqObj.parameters['coefficientList'] = stringToArray( seqObj.parameters['coefficientList'] );
-							seqObj.parameters['seedList'] = stringToArray( seqObj.parameters['seedList'] );
+						if (seqObj.inputValue == "linRec") {
+							seqObj.parameters['coefficientList'] = stringToArray(seqObj.parameters['coefficientList']);
+							seqObj.parameters['seedList'] = stringToArray(seqObj.parameters['seedList']);
 						}
 						preparedSequences[seqObj.ID] = BuiltInSeqs[seqObj.inputValue].generator(seqObj.parameters);
-					}
-					catch (err) {
+					} catch (err) {
 						console.error("Error initializing built in seq: " + err)
 					}
 				}
 			}
 			if (seqObj.inputType == "OEIS") {
-				if (NScore.validOEIS.includes(seqObj.inputValue)){
+				if (NScore.validOEIS.includes(seqObj.inputValue)) {
 					preparedSequences[seqObj.ID] = OEISToSeq(seqObj.ID, seqObj.inputValue);
-				}
-				else{
+				} else {
 					console.error("Not a valid OEIS sequence")
 				}
 			}
 			if (seqObj.inputType == "list") {
 				try {
-					let list = JSON.parse( seqObj.inputValue )
-					preparedSequences[seqObj.ID] = ListToSeq( seqObj.ID, list );
-				}
-				catch(err){
+					let list = JSON.parse(seqObj.inputValue)
+					preparedSequences[seqObj.ID] = ListToSeq(seqObj.ID, list);
+				} catch (err) {
 					console.error("Error initializing seq from list: " + err);
 				}
 			}
@@ -137,7 +139,7 @@ export const NScore = function () {
 	 * drawing tool.
 	 */
 	const begin = function (seqVizPairs) {
-		
+
 		//Figuring out layout
 		//--------------------------------------
 		let totalWidth = document.getElementById('canvasArea').offsetWidth;
@@ -147,7 +149,7 @@ export const NScore = function () {
 		let individualWidth = totalWidth / gridSize - 20
 		let individualHeight = totalHeight / gridSize
 		//--------------------------------------
-		
+
 		console.log("CANVAS COUNT: " + canvasCount + " GRIDSIZE: " + gridSize + " INDHEIGHT " + individualHeight + " INDWIDTH " + individualWidth)
 		for (let pair of seqVizPairs) {
 			console.log(preparedSequences)
@@ -170,20 +172,20 @@ export const NScore = function () {
 		}
 	}
 
-	const pause = function(){
-		liveSketches.forEach( function(sketch){
+	const pause = function () {
+		liveSketches.forEach(function (sketch) {
 			sketch.noLoop();
 		})
 	}
 
-	const resume = function(){
-		liveSketches.forEach(function(sketch){
+	const resume = function () {
+		liveSketches.forEach(function (sketch) {
 			sketch.loop()
 		})
 	}
 
-	const step = function(){
-		liveSketches.forEach( function(sketch){
+	const step = function () {
+		liveSketches.forEach(function (sketch) {
 			sketch.redraw();
 		})
 	}
