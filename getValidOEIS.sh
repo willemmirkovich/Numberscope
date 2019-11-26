@@ -1,6 +1,6 @@
 
 
-if [ ! -f javascript/core/validOEIS.js ]; 
+if [ ! -f website/javascript/core/validOEIS.js ]; 
 then 
     curl https://raw.githubusercontent.com/sagemath/sagelib/master/sage/combinat/sloane_functions.py |
     grep -Po "^class \K(A\d+)" |
