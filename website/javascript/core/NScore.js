@@ -45,7 +45,7 @@ export const NScore = function () {
 		//-------------------------------------------
 		//Create P5js instance
 		let myp5 = new p5(function (sketch) {
-			let moduleInstance = new moduleClass(config, seq, sketch)
+			let moduleInstance = new moduleClass(seq, sketch, config)
 			sketch.setup = function () {
 				sketch.createCanvas(width, height);
 				sketch.background("white")
