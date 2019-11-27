@@ -1,5 +1,5 @@
 class Turtle_VIZ {
-	constructor(config, seq, sketch) {
+	constructor(seq, sketch, config) {
 		var domain = JSON.parse( "[" + config['domain'] + "]" )
 		var range = JSON.parse( "[" + config['range'] + "]" )
 		this.rotMap = {}

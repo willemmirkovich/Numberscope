@@ -4,7 +4,7 @@
 
 
 class ModFill_Viz {
-	constructor(config, seq, sketch) {
+	constructor(seq, sketch, config) {
 		this.sketch = sketch
 		this.seq = seq
         this.modDimension = config.modDimension

@@ -11,7 +11,7 @@ class Empty_VIZ{
 	 * @param {*} sketch the p5 sketch you draw on
 	 * @memberof Empty_MODULE
 	 */
-	constructor(config, seq, sketch){
+	constructor(seq, sketch, config){
 	this.width = sketch.width
 	this.height = sketch.height
 	}

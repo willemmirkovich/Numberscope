@@ -1,5 +1,5 @@
 class shiftCompare_VIZ{
-	constructor(config, seq, sketch){
+	constructor(seq, sketch, config){
 	    //Sketch is your canvas
 	    //config is the parameters you expect
 	    //seq is the sequence you are drawing

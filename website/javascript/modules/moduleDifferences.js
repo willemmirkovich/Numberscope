@@ -4,7 +4,7 @@
 */
 
 class Differences_VIZ {
-	constructor(config, seq, sketch) {
+	constructor(seq, sketch, config) {
 
 		this.n = config.n;                                   //n is number of terms of top sequence
 		this.levels = config.Levels;                         //levels is number of layers of the pyramid/trapezoid created by writing the differences.
