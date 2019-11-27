@@ -104,6 +104,11 @@ const BuiltInSeqsGenerators = function () {
      */
     function primeNumbers() {
         const primes = function (n, cache) {
+            if(cache.length == 0){
+                cache.push(2)
+                cache.push(3)
+                cache.push(5)
+            }
             let i = cache[cache.length - 1] + 1
             let k = 0
             while (cache.length <= n) {
