@@ -78,6 +78,20 @@ constructor(seq, sketch, config)
 - *sketch*: There is no global p5 instance, *sketch* is the only way to call p5 functions and access properties, the reason we do this is to be able to draw an arbitrary number of canvases at the same time. 
 - *config*: This is where you will receive all the config values specific to your drawing tool, defined via a schema, which is the second thing module file must have.
 
+As a sort of guideline for what goes into *constructor* and what goes into *setup* use the following:
+- *constructor* If you're storing values in the class initialize them in the constructor, especially save the arguments passed (seq, skethc, config) otherwise you won't be able to use them in setup or draw.
+- *setup*: Anything that interacts or manipulates with the sketch **must be in setup**, otherwise those you'll encounter strange bugs. Take a look at *NScore.generatep5*:
+```javascript
+		let myp5 = new p5(function (sketch) {
+			let moduleInstance = new moduleClass(seq, sketch, config)
+			sketch.setup = function () {
+				sketch.createCanvas(width, height);
+				sketch.background("white")
+				moduleInstance.setup();
+			};
+```
+Notice that the drawing module's class is instantiated before the canvas is created, and the module's setup function is called after the canvas is created.
+
 ## Schema:
 
 ```javascript
