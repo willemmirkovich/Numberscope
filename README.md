@@ -200,3 +200,5 @@ Things that need to get done:
 - builtin examples of sequence/tool pairings
 - some sort of testing environment to help when writing the modules
 
+
+- Please let me know if there are any bugs, there are bound to be plenty.
