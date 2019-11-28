@@ -38,8 +38,8 @@ The reason for the build process is the fact that all "import thing from './thin
 
 
 Consult the wiki for the following:
-	- [Modules](https://github.com/katestange/Numberscope/wiki/Modules)
-	- [Sequences](https://github.com/katestange/Numberscope/wiki/Sequences)
+- [Modules](https://github.com/katestange/Numberscope/wiki/Modules)
+- [Sequences](https://github.com/katestange/Numberscope/wiki/Sequences)
 
 ---
 
