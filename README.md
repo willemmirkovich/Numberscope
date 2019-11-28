@@ -54,22 +54,12 @@ NPM scripts you can run
 ---
 
 Important files and folders:
-- **javascript/modules**: this is where the drawing modules are stored
-- **javascript/modules/modules.js**: there is an object called MODULES which holds all the modules, once a new module is added to the directory, it must be imported in modules.js and also added to the MODULES object. 
-- **javascript/NScore.js**: Numberscore's core javascript file, it handles processing the input from the interface, instantiating modules, creating and starting sketches.
-- **javascript/sequences/**: this is where all the build in sequences are stored.
-- **javascript/sequences/sequence.js**: This file contains the sequenceGenerator class and other helper functions for sequences.
-- **javascript/toolpage/toolPage.js**: this file holds the logic for the website interface.
-
-Things that need to get done:
-- ~~Implement other input method for sequence~~
-- Convert the TA-visualizers to the module format
-- Implement error-handling mechanism for sequence parameters and viz configs.
-- Layout of the sketches acts weird when the browser is resized (actually it's weird in general, in chrome the elements are huge)
-- ~~A pause button to pause all the sketches~~ 
-- builtin examples of sequence/tool pairings
-- some sort of testing environment to help when writing the modules
-
+- **website/javascript/modules**: this is where the drawing modules are stored
+- **website/javascript/modules/modules.js**: there is an object called MODULES which holds all the modules, once a new module is added to the directory, it must be imported in modules.js and also added to the MODULES object. 
+- **website/javascript/NScore.js**: Numberscore's core javascript file, it handles processing the input from the interface, instantiating modules, creating and starting sketches.
+- **website/javascript/sequences/**: this is where all the build in sequences are stored.
+- **website/javascript/sequences/sequence.js**: This file contains the sequenceGenerator class and other helper functions for sequences.
+- **website/javascript/toolpage/toolPage.js**: this file holds the logic for the website interface.
 
 
 **Please let me know if there are any bugs, there are bound to be plenty. Feel free to create an issue if one doesn't exist**
