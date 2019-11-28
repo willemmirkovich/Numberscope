@@ -2,7 +2,7 @@
 
 
 
-# Requirements
+# Requirements (to contribute)
 
 - Node
 - NPM
