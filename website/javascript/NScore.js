@@ -1,20 +1,17 @@
-import {
-	BuiltInSeqs,
-	ListToSeq,
-	OEISToSeq,
-	BuiltInNameToSeq
-} from './Sequence.js'
-import {
-	VALIDOEIS
-} from './validOEIS.js'
-import MODULES from '../modules/modules.js'
+SEQUENCE = require('./sequences/sequences.js')
+VALIDOEIS = require('./validOEIS.js')
+MODULES = require('./modules/modules.js')
 
+BuiltInSeqs = SEQUENCE.BuiltInSeqs
+ListToSeq = SEQUENCE.ListToSeq
+OEISToSeq = SEQUENCE.OEISToSeq
+BuiltInNameToSeq = SEQUENCE.BuiltInNameToSeq
 
 function stringToArray(strArr) {
 	return JSON.parse("[" + strArr + "]")
 }
 
-export const NScore = function () {
+const NScore = function () {
 	const modules = MODULES //  classes to the drawing modules 
 	const validOEIS = VALIDOEIS
 	var preparedSequences = []; // sequenceGenerators to be drawn
@@ -35,12 +32,10 @@ export const NScore = function () {
 	const generateP5 = function (moduleClass, config, seq, divID, width, height) {
 
 		//Create canvas element here
-		console.log("divID: " + divID)
 		var div = document.createElement('div');
 		//The style of the canvases will be "canvasClass"
 		div.className = "canvasClass"
 		div.id = "liveCanvas" + divID
-		console.log(document.getElementById("canvasArea"))
 		document.getElementById("canvasArea").appendChild(div);
 		//-------------------------------------------
 		//Create P5js instance
@@ -49,7 +44,6 @@ export const NScore = function () {
 			sketch.setup = function () {
 				sketch.createCanvas(width, height);
 				sketch.background("white")
-				console.log("divID: " + divID + " WIDTH: " + width + " HEIGHT: " + height)
 				moduleInstance.setup();
 			};
 
@@ -71,7 +65,6 @@ export const NScore = function () {
 	const receiveModule = function (moduleObj) {
 		if ((moduleObj.ID && moduleObj.moduleKey && moduleObj.config && modules[moduleObj.moduleKey]) == undefined) {
 			console.error("One or more undefined module properties received in NScore");
-			console.log(moduleObj)
 		} else {
 			preparedTools[moduleObj.ID] = {
 				module: modules[moduleObj.moduleKey],
@@ -153,9 +146,7 @@ export const NScore = function () {
 		let individualHeight = totalHeight / gridSize
 		//--------------------------------------
 
-		console.log("CANVAS COUNT: " + canvasCount + " GRIDSIZE: " + gridSize + " INDHEIGHT " + individualHeight + " INDWIDTH " + individualWidth)
 		for (let pair of seqVizPairs) {
-			console.log(preparedSequences)
 			let currentSeq = preparedSequences[pair["seqID"]];
 			let currentTool = preparedTools[pair["toolID"]];
 			if (currentSeq && currentTool == undefined) {

@@ -1,4 +1,4 @@
-class Turtle_VIZ {
+class VIZ_Turtle {
 	constructor(seq, sketch, config) {
 		var domain = JSON.parse( "[" + config['domain'] + "]" )
 		var range = JSON.parse( "[" + config['range'] + "]" )
@@ -14,6 +14,16 @@ class Turtle_VIZ {
 		this.currentIndex = 0;
 		this.orientation = 0;
 		this.sketch = sketch;
+		console.log(config)
+		if(config.startingX != ""){
+			this.X = config.startingX
+			this.Y = config.startingY
+		}
+		else{
+			this.X = null;
+			this.Y = null;
+		}
+
 	}
 	stepDraw() {
 		let oldX = this.X;
@@ -41,7 +51,7 @@ class Turtle_VIZ {
 }
 
 
-const Turtle_SCHEMA = {
+const SCHEMA_Turtle = {
 	domain: {
 		type: 'string',
 		title: 'Sequence Domain',
@@ -68,6 +78,14 @@ const Turtle_SCHEMA = {
 		default: 5,
 		required: true
 	},
+	startingX: {
+		type: 'number',
+		tite: 'X start'
+	},
+	startingY: {
+		type: 'number',
+		tite: 'Y start'
+	},
 	bgColor: {
 		type: 'string',
 		title: 'Background Color',
@@ -84,12 +102,12 @@ const Turtle_SCHEMA = {
 	}
 }
 
-const Turtle_MODULE = {
-	viz: Turtle_VIZ,
+const MODULE_Turtle = {
+	viz: VIZ_Turtle,
 	name: "Turtle",
 	description: "",
-	configSchema: Turtle_SCHEMA
+	configSchema: SCHEMA_Turtle
 }
 
 
-export default Turtle_MODULE
+module.exports = MODULE_Turtle

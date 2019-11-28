@@ -1,4 +1,4 @@
-class shiftCompare_VIZ{
+class VIZ_shiftCompare{
 	constructor(seq, sketch, config){
 	    //Sketch is your canvas
 	    //config is the parameters you expect
@@ -79,11 +79,11 @@ class shiftCompare_VIZ{
 }
 
 
-const ShiftCompare_MODULE = {
-	viz: shiftCompare_VIZ,
+const MODULE_ShiftCompare = {
+	viz: VIZ_shiftCompare,
 	name: "Shift Compare",
 	description: "",
 	configSchema: {}
 }
 
-export default ShiftCompare_MODULE;
+module.exports = MODULE_ShiftCompare;

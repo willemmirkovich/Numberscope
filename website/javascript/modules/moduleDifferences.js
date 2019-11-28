@@ -3,14 +3,13 @@
 
 */
 
-class Differences_VIZ {
+class VIZ_Differences {
 	constructor(seq, sketch, config) {
 
 		this.n = config.n;                                   //n is number of terms of top sequence
 		this.levels = config.Levels;                         //levels is number of layers of the pyramid/trapezoid created by writing the differences.
 		this.seq = seq;
 		this.sketch = sketch;
-		console.log(seq)
 	}
 
 	drawDifferences(n, levels, sequence) {
@@ -34,15 +33,11 @@ class Differences_VIZ {
 		
 		let workingSequence = [];
 
-		console.log("n: " + this.n)
-		console.log("levels: " + this.levels)
-
 		for (let i = 0; i < this.n; i++) {
 			console.log("in")
 			workingSequence.push(sequence.getElement(i));                                 //workingSequence cannibalizes first n elements of sequence.
 		}
 
-		console.log("workingSeq: " + workingSequence)
 
 		for (let i = 0; i < this.levels; i++) {
 			hue = (i * 255 / 6) % 255;
@@ -72,9 +67,9 @@ class Differences_VIZ {
 
 
 
-const Differences_SCHEMA = {
+const SCHEMA_Differences = {
 	n: {
-		type: 'string',
+		type: 'number',
 		title: 'N',
 		description: 'Number of elements',
 		required: true
@@ -87,12 +82,12 @@ const Differences_SCHEMA = {
 	},
 }
 
-const Differences_MODULE = {
-	viz: Differences_VIZ,
+const MODULE_Differences = {
+	viz: VIZ_Differences,
 	name: "Differences",
 	description: "",
-	configSchema: Differences_SCHEMA
+	configSchema: SCHEMA_Differences
 }
 
 
-export default Differences_MODULE
+module.exports = MODULE_Differences

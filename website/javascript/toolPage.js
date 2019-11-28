@@ -728,7 +728,7 @@ function addSeq() {
       function (key) {
         newFormId = key + "ParamsForm" + numSequences;
         $("#" + newFormId).jsonForm({
-          schema: NScore.BuiltInSeqs[key].params
+          schema: NScore.BuiltInSeqs[key].paramsSchema
         })
         $("#" + newFormId).hide()
       }

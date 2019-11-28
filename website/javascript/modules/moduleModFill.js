@@ -3,7 +3,7 @@
 //An example module
 
 
-class ModFill_Viz {
+class VIZ_ModFill {
 	constructor(seq, sketch, config) {
 		this.sketch = sketch
 		this.seq = seq
@@ -40,7 +40,7 @@ class ModFill_Viz {
 
 }
 
-const ModFill_SCHEMA = {
+const SCHEMA_ModFill = {
     modDimension: {
         type: "number",
         title: "Mod dimension",
@@ -50,11 +50,11 @@ const ModFill_SCHEMA = {
 }
 
 
-const ModFill_MODULE = {
-	viz: ModFill_Viz,
+const MODULE_ModFill = {
+	viz: VIZ_ModFill,
 	name: "Mod Fill",
 	description: "",
-	configSchema: ModFill_SCHEMA
+	configSchema: SCHEMA_ModFill
 }
 
-export default ModFill_MODULE
+module.exports = MODULE_ModFill

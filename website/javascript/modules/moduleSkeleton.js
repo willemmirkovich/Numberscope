@@ -3,7 +3,7 @@
 //An example module
 
 
-class Empty_VIZ{
+class VIZ_Empty{
 	/**
 	 *Creates an instance of Empty_MODULE.
 	 * @param {*} config parameters passed by the user and defined by schema
@@ -23,16 +23,16 @@ class Empty_VIZ{
 	}
 }
 
-Empty_SCHEMA = {
+SCHEMA_Empty = {
 	
 }
 
 
-const Empty_MODULE = {
+const MODULE_Empty = {
 	viz: Empty_VIZ,
 	name: "",
 	description: "",
 	configSchema: Empty_SCHEMA
 }
 
-export default Empty_MODULE
+module.exports = MODULE_Empty
