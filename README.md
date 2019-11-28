@@ -54,7 +54,7 @@ Done!
 
 Lets go to **javascript/modules/moduleAmazingModule.js** and examine what was created. The module minimally requires the following:
 
-## Visualization class:
+### Visualization class:
 ```javascript
 class VIZ_AmazingModule {
     constructor(seq, sketch, config){
@@ -79,8 +79,8 @@ constructor(seq, sketch, config)
 - *config*: This is where you will receive all the config values specific to your drawing tool, defined via a schema, which is the second thing module file must have.
 
 As a sort of guideline for what goes into *constructor* and what goes into *setup* use the following:
-- *constructor* If you're storing values in the class initialize them in the constructor, especially save the arguments passed (seq, skethc, config) otherwise you won't be able to use them in setup or draw.
-- *setup*: Anything that interacts or manipulates with the sketch **must be in setup**, otherwise those you'll encounter strange bugs. Take a look at *NScore.generatep5*:
+- *constructor*: If you want values that persist between calls make sure to store them in the constructor, especially save the arguments passed (seq, sketch, config) otherwise you won't be able to use them in setup or draw.
+- *setup*: Anything that interacts or manipulates with the sketch **must be in setup**, otherwise those you'll encounter strange bugs. It makes sense if you take a look at *NScore.generatep5*:
 ```javascript
 		let myp5 = new p5(function (sketch) {
 			let moduleInstance = new moduleClass(seq, sketch, config)
@@ -92,7 +92,7 @@ As a sort of guideline for what goes into *constructor* and what goes into *setu
 ```
 Notice that the drawing module's class is instantiated before the canvas is created, and the module's setup function is called after the canvas is created.
 
-## Schema:
+### Schema:
 
 ```javascript
 const SCHEMA_AmazingModule = {
@@ -119,7 +119,7 @@ this.val = config.myconfigvalue
 Notice that the keys in *SCHEMA_AmazingModule* become properties of the config parameter passed to the *VIZ_AmazingModule* constructor. This way makes it's very easy to declaretively say "I want so and so config values" without having to write the HTML interface or extract the values yourself. You define in SCHEMA and expect it in config. (This is thanks to [JSONform](https://github.com/jsonform/jsonform)).  Look at the other module files to various ways to declare your SCHEMA, you can specify more things than just type and title.
 
 
-## A module object
+### A module object
 ```javascript
 const MODULE_AmazingModule = {
     viz: VIZ_AmazingModule,
@@ -132,12 +132,13 @@ This is where the various parts of the module are collected into one place, NSco
 
 Note: Right now there is no validation on the inputs, but if a config.value is "" that means it was left empty. 
 
-## Export
+### Export
 ```
 module.exports = MODULE_AmazingModule
 ```
-This line is necessary to make this module importable. 
-## Registering the module in module.js
+This line is necessary to make this module importable. Besides the four parts described above, you're free to define whatever you want in the file in terms of helper functions or classes.
+
+### Registering the module in module.js
 
 The final part is the following line
 ```javascript
@@ -154,7 +155,7 @@ The basic abstraction over a sequence is the SequenceGenerator class (in **javas
       this.cache = [];
       this.newSize = 1;
 ```
-- *generator*: A function that generates the nth number of the sequence. (Must be an $\mathbb{N}\rightarrow\mathbb{N}$ function)
+- *generator*: A function that generates the nth number of the sequence. (Must be an N->N function)
 - *ID*: ID is used for bookkeeping by NScore.
 - *cache*: A cache to store previously calculated values, useful to avoid expensive calculations and allow memoization.
 - *newSize*: Helps resizing the cache.
@@ -179,7 +180,61 @@ The valid OEIS codes are the ones defined in validOEIS scraped from https://gith
 The list method is the only one that seems to be consistently working for the different sequences.
 # Built in sequences
 
-- to be added
+- The sequence files in *javascript/sequences/* are parallel to modules in their structure, they represent the builtInSequences we've provided. We can initialize a sequence file:
+```
+$ npm run init_sequence
+Enter sequence name: some sequence
+Enter brief sequence description: a new sequence
+1. Generating source..
+2. Creating file: javascript/sequences/sequenceSomesequence.js
+3. Adding sequence entry in javascript/sequences/sequences.js
+Done!
+```
+
+Lets look at our new file *sequenceSomesequence.js*:
+```javascript
+function GEN_Somesequence({}) {
+    const Somesequence = function(n, cache){
+        //define your function here
+    }
+    return Somesequence
+}
+
+const SCHEMA_Somesequence = {
+
+}
+
+const SEQ_Somesequence = {
+    generator: GEN_Somesequence,
+    name: 'Some sequence',
+    description: 'a new sequence',
+    paramsSchema: SCHEMA_Somesequence
+}
+
+module.exports = SEQ_Somesequence
+```
+The structure looks almost exactly like the modules except that we have a function in the beginning rather than a class. The function GEN_Somesequence does not return a number, rather it returns a function Somesequence which is the actual function that generates elements of the sequence. The reason we structure the sequence files this way is so we can capture a larger class of sequences, if you take a look at the linear recurrence sequence, you'll see how the function *GEN_linearRecurrence* returns a linear recurrence parameterized by the following arguments (Which have to be defined by the paramsSchema just like with the drawing modules and their configs):
+```javascript
+{
+    coefficientList,
+    seedList,
+    m
+}
+```
+We even use GEN_linearRecurrence to create the fibonacci and lucas sequences
+```javascript
+SEQ_linearRecurrence = require('./sequenceLinRec.js')
+
+function GEN_fibonacci({
+    m
+}) {
+    return SEQ_linearRecurrence.generator({
+        coefficientList: [1, 1],
+        seedList: [1, 1],
+        m
+    });
+}
+```
 
 # Testing
 
