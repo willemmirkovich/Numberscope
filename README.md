@@ -177,9 +177,9 @@ NPM scripts you can run
 
 - "**npm run build**": Build the NScore_bundled.js file.
 - "**npm run watch**": Watch for changes that affect NScore.js and automatically build NScore_bundled.js 
-- "**npm run check_module [file]**": A lot of the drawing tools that were converted to our module format were forgetting to change some parts from the global p5 methods and instances (for example "line" or "background"), which should instead use the handle "sketch" (like "sketch.line" and "sketch.background"). Running this tool will scan the file for any such usage, but **it can detect something that has nothing to do with p5 and if so just ignore it** (e.g if you name a variable "line" you're fine, if you're using the p5 function "line" you should change it )
+- "**npm run check_module [file]**": A lot of the drawing tools that were converted to our module format were forgetting to change some parts that were using global p5 methods and instances (for example "line" or "background"), which should instead use the handle "sketch" (like "sketch.line" and "sketch.background"). Running this tool will scan the file for any usage of p5 keywords without *this.sketch*, but ***it can detect something that has nothing to do with p5 and if so just ignore it*** (e.g if you name a variable "line" you're fine, if you're using the p5 function "line" you should change it, the script can't tell the differences. It's good to run and go through line by line to make sure. )
 - "**npm run init_module**": This will ask you for a name and description then it will create a file for you in the modules directory with the minimal appropriate structure required. It will also register the module by adding a line in the modules.js that includes it in the MODULES object.
-- "**npm run init_sequence**": The same but for creating a sequence.
+- "**npm run init_sequence**": The same but for creating a sequence. The sequence entry is added to the BuiltInSeqs object in *javascript/sequences/sequences.js*.
 
 ---
 
