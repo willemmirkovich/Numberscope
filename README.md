@@ -71,4 +71,5 @@ Things that need to get done:
 - some sort of testing environment to help when writing the modules
 
 
-- Please let me know if there are any bugs, there are bound to be plenty.
+
+**Please let me know if there are any bugs, there are bound to be plenty. Feel free to create an issue if one doesn't exist**
