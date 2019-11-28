@@ -146,16 +146,16 @@ The basic abstraction over a sequence is the SequenceGenerator class (in **javas
 - *newSize*: Helps resizing the cache.
 
 Methods:
-- *resizeCache(n) $\rightarrow$ void*: Either doubles the newSize or sets it to n.
-- *fillCache(n) $\rightarrow$ void*: Fills the cache from the last element *this.cache.length - 1* up to *n*.
-- *getElement(n) $\rightarrow$ number (or undefined)*: This is really the only method modules should call, it returns the nth element of the sequence. It checks the cache and if it misses it populates the cache.
+- *resizeCache(n) -> void*: Either doubles the newSize or sets it to n.
+- *fillCache(n) -> void*: Fills the cache from the last element *this.cache.length - 1* up to *n*.
+- *getElement(n) -> number (or undefined)*: This is really the only method modules should call, it returns the nth element of the sequence. It checks the cache and if it misses it populates the cache.
 
 There is no way to get the length of the sequence since some (or really most that we care about) sequences are infinite. When getElement returns undefined that means there are no more elements to return. 
 
 Additionally the OEISSequenceGenerator defines additional methods since it depends on an external sage server:
 
-- *oeisFetch(n) $\rightarrow$ Array(number)*: Sends sage code to http://aleph.sagemath.org/service that returns a list numbers for the given OEIS sequence. 
-- *async prefillCache() $\rightarrow$ void*: When the sequence is instantiated, we use this method to fill the cache asynchronously since a getting the code from another server is a very expensive operation, right now we prefill with 3000 elements.
+- *oeisFetch(n) -> Array(number)*: Sends sage code to http://aleph.sagemath.org/service that returns a list numbers for the given OEIS sequence. 
+- *async prefillCache() -> void*: When the sequence is instantiated, we use this method to fill the cache asynchronously since a getting the code from another server is a very expensive operation, right now we prefill with 3000 elements.
 
 Unfortunately if we get a cache miss (3001th element) we have to make a blocking request to get more elements. Otherwise we'd have to make getElement an asynchronously method which would make it more complicated to implement modules. Some possible alternatives:
 1. Making an async call when we're near but no at the cache's end, for example *cache.length - 500*, that way modules can continue to call getElement since we have 500 caches hits before missing (this is assuming the module is calling getElement in normal order 1,2,3,4,..), and we'd be pulling more elements in the background. There is an edge case where the module goes through the 500 elements before the request to the sage server is completed but we can probably block until it completes if we hit this case.
