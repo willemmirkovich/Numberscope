@@ -66,11 +66,18 @@ const NScore = function () {
 		if ((moduleObj.ID && moduleObj.moduleKey && moduleObj.config && modules[moduleObj.moduleKey]) == undefined) {
 			console.error("One or more undefined module properties received in NScore");
 		} else {
+			validationResult = Validation.module(moduleObj)
+			if( validationResult.errors.length != 0){
+				preparedTools[ moduleObj.ID ] = null;
+				return validationResult.errors;
+			}
+			moduleObj.config = validationResult.parsedFields
 			preparedTools[moduleObj.ID] = {
 				module: modules[moduleObj.moduleKey],
 				config: moduleObj.config,
 				ID: moduleObj.ID
 			};
+			return true;
 		}
 	}
 
@@ -88,42 +95,38 @@ const NScore = function () {
 		} else {
 			// We will process different inputs in different ways
 			if (seqObj.inputType == "builtIn") {
-				if (BuiltInSeqs[seqObj.inputValue].generator == undefined) {
-					console.error("undefined or unimplemented sequence: " + seqObj.inputValue);
-				} else {
-					seqObj.parameters['ID'] = seqObj.ID;
-					try {
-						// for linRec these two parameters are strings, we have to conver them to arrays
-						if (seqObj.inputValue == "linRec") {
-							seqObj.parameters['coefficientList'] = stringToArray(seqObj.parameters['coefficientList']);
-							seqObj.parameters['seedList'] = stringToArray(seqObj.parameters['seedList']);
-						}
-						// preparedSequences[seqObj.ID] = BuiltInSeqs[seqObj.inputValue].generator(seqObj.parameters);
-						preparedSequences[seqObj.ID] = BuiltInNameToSeq(seqObj.ID, seqObj.inputValue, seqObj.parameters)
-					} catch (err) {
-						console.error("Error initializing built in seq: " + err)
-					}
+				validationResult = Validation.builtIn(seqObj)
+				if( validationResult.errors.length != 0){
+					preparedSequences[ seqObj.ID ] = null;
+					return validationResult.errors;
 				}
+				console.log(validationResult)
+				seqObj.parameters = validationResult.parsedFields
+				console.log(seqObj)
+				preparedSequences[seqObj.ID] = BuiltInNameToSeq(seqObj.ID, seqObj.inputValue, seqObj.parameters)
 			}
 			if (seqObj.inputType == "OEIS") {
-				if (NScore.validOEIS.includes(seqObj.inputValue)) {
-					preparedSequences[seqObj.ID] = OEISToSeq(seqObj.ID, seqObj.inputValue);
-				} else {
-					console.error("Not a valid OEIS sequence")
+				validationResult = Validation.oeis( seqObj )
+				if( validationResult.errors.length != 0){
+					preparedSequences[ seqObj.ID ] = null;
+					return validationResult.errors;
 				}
+				preparedSequences[seqObj.ID] = OEISToSeq(seqObj.ID, seqObj.inputValue);
 			}
 			if (seqObj.inputType == "list") {
-				try {
-					let list = JSON.parse(seqObj.inputValue)
-					preparedSequences[seqObj.ID] = ListToSeq(seqObj.ID, list);
-				} catch (err) {
-					console.error("Error initializing seq from list: " + err);
+				validationResult = Validation.list( seqObj )
+				if( validationResult.errors.length != 0){
+					preparedSequences[ seqObj.ID ] = null;
+					return validationResult.errors;
 				}
+				preparedSequences[seqObj.ID] = ListToSeq(seqObj.ID, seqObj.inputValue);
+
 			}
 			if (seqObj.inputType == "code") {
 				console.error("Not implemented")
 			}
 		}
+		return true
 	}
 	/**
 	 * We initialize the drawing processing. First we calculate the dimensions of each sketch
@@ -135,7 +138,8 @@ const NScore = function () {
 	 * drawing tool.
 	 */
 	const begin = function (seqVizPairs) {
-
+		hideLog()
+		
 		//Figuring out layout
 		//--------------------------------------
 		let totalWidth = document.getElementById('canvasArea').offsetWidth;
@@ -157,6 +161,7 @@ const NScore = function () {
 	}
 
 	const clear = function () {
+		showLog()
 		if (liveSketches.length == 0) {
 			return;
 		} else {
@@ -201,4 +206,172 @@ const NScore = function () {
 	}
 }()
 
+const Validation = function(){
+
+	
+	const listError = function( title ){
+		let msg = "can't parse the list, please pass numbers seperated by commas (example: 1,2,3)"
+		if( title != undefined ){
+			msg = title + ": " + msg
+		}
+		return msg
+	}
+	
+	const requiredError = function(title){
+		return `${title}: this is a required value, don't leave it empty!`
+	}
+
+	const typeError = function(title, value, expectedType){
+		return `${title}: ${value} is a ${typeof(value)}, expected a ${expectedType}. `
+	}
+
+	const oeisError = function(code){
+		return `${code}: Either an invalid OEIS code or not defined by sage!`
+	}
+
+    const builtIn = function( seqObj ){
+		let schema = BuiltInSeqs[seqObj.inputValue].paramsSchema;
+		let receivedParams = seqObj.parameters;
+		
+		let validationResult = {
+			parsedFields: {},
+			errors: []
+		}
+		Object.keys(receivedParams).forEach(
+			( parameter ) => { 
+				validateFromSchema( schema, parameter, receivedParams[parameter],  validationResult )
+			 }
+		)
+		return validationResult
+	}
+
+	const oeis = function( seqObj ){
+		let validationResult = {
+			parsedFields: {},
+			errors: []
+		}
+		seqObj.inputValue = seqObj.inputValue.trim();
+		let oeisCode = seqObj.inputValue;
+		if( !VALIDOEIS.includes(oeisCode) ){
+			validationResult.errors.push(oeisError(oeisCode));
+		}
+		return validationResult
+	}
+
+	const list = function( seqObj ){
+		let validationResult = {
+			parsedFields: {},
+			errors: []
+		}
+		try{
+			seqObj.inputValue = JSON.parse( seqObj.inputValue )
+		}
+		catch{
+			validationResult.errors.push( listError() )
+		}
+		return validationResult
+	}
+
+	const _module = function( moduleObj ){
+		let schema = MODULES[moduleObj.moduleKey].configSchema;
+		let receivedConfig = moduleObj.config;
+		
+		let validationResult = {
+			parsedFields: {},
+			errors: []
+		}
+
+		Object.keys(receivedConfig).forEach(
+			( configField ) => { 
+				validateFromSchema( schema, configField, receivedConfig[configField], validationResult )
+			 }
+		)
+		return validationResult
+	}
+
+	const validateFromSchema = function( schema, field, value, validationResult ){
+		let title = schema[field].title;
+		console.log(value)
+		if( typeof(input) == "string" ){
+			var input = value.trim();
+		}
+		else{
+			var input = value;
+		}
+		let expectedType = schema[field].type;
+		let required = (schema[field].required !== undefined) ? schema[field].required : false;
+		let format = (schema[field].format !== undefined ) ? schema[field].format : false;
+		let isEmpty = ( input === '' )
+		console.log(validationResult)
+		if( required && isEmpty ){
+			validationResult.errors.push( requiredError(title) )
+		}
+		if( isEmpty ){
+			parsed = null;
+		} 
+		if( !isEmpty && (expectedType == "number" )){
+			parsed = parseInt(input)
+			if( parsed != parsed){ // https://stackoverflow.com/questions/34261938/what-is-the-difference-between-nan-nan-and-nan-nan
+				validationResult.errors.push( typeError(title, input, expectedType) )
+			}
+		}
+		if( !isEmpty && (expectedType == "string")){
+			parsed = input
+		}
+		if( !isEmpty && (expectedType == "boolean")){
+			if( input == '1'){
+				parsed = true;
+			}
+			else{
+				parsed = false;
+			}
+		}
+		if( format && (format == "list" )){
+			try{
+				parsed = JSON.parse( "[" + input + "]" )
+			}
+			catch{
+				validationResult.errors.push( listError( title ) )
+			}
+		}
+		if( parsed !== undefined) {
+			validationResult.parsedFields[ field ] = parsed
+		}
+	}
+
+    return{
+		builtIn: builtIn,
+		oeis: oeis,
+		list: list,
+		module: _module
+    }
+}()
+
+
+
+const LogPanel = function(){
+	logGreen = function(line){
+		$("#innerLogArea").append( `<p style="color:#00ff00">${line}</p><br>` );
+	}
+	logRed = function(line){
+		$("#innerLogArea").append( `<p style="color:red">${line}</p><br>` );
+	}
+	clearlog = function(){
+		$("#innerLogArea").empty();
+	}
+	hideLog = function(){
+		$("#logArea").css('display','none');
+	}
+	showLog = function(){
+		$("#logArea").css('display','block');
+	}
+	return {
+		logGreen: logGreen,
+		logRed: logRed,
+		clearlog: clearlog,
+		hideLog: hideLog,
+		showLog: showLog,
+	}
+}()
 window.NScore = NScore
+window.LogPanel = LogPanel

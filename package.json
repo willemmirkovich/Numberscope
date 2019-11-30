@@ -29,5 +29,6 @@
     "chai": "^4.2.0",
     "mocha": "^6.2.2",
     "watchify": "^3.11.1"
-  }
+  },
+  "dependencies": {}
 }

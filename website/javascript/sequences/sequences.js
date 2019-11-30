@@ -163,9 +163,9 @@ module.exports = {
 }
 
 
-BuiltInSeqs["fibonacci"] = require('./sequenceFibonacci.js')
-BuiltInSeqs["lucas"] = require('./sequenceLucas.js')
-BuiltInSeqs["primes"] = require('./sequencePrimes.js')
-BuiltInSeqs["naturals"] = require('./sequenceNaturals.js')
-BuiltInSeqs["linRec"] = require('./sequenceLinRec.js')
+BuiltInSeqs["Fibonacci"] = require('./sequenceFibonacci.js')
+BuiltInSeqs["Lucas"] = require('./sequenceLucas.js')
+BuiltInSeqs["Primes"] = require('./sequencePrimes.js')
+BuiltInSeqs["Naturals"] = require('./sequenceNaturals.js')
+BuiltInSeqs["LinRec"] = require('./sequenceLinRec.js')
 BuiltInSeqs['Primes'] = require('./sequencePrimes.js')

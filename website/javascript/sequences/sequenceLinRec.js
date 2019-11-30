@@ -11,7 +11,7 @@ function GEN_linearRecurrence({
         return null;
     }
     let k = coefficientList.length;
-    if (m != "") {
+    if (m != null) {
         for (let i = 0; i < coefficientList.length; i++) {
             coefficientList[i] = coefficientList[i] % m;
             seedList[i] = seedList[i] % m;
@@ -54,12 +54,14 @@ const SCHEMA_linearRecurrence = {
     coefficientList: {
         type: 'string',
         title: 'Coefficients list',
+        format:'list',
         description: 'Comma seperated numbers',
         required: true
     },
     seedList: {
         type: 'string',
         title: 'Seed list',
+        format:'list',
         description: 'Comma seperated numbers',
         required: true
     },

@@ -1,7 +1,7 @@
 class VIZ_Turtle {
 	constructor(seq, sketch, config) {
-		var domain = JSON.parse( "[" + config['domain'] + "]" )
-		var range = JSON.parse( "[" + config['range'] + "]" )
+		var domain = config['domain']
+		var range = config['range']
 		this.rotMap = {}
 		for(let i = 0; i < domain.length; i++){
 			this.rotMap[domain[i]] = (Math.PI/180)*range[i]
@@ -14,7 +14,6 @@ class VIZ_Turtle {
 		this.currentIndex = 0;
 		this.orientation = 0;
 		this.sketch = sketch;
-		console.log(config)
 		if(config.startingX != ""){
 			this.X = config.startingX
 			this.Y = config.startingY
@@ -56,6 +55,7 @@ const SCHEMA_Turtle = {
 		type: 'string',
 		title: 'Sequence Domain',
 		description: 'Comma seperated numbers',
+		format:'list',
 		default: "0,1,2,3,4",
 		required: true
 	},
@@ -63,18 +63,19 @@ const SCHEMA_Turtle = {
 		type: 'string',
 		title: 'Angles',
 		default: "30,45,60,90,120",
+		format:'list',
 		description: 'Comma seperated numbers',
 		required: true
 	},
 	stepSize: {
 		type: 'number',
-		title: 'Turtle\'s step size',
+		title: 'Step Size',
 		default: 20,
 		required: true
 	},
 	strokeWeight: {
 		type: 'number',
-		title: 'How wide a stroke is',
+		title: 'Stroke Width',
 		default: 5,
 		required: true
 	},
@@ -99,6 +100,11 @@ const SCHEMA_Turtle = {
 		format: 'color',
 		default: '#ff0000',
 		required: false
+	},
+	testThing: {
+		type: 'string',
+		title: 'hello',
+		foramt: 'list'
 	}
 }
 

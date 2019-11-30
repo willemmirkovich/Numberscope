@@ -59,6 +59,48 @@ header button:hover:not(.active) {
   color: #000000;
 }
 
+#logArea {
+  right: 0%;
+  top: 3.35em;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  background-color: var(--sideNavColor);
+  box-shadow: 10px 10px grey;
+  width: 40em;
+  height: 80%;
+  position: fixed;
+  overflow:scroll;
+  scrollbar-width: none;
+}
+
+#innerLogArea{
+  padding-left: 2px;
+  margin-top: 20px;
+  display: inline-block;
+  background: var(--sideNavColor);
+  height: 90%;
+  width: 80%;
+
+}
+
+#innerLogArea p {
+  color: red;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1em;
+  font-weight: 800;
+  float: left;
+  margin-bottom: auto;
+  text-align: justify;
+}
+
+
+
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent; /* make scrollbar transparent */
+}
+
 #Upload {
   padding-left: 1em;
   padding-right: 1em;
@@ -81,7 +123,7 @@ header button:hover:not(.active) {
 
 /*Main Side Navagation Bar*/
 .sideNav {
-  top: 53.833px;
+  top: 3.35em;
   margin: 0;
   padding: 0;
   list-style-type: none;
@@ -421,7 +463,7 @@ textarea { */
   width: 0;
   position: fixed;
   top: 3.365em;
-  left: 48em;
+  left: 44em;
   z-index: 3;
   background-color: var(--topBarColor);
   overflow-x: hidden;

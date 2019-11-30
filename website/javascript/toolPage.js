@@ -51,19 +51,42 @@ var currentSequence = {
     if (this.inputValue == undefined) {
       console.log("Not setting input since it is undefined for input type: " + this.inputType)
     } else {
-      NScore.receiveSequence(Object.assign({}, {
+      ret = NScore.receiveSequence(Object.assign({}, {
         ID: this.ID,
         inputType: this.inputType,
         inputValue: this.inputValue,
         parameters: this.parameters
       }))
+      if( ret != true){
+        ret.forEach(
+          (err) => { this.reportBad(err) }
+        )
+      }else{
+        if(this.inputType == "list"){
+          this.reportGood( "List" )
+        }
+        if(this.inputType == "OEIS"){
+          this.reportGood( this.inputValue )
+        }
+        if(this.inputType == "builtIn"){
+          this.reportGood( BuiltInSeqs[this.inputValue].name )
+        }
+      }
+
     }
   },
   refresh: function () {
-    this.ID = undefined;
     this.inputType = undefined;
     this.inputValue = undefined;
     this.parameters = {};
+  },
+  reportBad: function(msg){
+    prefix = String.fromCharCode(96 + this.ID)
+    logRed( `[${prefix}_n] ${msg}` )
+  },
+  reportGood: function(msg){
+    prefix = String.fromCharCode(96 + this.ID)
+    logGreen( `[${prefix}_n] ${msg}` )
   }
 }
 
@@ -78,35 +101,50 @@ var currentTool = {
   },
   setModule: function (m) {
     this.moduleKey = moduleKeys[m];
-    //this config is temporary
   },
   setConfig: function (config) {
     let configID = "#" + this.moduleKey + "Config" + this.ID;
-    console.log("config id: ")
-    console.log(configID)
     let collectedConfig = $(configID).serializeArray()
     collectedConfig.forEach(
       (configField) => this.config[configField.name] = configField.value
     )
-    console.log("config: ")
-    console.log(this.config);
-    // console.log("Not implemented");
   },
   sendModule: function () {
-
-    // Pass to NScore, gets a return value that might be a possible error
-
-    console.log("Sending module: " + this.moduleKey)
-    NScore.receiveModule(Object.assign({}, {
+    console.log(this);
+    let ret = NScore.receiveModule(Object.assign({}, {
       ID: this.ID,
       moduleKey: this.moduleKey,
       config: this.config
     }))
+    console.log(ret)
+    if( ret != true){
+      ret.forEach(
+        (err) => { this.reportBad(err) }
+      )
+    }
+    else{
+      this.reportGood()
+    }
   },
   refresh: function () {
-    this.ID = undefined;
     this.moduleKey = undefined;
     this.config = {};
+  },
+  reportBad: function(msg){
+    name = "(" + NScore.modules[this.moduleKey].name + ")"
+    prefix = `[tool ${this.ID}]`
+    logRed( `${prefix} ${name} ${msg}` )
+  },
+  reportGood: function(msg){
+    name = "(" + NScore.modules[this.moduleKey].name + ")"
+    prefix = `[tool ${this.ID}] `
+    if( msg == undefined){
+      logGreen( `${prefix} ${name}` )
+    }
+    else{
+      logGreen( `${prefix} ${name} ${msg}` )
+
+    }
   }
 };
 
@@ -154,7 +192,7 @@ function openNav(n) {
     closeNav(3);
   } else if (n == 3) {
     document.getElementById("title1").innerHTML = "Pick Sequence to Draw";
-    document.getElementById("step3Nav").style.width = "36em";
+    document.getElementById("step3Nav").style.width = "20em";
     document.getElementById("step3").style.background = sideNavColor2;
     //document.getElementsByTagName('body').style.backgroundImage = "sequenceDraw.jpg";
     closeNav(1);
@@ -184,20 +222,13 @@ function closeNav(n) {
 
 //Sequence Navigation Bars
 function openSeqNav(n) {
-  if (currentSequence.inputType != undefined) {
-    currentSequence.setValue();
-    currentSequence.setParameters();
-    currentSequence.sendSequence();
-  }
-  currentSequence.refresh();
-  currentSequence.setID(n);
   document.getElementById("title1").innerHTML = "Pick an Input Method";
   for (let i = 1; i <= numSequences; i++) {
     let curSeqNav = "seqNav" + i;
     document.getElementById(curSeqNav).style.width = "0em";
   }
   let selectedNav = "seqNav" + n;
-  document.getElementById(selectedNav).style.width = "24em";
+  document.getElementById(selectedNav).style.width = "20em";
 
   for (let i = 1; i <= numSequences; i++) {
     let curSeq = "seq" + i;
@@ -213,16 +244,10 @@ function openSeqNav(n) {
       closeSeqInputNav(i, j);
     }
   }
+  currentSequence.setID(n);
 }
 
 function closeSeqNav(n) {
-  //selection is considered finalized here
-  //if statement causes bug when Linear Recurrence Option is selected
-  if (currentSequence.inputType != undefined) {
-    currentSequence.setValue();
-    currentSequence.setParameters(); //this temp, should get it from input box or something
-    currentSequence.sendSequence();
-  }
   let selectedNav = "seqNav" + n;
   document.getElementById(selectedNav).style.width = "0";
   for (let i = 1; i <= numSequences; i++) {
@@ -237,10 +262,9 @@ function closeSeqNav(n) {
 }
 
 function openSeqInputNav(n, m) {
-  currentSequence.setType(m);
   if (m == 1) {
     let u = "builtInInputNav" + n;
-    document.getElementById(u).style.width = "24em";
+    document.getElementById(u).style.width = "20em";
     document.getElementById(u).style.padding = "8px";
     let v = "builtIn" + n;
     document.getElementById(v).style.background = topBarColor;
@@ -248,43 +272,6 @@ function openSeqInputNav(n, m) {
     document.getElementById(v).style.borderLeftColor = sideNavColor;
 
     showBuiltInParams(n);
-    //attach correct form to u
-    // console.log(NScore.BuiltInSeqs[seqKeys[m]].params)
-    // $('#seqform1').jsonForm({
-    //   schema: {
-    //     MOD: {
-    //       type: 'number',
-    //       title: 'mod',
-    //       required: true
-    //     },
-    //     STUFF: {
-    //       type: 'number',
-    //       title: 'stuff1'
-    //     },
-    //     STUFF2: {
-    //       type: 'number',
-    //       title: 'stuff2'
-    //     },
-    //     BG_COLOR: {
-    //       type: 'string',
-    //       title: 'background color',
-    //       format: 'color'
-    //     },
-    //     STROKE_COLOR: {
-    //       type: 'string',
-    //       title: 'Line color',
-    //       format: 'color'
-    //     }
-    //   },
-    //   onSubmit: function (errors, values) {
-    //     if (errors) {
-    //       console.log("ERROR")
-    //     } else {
-    //       console.log("Resulting object: ")
-    //       console.log(values)
-    //     }
-    //   }
-    // });
 
     document.getElementById("OEIS" + n).style.borderLeftColor = logoColor;
     document.getElementById("list" + n).style.borderLeftColor = logoColor;
@@ -339,9 +326,16 @@ function openSeqInputNav(n, m) {
     closeSeqInputNav(n, 2);
     closeSeqInputNav(n, 1);
   }
+  currentSequence.setType(m);
 }
 
 function closeSeqInputNav(n, m) {
+  if( currentSequence.inputType != undefined ){
+    currentSequence.setValue();
+    currentSequence.setParameters(); //this temp, should get it from input box or something
+    currentSequence.sendSequence();
+    currentSequence.refresh()
+  }
   if (m == 1) {
     var f = "builtInInputNav" + n;
     var g = "builtIn" + n;
@@ -428,7 +422,7 @@ function openToolNav(n) {
     closeToolNav(i);
   }
   let selectedNav = "toolNav" + n;
-  document.getElementById(selectedNav).style.width = "24em";
+  document.getElementById(selectedNav).style.width = "20em";
 
   for (let i = 1; i <= numTools; i++) {
     let curTool = "tool" + i;
@@ -460,11 +454,9 @@ function closeToolNav(n) {
 }
 
 function openToolInputNav(n, m) {
-  currentTool.setID(n);
-  currentTool.setModule(m);
 
   let u = moduleKeys[m] + "Config" + n;
-  document.getElementById(u).style.width = "24em";
+  document.getElementById(u).style.width = "20em";
   document.getElementById(u).style.padding = "8px";
 
   let v = moduleKeys[m] + n;
@@ -479,6 +471,8 @@ function openToolInputNav(n, m) {
     }
   }
   $("#" + u).show()
+  currentTool.setID(n);
+  currentTool.setModule(m);
 }
 
 function closeToolInputNav(n, m) {
@@ -731,9 +725,15 @@ function addSeq() {
           schema: NScore.BuiltInSeqs[key].paramsSchema
         })
         $("#" + newFormId).hide()
+        $("#" + newFormId).hide()
       }
     )
   }
+      //We don't want jsonForm to block wrong input, since we want to report it to the user.
+    //Otherwise entering a "string" in a "number" input is the same as not entering anything at all
+    //We have to make a distinction between wrong input and empty input.
+    $(".form-control").each( (i,node) => node.type ="any") 
+
 }
 
 function addTool() {
@@ -944,9 +944,11 @@ function _draw() {
 }
 
 
-addDraw()
-addSeq()
-addTool()
-openNav(1)
-openSeqNav(1)
-openSeqInputNav(1, 1)
+addDraw();
+addSeq();
+addTool();
+
+LogPanel.clearlog();
+$("#innerLogArea").append( 
+'<p style="color:black;font-weight:500;font-size:1.2em;font-style:italic">This is the log, errors and other information will show up here..</p><br>`' 
+)
