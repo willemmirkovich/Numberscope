@@ -153,12 +153,12 @@ const NScore = function () {
 		//--------------------------------------
 
 		for (let pair of seqVizPairs) {
-			let currentSeq = preparedSequences[pair["seqID"]];
-			let currentTool = preparedTools[pair["toolID"]];
+			let currentSeq = preparedSequences[pair.seqID];
+			let currentTool = preparedTools[pair.toolID];
 			if (currentSeq && currentTool == undefined) {
 				console.error("undefined ID for tool or sequence");
 			}
-			liveSketches.push(generateP5(currentTool['module']["viz"], currentTool['config'], currentSeq, liveSketches.length, individualWidth, individualHeight));
+			liveSketches.push(generateP5(currentTool.module.viz, currentTool.config, currentSeq, liveSketches.length, individualWidth, individualHeight));
 		}
 	};
 
