@@ -74,7 +74,7 @@ function sageExecute(code) {
         async: false,
         url: 'http://aleph.sagemath.org/service',
         data: "code=" + code
-    })
+    });
 }
 
 /**
@@ -88,7 +88,7 @@ async function sageExecuteAsync(code) {
         type: 'POST',
         url: 'http://aleph.sagemath.org/service',
         data: "code=" + code
-    })
+    });
 }
 
 
@@ -98,20 +98,20 @@ class OEISSequenceGenerator {
         this.ID = ID;
         this.cache = [];
         this.newSize = 1;
-        this.prefillCache()
+        this.prefillCache();
     }
     oeisFetch(n) {
-        console.log("Fetching..")
+        console.log("Fetching..");
         let code = `print(sloane.${this.OEIS}.list(${n}))`;
         let resp = sageExecute(code);
-        return JSON.parse(resp.responseJSON.stdout)
+        return JSON.parse(resp.responseJSON.stdout);
     }
     async prefillCache() {
         this.resizeCache(3000);
         let code = `print(sloane.${this.OEIS}.list(${this.newSize}))`;
         let resp = await sageExecuteAsync(code);
-        console.log(resp)
-        this.cache = this.cache.concat(JSON.parse(resp.stdout))
+        console.log(resp);
+        this.cache = this.cache.concat(JSON.parse(resp.stdout));
     }
     resizeCache(n) {
         this.newSize = this.cache.length * 2;
@@ -134,16 +134,16 @@ class OEISSequenceGenerator {
     }
 }
 
-function BuiltInNameToSeq(ID, seqName, seqParams){
-    let generator = BuiltInSeqs[seqName].generator(seqParams)
-    return new SequenceGenerator(ID, generator)
+function BuiltInNameToSeq(ID, seqName, seqParams) {
+    let generator = BuiltInSeqs[seqName].generator(seqParams);
+    return new SequenceGenerator(ID, generator);
 }
 
 
 function ListToSeq(ID, list) {
     let listGenerator = function (n) {
         return list[n];
-    }
+    };
     return new SequenceGenerator(ID, listGenerator);
 }
 
@@ -152,7 +152,7 @@ function OEISToSeq(ID, OEIS) {
 }
 
 
-const BuiltInSeqs = {}
+const BuiltInSeqs = {};
 
 
 module.exports = {
@@ -160,12 +160,12 @@ module.exports = {
     'ListToSeq': ListToSeq,
     'OEISToSeq': OEISToSeq,
     'BuiltInSeqs': BuiltInSeqs
-}
+};
 
 
-BuiltInSeqs["Fibonacci"] = require('./sequenceFibonacci.js')
-BuiltInSeqs["Lucas"] = require('./sequenceLucas.js')
-BuiltInSeqs["Primes"] = require('./sequencePrimes.js')
-BuiltInSeqs["Naturals"] = require('./sequenceNaturals.js')
-BuiltInSeqs["LinRec"] = require('./sequenceLinRec.js')
-BuiltInSeqs['Primes'] = require('./sequencePrimes.js')
+BuiltInSeqs["Fibonacci"] = require('./sequenceFibonacci.js');
+BuiltInSeqs["Lucas"] = require('./sequenceLucas.js');
+BuiltInSeqs["Primes"] = require('./sequencePrimes.js');
+BuiltInSeqs["Naturals"] = require('./sequenceNaturals.js');
+BuiltInSeqs["LinRec"] = require('./sequenceLinRec.js');
+BuiltInSeqs['Primes'] = require('./sequencePrimes.js');

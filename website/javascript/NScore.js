@@ -1,19 +1,21 @@
-SEQUENCE = require('./sequences/sequences.js')
-VALIDOEIS = require('./validOEIS.js')
-MODULES = require('./modules/modules.js')
+/*jshint maxerr: 10000 */
 
-BuiltInSeqs = SEQUENCE.BuiltInSeqs
-ListToSeq = SEQUENCE.ListToSeq
-OEISToSeq = SEQUENCE.OEISToSeq
-BuiltInNameToSeq = SEQUENCE.BuiltInNameToSeq
+SEQUENCE = require('./sequences/sequences.js');
+VALIDOEIS = require('./validOEIS.js');
+MODULES = require('./modules/modules.js');
+
+BuiltInSeqs = SEQUENCE.BuiltInSeqs;
+ListToSeq = SEQUENCE.ListToSeq;
+OEISToSeq = SEQUENCE.OEISToSeq;
+BuiltInNameToSeq = SEQUENCE.BuiltInNameToSeq;
 
 function stringToArray(strArr) {
-	return JSON.parse("[" + strArr + "]")
+	return JSON.parse("[" + strArr + "]");
 }
 
 const NScore = function () {
-	const modules = MODULES //  classes to the drawing modules 
-	const validOEIS = VALIDOEIS
+	const modules = MODULES; //  classes to the drawing modules
+	const validOEIS = VALIDOEIS;
 	var preparedSequences = []; // sequenceGenerators to be drawn
 	var preparedTools = []; // chosen drawing modules 
 	var liveSketches = []; // p5 sketches being drawn
@@ -34,25 +36,25 @@ const NScore = function () {
 		//Create canvas element here
 		var div = document.createElement('div');
 		//The style of the canvases will be "canvasClass"
-		div.className = "canvasClass"
-		div.id = "liveCanvas" + divID
+		div.className = "canvasClass";
+		div.id = "liveCanvas" + divID;
 		document.getElementById("canvasArea").appendChild(div);
 		//-------------------------------------------
 		//Create P5js instance
 		let myp5 = new p5(function (sketch) {
-			let moduleInstance = new moduleClass(seq, sketch, config)
+			let moduleInstance = new moduleClass(seq, sketch, config);
 			sketch.setup = function () {
 				sketch.createCanvas(width, height);
-				sketch.background("white")
+				sketch.background("white");
 				moduleInstance.setup();
 			};
 
 			sketch.draw = function () {
-				moduleInstance.draw()
-			}
+				moduleInstance.draw();
+			};
 		}, div.id);
 		return myp5;
-	}
+	};
 
 	/**
 	 * When the user chooses a drawing module and provides corresponding config
@@ -66,12 +68,12 @@ const NScore = function () {
 		if ((moduleObj.ID && moduleObj.moduleKey && moduleObj.config && modules[moduleObj.moduleKey]) == undefined) {
 			console.error("One or more undefined module properties received in NScore");
 		} else {
-			validationResult = Validation.module(moduleObj)
-			if( validationResult.errors.length != 0){
-				preparedTools[ moduleObj.ID ] = null;
+			validationResult = Validation.module(moduleObj);
+			if (validationResult.errors.length != 0) {
+				preparedTools[moduleObj.ID] = null;
 				return validationResult.errors;
 			}
-			moduleObj.config = validationResult.parsedFields
+			moduleObj.config = validationResult.parsedFields;
 			preparedTools[moduleObj.ID] = {
 				module: modules[moduleObj.moduleKey],
 				config: moduleObj.config,
@@ -79,7 +81,7 @@ const NScore = function () {
 			};
 			return true;
 		}
-	}
+	};
 
 	/**
 	 * When the user chooses a sequence, we will automatically pass it to this function
@@ -95,39 +97,39 @@ const NScore = function () {
 		} else {
 			// We will process different inputs in different ways
 			if (seqObj.inputType == "builtIn") {
-				validationResult = Validation.builtIn(seqObj)
-				if( validationResult.errors.length != 0){
-					preparedSequences[ seqObj.ID ] = null;
+				validationResult = Validation.builtIn(seqObj);
+				if (validationResult.errors.length != 0) {
+					preparedSequences[seqObj.ID] = null;
 					return validationResult.errors;
 				}
-				console.log(validationResult)
-				seqObj.parameters = validationResult.parsedFields
-				console.log(seqObj)
-				preparedSequences[seqObj.ID] = BuiltInNameToSeq(seqObj.ID, seqObj.inputValue, seqObj.parameters)
+				console.log(validationResult);
+				seqObj.parameters = validationResult.parsedFields;
+				console.log(seqObj);
+				preparedSequences[seqObj.ID] = BuiltInNameToSeq(seqObj.ID, seqObj.inputValue, seqObj.parameters);
 			}
 			if (seqObj.inputType == "OEIS") {
-				validationResult = Validation.oeis( seqObj )
-				if( validationResult.errors.length != 0){
-					preparedSequences[ seqObj.ID ] = null;
+				validationResult = Validation.oeis(seqObj);
+				if (validationResult.errors.length != 0) {
+					preparedSequences[seqObj.ID] = null;
 					return validationResult.errors;
 				}
 				preparedSequences[seqObj.ID] = OEISToSeq(seqObj.ID, seqObj.inputValue);
 			}
 			if (seqObj.inputType == "list") {
-				validationResult = Validation.list( seqObj )
-				if( validationResult.errors.length != 0){
-					preparedSequences[ seqObj.ID ] = null;
+				validationResult = Validation.list(seqObj);
+				if (validationResult.errors.length != 0) {
+					preparedSequences[seqObj.ID] = null;
 					return validationResult.errors;
 				}
 				preparedSequences[seqObj.ID] = ListToSeq(seqObj.ID, seqObj.inputValue);
 
 			}
 			if (seqObj.inputType == "code") {
-				console.error("Not implemented")
+				console.error("Not implemented");
 			}
 		}
-		return true
-	}
+		return true;
+	};
 	/**
 	 * We initialize the drawing processing. First we calculate the dimensions of each sketch
 	 * then we pair up sequences and drawing modules, and finally we pass them to generateP5
@@ -138,16 +140,16 @@ const NScore = function () {
 	 * drawing tool.
 	 */
 	const begin = function (seqVizPairs) {
-		hideLog()
-		
+		hideLog();
+
 		//Figuring out layout
 		//--------------------------------------
 		let totalWidth = document.getElementById('canvasArea').offsetWidth;
 		let totalHeight = document.getElementById('canvasArea').offsetHeight;
-		let canvasCount = seqVizPairs.length
+		let canvasCount = seqVizPairs.length;
 		let gridSize = Math.ceil(Math.sqrt(canvasCount));
-		let individualWidth = totalWidth / gridSize - 20
-		let individualHeight = totalHeight / gridSize
+		let individualWidth = totalWidth / gridSize - 20;
+		let individualHeight = totalHeight / gridSize;
 		//--------------------------------------
 
 		for (let pair of seqVizPairs) {
@@ -158,36 +160,36 @@ const NScore = function () {
 			}
 			liveSketches.push(generateP5(currentTool['module']["viz"], currentTool['config'], currentSeq, liveSketches.length, individualWidth, individualHeight));
 		}
-	}
+	};
 
 	const clear = function () {
-		showLog()
+		showLog();
 		if (liveSketches.length == 0) {
 			return;
 		} else {
 			for (let i = 0; i < liveSketches.length; i++) {
-				liveSketches[i].remove() //delete canvas element
+				liveSketches[i].remove(); //delete canvas element
 			}
 		}
-	}
+	};
 
 	const pause = function () {
 		liveSketches.forEach(function (sketch) {
 			sketch.noLoop();
-		})
-	}
+		});
+	};
 
 	const resume = function () {
 		liveSketches.forEach(function (sketch) {
-			sketch.loop()
-		})
-	}
+			sketch.loop();
+		});
+	};
 
 	const step = function () {
 		liveSketches.forEach(function (sketch) {
 			sketch.redraw();
-		})
-	}
+		});
+	};
 
 	return {
 		receiveSequence: receiveSequence,
@@ -203,175 +205,168 @@ const NScore = function () {
 		resume: resume,
 		step: step,
 		clear: clear,
-	}
-}()
+	};
+}();
 
-const Validation = function(){
+const Validation = function () {
 
-	
-	const listError = function( title ){
-		let msg = "can't parse the list, please pass numbers seperated by commas (example: 1,2,3)"
-		if( title != undefined ){
-			msg = title + ": " + msg
+
+	const listError = function (title) {
+		let msg = "can't parse the list, please pass numbers seperated by commas (example: 1,2,3)";
+		if (title != undefined) {
+			msg = title + ": " + msg;
 		}
-		return msg
-	}
-	
-	const requiredError = function(title){
-		return `${title}: this is a required value, don't leave it empty!`
-	}
+		return msg;
+	};
 
-	const typeError = function(title, value, expectedType){
-		return `${title}: ${value} is a ${typeof(value)}, expected a ${expectedType}. `
-	}
+	const requiredError = function (title) {
+		return `${title}: this is a required value, don't leave it empty!`;
+	};
 
-	const oeisError = function(code){
-		return `${code}: Either an invalid OEIS code or not defined by sage!`
-	}
+	const typeError = function (title, value, expectedType) {
+		return `${title}: ${value} is a ${typeof(value)}, expected a ${expectedType}. `;
+	};
 
-    const builtIn = function( seqObj ){
+	const oeisError = function (code) {
+		return `${code}: Either an invalid OEIS code or not defined by sage!`;
+	};
+
+	const builtIn = function (seqObj) {
 		let schema = BuiltInSeqs[seqObj.inputValue].paramsSchema;
 		let receivedParams = seqObj.parameters;
-		
-		let validationResult = {
-			parsedFields: {},
-			errors: []
-		}
-		Object.keys(receivedParams).forEach(
-			( parameter ) => { 
-				validateFromSchema( schema, parameter, receivedParams[parameter],  validationResult )
-			 }
-		)
-		return validationResult
-	}
 
-	const oeis = function( seqObj ){
 		let validationResult = {
 			parsedFields: {},
 			errors: []
-		}
+		};
+		Object.keys(receivedParams).forEach(
+			(parameter) => {
+				validateFromSchema(schema, parameter, receivedParams[parameter], validationResult);
+			}
+		);
+		return validationResult;
+	};
+
+	const oeis = function (seqObj) {
+		let validationResult = {
+			parsedFields: {},
+			errors: []
+		};
 		seqObj.inputValue = seqObj.inputValue.trim();
 		let oeisCode = seqObj.inputValue;
-		if( !VALIDOEIS.includes(oeisCode) ){
+		if (!VALIDOEIS.includes(oeisCode)) {
 			validationResult.errors.push(oeisError(oeisCode));
 		}
-		return validationResult
-	}
+		return validationResult;
+	};
 
-	const list = function( seqObj ){
+	const list = function (seqObj) {
 		let validationResult = {
 			parsedFields: {},
 			errors: []
+		};
+		try {
+			seqObj.inputValue = JSON.parse(seqObj.inputValue);
+		} catch (err) {
+			validationResult.errors.push(listError());
 		}
-		try{
-			seqObj.inputValue = JSON.parse( seqObj.inputValue )
-		}
-		catch{
-			validationResult.errors.push( listError() )
-		}
-		return validationResult
-	}
+		return validationResult;
+	};
 
-	const _module = function( moduleObj ){
+	const _module = function (moduleObj) {
 		let schema = MODULES[moduleObj.moduleKey].configSchema;
 		let receivedConfig = moduleObj.config;
-		
+
 		let validationResult = {
 			parsedFields: {},
 			errors: []
-		}
+		};
 
 		Object.keys(receivedConfig).forEach(
-			( configField ) => { 
-				validateFromSchema( schema, configField, receivedConfig[configField], validationResult )
-			 }
-		)
-		return validationResult
-	}
+			(configField) => {
+				validateFromSchema(schema, configField, receivedConfig[configField], validationResult);
+			}
+		);
+		return validationResult;
+	};
 
-	const validateFromSchema = function( schema, field, value, validationResult ){
+	const validateFromSchema = function (schema, field, value, validationResult) {
 		let title = schema[field].title;
-		console.log(value)
-		if( typeof(input) == "string" ){
-			var input = value.trim();
-		}
-		else{
-			var input = value;
+		if (typeof (value) == "string") {
+			value = value.trim();
 		}
 		let expectedType = schema[field].type;
 		let required = (schema[field].required !== undefined) ? schema[field].required : false;
-		let format = (schema[field].format !== undefined ) ? schema[field].format : false;
-		let isEmpty = ( input === '' )
-		console.log(validationResult)
-		if( required && isEmpty ){
-			validationResult.errors.push( requiredError(title) )
+		let format = (schema[field].format !== undefined) ? schema[field].format : false;
+		let isEmpty = (value === '');
+		console.log(validationResult);
+		if (required && isEmpty) {
+			validationResult.errors.push(requiredError(title));
 		}
-		if( isEmpty ){
+		if (isEmpty) {
 			parsed = null;
-		} 
-		if( !isEmpty && (expectedType == "number" )){
-			parsed = parseInt(input)
-			if( parsed != parsed){ // https://stackoverflow.com/questions/34261938/what-is-the-difference-between-nan-nan-and-nan-nan
-				validationResult.errors.push( typeError(title, input, expectedType) )
+		}
+		if (!isEmpty && (expectedType == "number")) {
+			parsed = parseInt(value);
+			if (parsed != parsed) { // https://stackoverflow.com/questions/34261938/what-is-the-difference-between-nan-nan-and-nan-nan
+				validationResult.errors.push(typeError(title, value, expectedType));
 			}
 		}
-		if( !isEmpty && (expectedType == "string")){
-			parsed = input
+		if (!isEmpty && (expectedType == "string")) {
+			parsed = value;
 		}
-		if( !isEmpty && (expectedType == "boolean")){
-			if( input == '1'){
+		if (!isEmpty && (expectedType == "boolean")) {
+			if (value == '1') {
 				parsed = true;
-			}
-			else{
+			} else {
 				parsed = false;
 			}
 		}
-		if( format && (format == "list" )){
-			try{
-				parsed = JSON.parse( "[" + input + "]" )
-			}
-			catch{
-				validationResult.errors.push( listError( title ) )
+		if (format && (format == "list")) {
+			try {
+				parsed = JSON.parse("[" + value + "]");
+			} catch (err) {
+				validationResult.errors.push(listError(title));
 			}
 		}
-		if( parsed !== undefined) {
-			validationResult.parsedFields[ field ] = parsed
+		if (parsed !== undefined) {
+			validationResult.parsedFields[field] = parsed;
 		}
-	}
+	};
 
-    return{
+	return {
 		builtIn: builtIn,
 		oeis: oeis,
 		list: list,
 		module: _module
-    }
-}()
+	};
+}();
 
 
 
-const LogPanel = function(){
-	logGreen = function(line){
-		$("#innerLogArea").append( `<p style="color:#00ff00">${line}</p><br>` );
-	}
-	logRed = function(line){
-		$("#innerLogArea").append( `<p style="color:red">${line}</p><br>` );
-	}
-	clearlog = function(){
+const LogPanel = function () {
+	logGreen = function (line) {
+		$("#innerLogArea").append(`<p style="color:#00ff00">${line}</p><br>`);
+	};
+	logRed = function (line) {
+		$("#innerLogArea").append(`<p style="color:red">${line}</p><br>`);
+	};
+	clearlog = function () {
 		$("#innerLogArea").empty();
-	}
-	hideLog = function(){
-		$("#logArea").css('display','none');
-	}
-	showLog = function(){
-		$("#logArea").css('display','block');
-	}
+	};
+	hideLog = function () {
+		$("#logArea").css('display', 'none');
+	};
+	showLog = function () {
+		$("#logArea").css('display', 'block');
+	};
 	return {
 		logGreen: logGreen,
 		logRed: logRed,
 		clearlog: clearlog,
 		hideLog: hideLog,
 		showLog: showLog,
-	}
-}()
-window.NScore = NScore
-window.LogPanel = LogPanel
+	};
+}();
+window.NScore = NScore;
+window.LogPanel = LogPanel;
