@@ -46,8 +46,6 @@ setup ={
         n: 20,
         Levels: 2
     },
-    width: 600,
-    height: 600
 }
 
 // setup = {
@@ -57,8 +55,6 @@ setup ={
 //     config: {
 //          modDimension: 100
 //     },
-//     width: 600,
-//     height: 600
 // }
 
 // setup = {
@@ -69,6 +65,4 @@ setup ={
 //         yourParam1: someValue1,
 //         yourParam2: someValue2
 //     },
-//     width: 600,
-//     height: 600
 // }
