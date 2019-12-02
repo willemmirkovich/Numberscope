@@ -162,7 +162,7 @@ module.exports = {
     'BuiltInSeqs': BuiltInSeqs
 };
 
-
+/*jshint ignore: start */
 BuiltInSeqs["Fibonacci"] = require('./sequenceFibonacci.js');
 BuiltInSeqs["Lucas"] = require('./sequenceLucas.js');
 BuiltInSeqs["Primes"] = require('./sequencePrimes.js');

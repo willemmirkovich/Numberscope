@@ -3,8 +3,8 @@ class VIZ_Turtle {
 		var domain = config.domain;
 		var range = config.range;
 		this.rotMap = {};
-		for(let i = 0; i < domain.length; i++){
-			this.rotMap[domain[i]] = (Math.PI/180)*range[i];
+		for (let i = 0; i < domain.length; i++) {
+			this.rotMap[domain[i]] = (Math.PI / 180) * range[i];
 		}
 		this.stepSize = config.stepSize;
 		this.bgColor = config.bgColor;
@@ -14,11 +14,10 @@ class VIZ_Turtle {
 		this.currentIndex = 0;
 		this.orientation = 0;
 		this.sketch = sketch;
-		if(config.startingX != ""){
+		if (config.startingX != "") {
 			this.X = config.startingX;
 			this.Y = config.startingY;
-		}
-		else{
+		} else {
 			this.X = null;
 			this.Y = null;
 		}
@@ -28,8 +27,8 @@ class VIZ_Turtle {
 		let oldX = this.X;
 		let oldY = this.Y;
 		let currElement = this.seq.getElement(this.currentIndex++);
-		let angle = this.rotMap[ currElement ];
-		if(angle == undefined){
+		let angle = this.rotMap[currElement];
+		if (angle == undefined) {
 			throw ('angle undefined for element: ' + currElement);
 		}
 		this.orientation = (this.orientation + angle);
@@ -55,7 +54,7 @@ const SCHEMA_Turtle = {
 		type: 'string',
 		title: 'Sequence Domain',
 		description: 'Comma seperated numbers',
-		format:'list',
+		format: 'list',
 		default: "0,1,2,3,4",
 		required: true
 	},
@@ -63,7 +62,7 @@ const SCHEMA_Turtle = {
 		type: 'string',
 		title: 'Angles',
 		default: "30,45,60,90,120",
-		format:'list',
+		format: 'list',
 		description: 'Comma seperated numbers',
 		required: true
 	},

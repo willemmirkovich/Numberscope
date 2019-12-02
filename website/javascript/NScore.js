@@ -102,9 +102,7 @@ const NScore = function () {
 					preparedSequences[seqObj.ID] = null;
 					return validationResult.errors;
 				}
-				console.log(validationResult);
 				seqObj.parameters = validationResult.parsedFields;
-				console.log(seqObj);
 				preparedSequences[seqObj.ID] = BuiltInNameToSeq(seqObj.ID, seqObj.inputValue, seqObj.parameters);
 			}
 			if (seqObj.inputType == "OEIS") {

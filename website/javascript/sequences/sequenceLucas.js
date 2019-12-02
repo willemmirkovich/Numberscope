@@ -1,5 +1,5 @@
 
-const SEQ_linearRecurrence = require('./sequenceLinRec.js')
+const SEQ_linearRecurrence = require('./sequenceLinRec.js');
 
 function GEN_Lucas({
     m
@@ -18,7 +18,7 @@ const SCHEMA_Lucas= {
         description: 'A number to mod the sequence by by',
         required: false
     }
-}
+};
 
 
 const SEQ_Lucas = {
@@ -26,6 +26,6 @@ const SEQ_Lucas = {
 	name: "Lucas",
 	description: "",
 	paramsSchema: SCHEMA_Lucas
-}
+};
 
-module.exports = SEQ_Lucas
+module.exports = SEQ_Lucas;

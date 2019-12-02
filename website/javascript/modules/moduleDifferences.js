@@ -34,7 +34,6 @@ class VIZ_Differences {
 		let workingSequence = [];
 
 		for (let i = 0; i < this.n; i++) {
-			console.log("in");
 			workingSequence.push(sequence.getElement(i)); //workingSequence cannibalizes first n elements of sequence.
 		}
 

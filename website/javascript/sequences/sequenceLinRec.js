@@ -11,15 +11,16 @@ function GEN_linearRecurrence({
         return null;
     }
     let k = coefficientList.length;
+    let genericLinRec;
     if (m != null) {
         for (let i = 0; i < coefficientList.length; i++) {
             coefficientList[i] = coefficientList[i] % m;
             seedList[i] = seedList[i] % m;
         }
-        var genericLinRec = function (n, cache) {
+        genericLinRec = function (n, cache) {
             if( n < seedList.length){
-                cache[n] = seedList[n]
-                return cache[n] 
+                cache[n] = seedList[n];
+                return cache[n] ;
             }
             for (let i = cache.length; i <= n; i++) {
                 let sum = 0;
@@ -29,12 +30,12 @@ function GEN_linearRecurrence({
                 cache[i] = sum % m;
             }
             return cache[n];
-        }
+        };
     } else {
-        var genericLinRec = function (n, cache) {
+        genericLinRec = function (n, cache) {
             if( n < seedList.length){
-                cache[n] = seedList[n]
-                return cache[n] 
+                cache[n] = seedList[n];
+                return cache[n] ;
             }
 
             for (let i = cache.length; i <= n; i++) {
@@ -45,9 +46,9 @@ function GEN_linearRecurrence({
                 cache[i] = sum;
             }
             return cache[n];
-        }
+        };
     }
-    return genericLinRec
+    return genericLinRec;
 }
 
 const SCHEMA_linearRecurrence = {
@@ -71,7 +72,7 @@ const SCHEMA_linearRecurrence = {
         description: 'A number to mod the sequence by by',
         required: false
     }
-}
+};
 
 
 const SEQ_linearRecurrence = {
@@ -79,6 +80,6 @@ const SEQ_linearRecurrence = {
 	name: "Linear Recurrence",
 	description: "",
 	paramsSchema: SCHEMA_linearRecurrence
-}
+};
 
-module.exports = SEQ_linearRecurrence
+module.exports = SEQ_linearRecurrence;

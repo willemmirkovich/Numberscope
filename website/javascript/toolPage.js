@@ -1,3 +1,6 @@
+/*jshint scripturl:true*/
+/*jshint maxerr: 10000 */
+
 var logoColor = "#afafdc";
 var topBarColor = "#f75c03";
 var sideNavColor = "#416788";
@@ -5,12 +8,12 @@ var sideNavColor2 = "#70cad1";
 var numSequences = 0;
 var numTools = 0;
 var numDraw = 0;
-const inputTypesNames = ["builtIn", "OEIS", "list", "code"]
+const inputTypesNames = ["builtIn", "OEIS", "list", "code"];
 // const moduleKeys = ["empty", "turtle", "gameOfLife", "shiftCompare"]
 
 const moduleKeys = Object.keys(NScore.modules);
-const moduleNames = moduleKeys.map((key) => NScore.modules[key].name)
-const seqKeys = Object.keys(NScore.BuiltInSeqs)
+const moduleNames = moduleKeys.map((key) => NScore.modules[key].name);
+const seqKeys = Object.keys(NScore.BuiltInSeqs);
 
 var currentSequence = {
   ID: undefined,
@@ -25,7 +28,7 @@ var currentSequence = {
   },
   setValue: function () {
     if (this.inputType == "builtIn") {
-      this.inputValue = document.getElementById(this.inputType + "Select" + this.ID).value
+      this.inputValue = document.getElementById(this.inputType + "Select" + this.ID).value;
     }
     if (this.inputType == "OEIS") {
       this.inputValue = document.getElementById("oeisNum" + this.ID).value;
@@ -34,44 +37,44 @@ var currentSequence = {
       this.inputValue = "[" + document.getElementById("listText" + this.ID).value + "]";
     }
     if (this.inputType == "code") {
-      console.error("Not Implemented: " + this.inputType + " input")
+      console.error("Not Implemented: " + this.inputType + " input");
       // this.inputValue = document.getElementById("codeText" + this.ID);
     }
   },
   setParameters: function () {
     if (this.inputType == "builtIn") {
-      let currentForm = "#" + this.inputValue + "Params" + "Form" + this.ID
+      let currentForm = "#" + this.inputValue + "Params" + "Form" + this.ID;
       let collectedParameters = $(currentForm).serializeArray();
       collectedParameters.forEach(
         (formField) => this.parameters[formField.name] = formField.value
-      )
+      );
     }
   },
   sendSequence: function () {
     if (this.inputValue == undefined) {
-      console.log("Not setting input since it is undefined for input type: " + this.inputType)
+      console.log("Not setting input since it is undefined for input type: " + this.inputType);
     } else {
       ret = NScore.receiveSequence(Object.assign({}, {
         ID: this.ID,
         inputType: this.inputType,
         inputValue: this.inputValue,
         parameters: this.parameters
-      }))
+      }));
       if (ret != true) {
         ret.forEach(
           (err) => {
-            this.reportBad(err)
+            this.reportBad(err);
           }
-        )
+        );
       } else {
         if (this.inputType == "list") {
-          this.reportGood("List")
+          this.reportGood("List");
         }
         if (this.inputType == "OEIS") {
-          this.reportGood(this.inputValue)
+          this.reportGood(this.inputValue);
         }
         if (this.inputType == "builtIn") {
-          this.reportGood(BuiltInSeqs[this.inputValue].name)
+          this.reportGood(BuiltInSeqs[this.inputValue].name);
         }
       }
 
@@ -83,14 +86,14 @@ var currentSequence = {
     this.parameters = {};
   },
   reportBad: function (msg) {
-    prefix = String.fromCharCode(96 + this.ID)
-    logRed(`[${prefix}_n] ${msg}`)
+    prefix = String.fromCharCode(96 + this.ID);
+    logRed(`[${prefix}_n] ${msg}`);
   },
   reportGood: function (msg) {
-    prefix = String.fromCharCode(96 + this.ID)
-    logGreen(`[${prefix}_n] ${msg}`)
+    prefix = String.fromCharCode(96 + this.ID);
+    logGreen(`[${prefix}_n] ${msg}`);
   }
-}
+};
 
 
 // Same principle as above
@@ -106,10 +109,10 @@ var currentTool = {
   },
   setConfig: function (config) {
     let configID = "#" + this.moduleKey + "Config" + this.ID;
-    let collectedConfig = $(configID).serializeArray()
+    let collectedConfig = $(configID).serializeArray();
     collectedConfig.forEach(
       (configField) => this.config[configField.name] = configField.value
-    )
+    );
   },
   sendModule: function () {
     console.log(this);
@@ -117,16 +120,16 @@ var currentTool = {
       ID: this.ID,
       moduleKey: this.moduleKey,
       config: this.config
-    }))
-    console.log(ret)
+    }));
+    console.log(ret);
     if (ret != true) {
       ret.forEach(
         (err) => {
-          this.reportBad(err)
+          this.reportBad(err);
         }
-      )
+      );
     } else {
-      this.reportGood()
+      this.reportGood();
     }
   },
   refresh: function () {
@@ -134,17 +137,17 @@ var currentTool = {
     this.config = {};
   },
   reportBad: function (msg) {
-    name = "(" + NScore.modules[this.moduleKey].name + ")"
-    prefix = `[tool ${this.ID}]`
-    logRed(`${prefix} ${name} ${msg}`)
+    name = "(" + NScore.modules[this.moduleKey].name + ")";
+    prefix = `[tool ${this.ID}]`;
+    logRed(`${prefix} ${name} ${msg}`);
   },
   reportGood: function (msg) {
-    name = "(" + NScore.modules[this.moduleKey].name + ")"
-    prefix = `[tool ${this.ID}] `
+    name = "(" + NScore.modules[this.moduleKey].name + ")";
+    prefix = `[tool ${this.ID}] `;
     if (msg == undefined) {
-      logGreen(`${prefix} ${name}`)
+      logGreen(`${prefix} ${name}`);
     } else {
-      logGreen(`${prefix} ${name} ${msg}`)
+      logGreen(`${prefix} ${name} ${msg}`);
 
     }
   }
@@ -300,7 +303,7 @@ function openSeqInputNav(n, m) {
   } else if (m == 3) {
     let u = "listInputNav" + n;
     document.getElementById(u).style.width = "24em";
-    let v = "list" + n
+    let v = "list" + n;
     document.getElementById(v).style.background = topBarColor;
     document.getElementById(v).style.borderColor = topBarColor;
     document.getElementById(v).style.borderLeftColor = sideNavColor;
@@ -336,7 +339,7 @@ function closeSeqInputNav(n, m) {
     currentSequence.setValue();
     currentSequence.setParameters(); //this temp, should get it from input box or something
     currentSequence.sendSequence();
-    currentSequence.refresh()
+    currentSequence.refresh();
   }
   if (m == 1) {
     var f = "builtInInputNav" + n;
@@ -368,10 +371,10 @@ function showBuiltInParams(n) {
   seqKeys.forEach(
     function (key) {
       if (key != choice) {
-        closeBuiltInParams(n, key)
+        closeBuiltInParams(n, key);
       }
     }
-  )
+  );
   // Open form belonging to sequence
 }
 
@@ -472,7 +475,7 @@ function openToolInputNav(n, m) {
       closeToolInputNav(n, r);
     }
   }
-  $("#" + u).show()
+  $("#" + u).show();
   currentTool.setID(n);
   currentTool.setModule(m);
 }
@@ -481,7 +484,7 @@ function closeToolInputNav(n, m) {
   let u = moduleKeys[m] + "Config" + n;
   document.getElementById(u).style.width = "0";
   document.getElementById(u).style.padding = "0";
-  $("#" + u).hide()
+  $("#" + u).hide();
 
 
   let v = moduleKeys[m] + n;
@@ -621,10 +624,10 @@ function addSeq() {
       function (key) {
         newForm = document.createElement("form");
         newFormId = key + "ParamsForm" + numSequences;
-        newForm.setAttribute("id", newFormId)
-        newNav.appendChild(newForm)
+        newForm.setAttribute("id", newFormId);
+        newNav.appendChild(newForm);
       }
-    )
+    );
 
     // newFormId = "builtInInputForm" + numSequences;
     // newForm.setAttribute("id", newFormId)
@@ -715,7 +718,7 @@ function addSeq() {
     a = document.createElement('textarea');
     let codeTextId = "codeText" + numSequences;
     a.setAttribute("id", codeTextId);
-    a.setAttribute("value", "def f(n):\n\treturn n")
+    a.setAttribute("value", "def f(n):\n\treturn n");
 
     newNav.appendChild(a);
 
@@ -725,16 +728,16 @@ function addSeq() {
         newFormId = key + "ParamsForm" + numSequences;
         $("#" + newFormId).jsonForm({
           schema: NScore.BuiltInSeqs[key].paramsSchema
-        })
-        $("#" + newFormId).hide()
-        $("#" + newFormId).hide()
+        });
+        $("#" + newFormId).hide();
+        $("#" + newFormId).hide();
       }
-    )
+    );
   }
   //We don't want jsonForm to block wrong input, since we want to report it to the user.
   //Otherwise entering a "string" in a "number" input is the same as not entering anything at all
   //We have to make a distinction between wrong input and empty input.
-  $(".form-control").each((i, node) => node.type = "any")
+  $(".form-control").each((i, node) => node.type = "any");
 
 }
 
@@ -813,7 +816,7 @@ function addTool() {
         body.appendChild(toolInputNav);
         $("#" + newConfigId).jsonForm({
           schema: NScore.modules[moduleKeys[j]].configSchema
-        })
+        });
         // $("#" + newConfigId).hide()
 
       }
@@ -923,7 +926,7 @@ function removeDraw(n) {
 
     numDraw -= 1;
   }
-};
+}
 
 function _draw() {
   closeNav(n = 3);
@@ -947,7 +950,7 @@ function getPairs() {
     });
   }
   closeNav(n = 3);
-  return seqVizPairs
+  return seqVizPairs;
 }
 
 
@@ -958,4 +961,4 @@ addTool();
 LogPanel.clearlog();
 $("#innerLogArea").append(
   '<p style="color:black;font-weight:500;font-size:1.2em;font-style:italic">This is the log, errors and other information will show up here..</p><br>`'
-)
+);

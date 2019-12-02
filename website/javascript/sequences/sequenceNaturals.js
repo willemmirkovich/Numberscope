@@ -4,10 +4,10 @@ function GEN_Naturals({
     includezero
 }){
     if(includezero){
-        return ( (n) => n )
+        return ( (n) => n );
     }
     else{
-        return ( (n) => n + 1 )
+        return ( (n) => n + 1 );
     }
 }
 
@@ -19,7 +19,7 @@ const SCHEMA_Naturals= {
         default: 'false',
         required: false
     }
-}
+};
 
 
 const SEQ_Naturals = {
@@ -27,7 +27,7 @@ const SEQ_Naturals = {
 	name: "Naturals",
 	description: "",
 	paramsSchema: SCHEMA_Naturals
-}
+};
 
 // export default SEQ_Naturals
-module.exports = SEQ_Naturals
+module.exports = SEQ_Naturals;
