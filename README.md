@@ -66,11 +66,11 @@ The fibonacci is a built in sequence, we could alterntaively use *seqtype: "OEIS
         m: 5 // '' means empty argument
     },
 ```
-Built in sequences sometimes require parameters. Fibonacci has a parameter *m* which specifies a number to mod the sequence by. We can leave it empty by replacing 5 with ''.
+Built in sequences sometimes require parameters. Fibonacci has a parameter *m* which specifies a number to mod the sequence by. (We could've left it empty by replacing 5 with '')
 ```javascript
     moduleKey: 'Differences',
 ```
-This is where your module key goes, that is the string that in the MODULES registry that identifies your module (MODULES['myModuleKEy]).
+This is where your module key goes, i.e is the string between brackets in *modules.js*, which the MODULES registry uses to identify your module (MODULES['myModuleKEy']).
 ```javascript
     config: {
         n: 20,
