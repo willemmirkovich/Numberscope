@@ -6,8 +6,8 @@
 class VIZ_Differences {
 	constructor(seq, sketch, config) {
 
-		this.n = config.n;                                   //n is number of terms of top sequence
-		this.levels = config.Levels;                         //levels is number of layers of the pyramid/trapezoid created by writing the differences.
+		this.n = config.n; //n is number of terms of top sequence
+		this.levels = config.Levels; //levels is number of layers of the pyramid/trapezoid created by writing the differences.
 		this.seq = seq;
 		this.sketch = sketch;
 	}
@@ -15,14 +15,14 @@ class VIZ_Differences {
 	drawDifferences(n, levels, sequence) {
 
 		//changed background color to grey since you can't see what's going on
-		this.sketch.background( 'black' )
+		this.sketch.background('black');
 
 		n = Math.min(n, sequence.length);
 		levels = Math.min(levels, n - 1);
 		let font, fontSize = 20;
 		this.sketch.textFont("Arial");
 		this.sketch.textSize(fontSize);
-		this.sketch.textStyle(this.sketch.BOLD)
+		this.sketch.textStyle(this.sketch.BOLD);
 		let xDelta = 50;
 		let yDelta = 50;
 		let firstX = 30;
@@ -30,12 +30,12 @@ class VIZ_Differences {
 		this.sketch.colorMode(this.sketch.HSB, 255);
 		let myColor = this.sketch.color(100, 255, 150);
 		let hue;
-		
+
 		let workingSequence = [];
 
 		for (let i = 0; i < this.n; i++) {
-			console.log("in")
-			workingSequence.push(sequence.getElement(i));                                 //workingSequence cannibalizes first n elements of sequence.
+			console.log("in");
+			workingSequence.push(sequence.getElement(i)); //workingSequence cannibalizes first n elements of sequence.
 		}
 
 
@@ -44,21 +44,20 @@ class VIZ_Differences {
 			myColor = this.sketch.color(hue, 150, 200);
 			this.sketch.fill(myColor);
 			for (let j = 0; j < workingSequence.length; j++) {
-				this.sketch.text(workingSequence[j], firstX + j * xDelta, firstY + i * yDelta);         //Draws and updates workingSequence simultaneously.
+				this.sketch.text(workingSequence[j], firstX + j * xDelta, firstY + i * yDelta); //Draws and updates workingSequence simultaneously.
 				if (j < workingSequence.length - 1) {
 					workingSequence[j] = workingSequence[j + 1] - workingSequence[j];
 				}
 			}
 
-			workingSequence.length = workingSequence.length - 1;                      //Removes last element.
-			firstX = firstX + (1 / 2) * xDelta;                                           //Moves line forward half for pyramid shape.
+			workingSequence.length = workingSequence.length - 1; //Removes last element.
+			firstX = firstX + (1 / 2) * xDelta; //Moves line forward half for pyramid shape.
 
 		}
 
 	}
 
-	setup() {
-	}
+	setup() {}
 	draw() {
 		this.drawDifferences(this.n, this.levels, this.seq);
 		this.sketch.noLoop();
@@ -80,14 +79,14 @@ const SCHEMA_Differences = {
 		description: 'Number of levels',
 		required: true
 	},
-}
+};
 
 const MODULE_Differences = {
 	viz: VIZ_Differences,
 	name: "Differences",
 	description: "",
 	configSchema: SCHEMA_Differences
-}
+};
 
 
-module.exports = MODULE_Differences
+module.exports = MODULE_Differences;

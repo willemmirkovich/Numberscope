@@ -2,11 +2,12 @@
 
 
 //Add new modules to this constant.
-const MODULES = {}
+const MODULES = {};
 
-module.exports = MODULES
+module.exports = MODULES;
 
-MODULES["Turtle"] = require('./moduleTurtle.js')
-MODULES["ShiftCompare"] = require('./moduleShiftCompare.js')
-MODULES["Differences"] = require('./moduleDifferences.js')
-MODULES["ModFill"] = require('./moduleModFill.js')
+/*jshint ignore:start */
+MODULES["Turtle"] = require('./moduleTurtle.js');
+MODULES["ShiftCompare"] = require('./moduleShiftCompare.js');
+MODULES["Differences"] = require('./moduleDifferences.js');
+MODULES["ModFill"] = require('./moduleModFill.js');

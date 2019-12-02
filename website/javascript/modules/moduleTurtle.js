@@ -1,22 +1,22 @@
 class VIZ_Turtle {
 	constructor(seq, sketch, config) {
-		var domain = config['domain']
-		var range = config['range']
-		this.rotMap = {}
+		var domain = config.domain;
+		var range = config.range;
+		this.rotMap = {};
 		for(let i = 0; i < domain.length; i++){
-			this.rotMap[domain[i]] = (Math.PI/180)*range[i]
+			this.rotMap[domain[i]] = (Math.PI/180)*range[i];
 		}
 		this.stepSize = config.stepSize;
 		this.bgColor = config.bgColor;
 		this.strokeColor = config.strokeColor;
-		this.strokeWidth = config.strokeWeight
+		this.strokeWidth = config.strokeWeight;
 		this.seq = seq;
 		this.currentIndex = 0;
 		this.orientation = 0;
 		this.sketch = sketch;
 		if(config.startingX != ""){
-			this.X = config.startingX
-			this.Y = config.startingY
+			this.X = config.startingX;
+			this.Y = config.startingY;
 		}
 		else{
 			this.X = null;
@@ -30,7 +30,7 @@ class VIZ_Turtle {
 		let currElement = this.seq.getElement(this.currentIndex++);
 		let angle = this.rotMap[ currElement ];
 		if(angle == undefined){
-			throw ('angle undefined for element: ' + currElement)
+			throw ('angle undefined for element: ' + currElement);
 		}
 		this.orientation = (this.orientation + angle);
 		this.X += this.stepSize * Math.cos(this.orientation);
@@ -42,7 +42,7 @@ class VIZ_Turtle {
 		this.Y = this.sketch.height / 2;
 		this.sketch.background(this.bgColor);
 		this.sketch.stroke(this.strokeColor);
-		this.sketch.strokeWeight(this.strokeWidth)
+		this.sketch.strokeWeight(this.strokeWidth);
 	}
 	draw() {
 		this.stepDraw();
@@ -106,14 +106,14 @@ const SCHEMA_Turtle = {
 		title: 'hello',
 		foramt: 'list'
 	}
-}
+};
 
 const MODULE_Turtle = {
 	viz: VIZ_Turtle,
 	name: "Turtle",
 	description: "",
 	configSchema: SCHEMA_Turtle
-}
+};
 
 
-module.exports = MODULE_Turtle
+module.exports = MODULE_Turtle;

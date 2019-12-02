@@ -1,13 +1,11 @@
-
-
 //An example module
 
 
 class VIZ_ModFill {
 	constructor(seq, sketch, config) {
-		this.sketch = sketch
-		this.seq = seq
-        this.modDimension = config.modDimension
+		this.sketch = sketch;
+		this.seq = seq;
+		this.modDimension = config.modDimension;
 		this.i = 0;
 	}
 
@@ -41,13 +39,13 @@ class VIZ_ModFill {
 }
 
 const SCHEMA_ModFill = {
-    modDimension: {
-        type: "number",
-        title: "Mod dimension",
-        description: "",
-        required: true
-    }
-}
+	modDimension: {
+		type: "number",
+		title: "Mod dimension",
+		description: "",
+		required: true
+	}
+};
 
 
 const MODULE_ModFill = {
@@ -55,6 +53,6 @@ const MODULE_ModFill = {
 	name: "Mod Fill",
 	description: "",
 	configSchema: SCHEMA_ModFill
-}
+};
 
-module.exports = MODULE_ModFill
+module.exports = MODULE_ModFill;
