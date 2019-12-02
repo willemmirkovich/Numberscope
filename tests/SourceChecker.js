@@ -13,8 +13,8 @@ function checkSourceP5(source) {
                 'shouldBe': 'this.sketch.' + ref,
                 loc: null
             })
-            if( Math.hasOwnProperty(ref) ){
-                hits[ hits.length - 1].shouldBe = hits[ hits.length - 1].shouldBe + " (or Math." + hits[ hits.length - 1].is +" instead)";
+            if (Math.hasOwnProperty(ref)) {
+                hits[hits.length - 1].shouldBe = hits[hits.length - 1].shouldBe + " (or Math." + hits[hits.length - 1].is + " instead)";
             }
         }
     });
@@ -31,13 +31,12 @@ function checkSourceP5(source) {
     return hits
 }
 
-function checkSourceSeq(source){
+function checkSourceSeq(source) {
     let hits = [];
     let tokens = [...acorn.tokenizer(source, {
         'locations': true
     })]
     let refsToSeq = ['seq']
-    console.log(tokens)
     tokens.forEach(function (token, index) {
         if (token.value != undefined && index - 3 >= 0) {
             let lookingAt = token.value;
