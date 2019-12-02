@@ -16,12 +16,9 @@ If you just downloaded the numberscope directory, run:
 $ npm install
 ```
 
-If you want to work on any of the following:
-- sequences
-- modules
-- NScore.js
+If you change any of the javascript files besides *toolPage.html*, you must rebuild NScore_bundle.js:
   
-You must run
+You have run
 ```
 $ npm run watch
 ```
@@ -31,35 +28,53 @@ $ npm run build
 ```
 If you're working on toolpage.js no building is needed, it's included as is in the toolpage.html.
 
-The reason for the build process is the fact that all "import thing from './thing.js' have been changed to 'thing = require('./thing.js')'. This is for two reasons: 
 
-1. ES6 modules (import thing from 'thing.js') don't work if you serve them directly via the file system (e.g opening toolPage.html in in firefox directly), you have to serve them via a server for them to work properly. By using a bundler like browserify the end product (NScore_bundled.js) can be treated as a normal JS script. This way you don't have to start up a server everytime you want to test something out.
-2. Makes it much easier to run automated testing (which is a work in progress).
-
-
-Consult the wiki for the following:
+# Consult the wiki for the following:
 - [Modules](https://github.com/katestange/Numberscope/wiki/Modules)
 - [Sequences](https://github.com/katestange/Numberscope/wiki/Sequences)
-
+- [Testing](https://github.com/katestange/Numberscope/wiki/Sequences)
 ---
 
-NPM scripts you can run
+# NPM scripts you can run
 
 - "**npm run build**": Build the NScore_bundled.js file.
 - "**npm run watch**": Watch for changes that affect NScore.js and automatically build NScore_bundled.js 
-- "**npm run check_module [file]**": A lot of the drawing tools that were converted to our module format were forgetting to change some parts that were using global p5 methods and instances (for example "line" or "background"), which should instead use the handle "sketch" (like "sketch.line" and "sketch.background"). Running this tool will scan the file for any usage of p5 keywords without *this.sketch*, but ***it can detect something that has nothing to do with p5 and if so just ignore it*** (e.g if you name a variable "line" you're fine, if you're using the p5 function "line" you should change it, the script can't tell the differences. It's good to run and go through line by line to make sure. )
 - "**npm run init_module**": This will ask you for a name and description then it will create a file for you in the modules directory with the minimal appropriate structure required. It will also register the module by adding a line in the modules.js that includes it in the MODULES object.
 - "**npm run init_sequence**": The same but for creating a sequence. The sequence entry is added to the BuiltInSeqs object in *javascript/sequences/sequences.js*.
 
 ---
 
-Important files and folders:
+# Testing
+
+Since we're testing code that requires the window, we'll use [mocha](https://mochajs.org/) in the browser. To the run test simply open *tests/tests.html* in any browser. You'll get a checklist of what tests pass and often useful messages if a test fails. This will help you when you write a module or a sequence by eliminating the common errors. Right now the tests only cover drawing modules, tests for sequences will follow soon. 
+
+
+---
+
+# Important files and folders:
+
 - **website/javascript/modules**: this is where the drawing modules are stored
-- **website/javascript/modules/modules.js**: there is an object called MODULES which holds all the modules, once a new module is added to the directory, it must be imported in modules.js and also added to the MODULES object. 
+- **website/javascript/modules/modules.js**: this file stores the MODULES object which acts as a registry for the drawing tools implemented. Adding a drawing module to the MODULES object automatically makes it available on the website.
 - **website/javascript/NScore.js**: Numberscore's core javascript file, it handles processing the input from the interface, instantiating modules, creating and starting sketches.
-- **website/javascript/sequences/**: this is where all the build in sequences are stored.
-- **website/javascript/sequences/sequence.js**: This file contains the sequenceGenerator class and other helper functions for sequences.
+- **website/javascript/Validation.js**: All the validation and processing of the drawing configs and sequences inputs happen here before they're prepared by NScore.
+- **website/javascript/sequences/**: this is where all the built in sequences are stored.
+- **website/javascript/sequences/sequence.js**: This file contains the sequenceGenerator class and other helper functions for sequences, as well as the builtInSeqeunce which acts as a registry for implemented sequence.
 - **website/javascript/toolpage/toolPage.js**: this file holds the logic for the website interface.
 
+---
+
+Some tips:
+Javascript makes it very easy to make mistakes, especially ones that go unnoticed. I **strongly** encourage you to use a linter like JShint. You can have it installed with "npm install -g JShint". The best way to use it is to have an editor extension for it that automatically lints your code as you write it. Also, semicolons in javascript seem optional (the engine automatically places it for you if you omit it), until they're not and end up breaking your code. For example
+```javascript
+let x = 10
+let y = 20
+(x+y)*2
+```
+Try running the above code. The paranthesis on the 3rd line tricks the engine into thinking that 2nd line is a function and the 3rd line is its argument. So it'll end up processing the code like this:
+```javascript
+let x = 10;
+let y = 20(x+y)*2;
+```
+This kind of bug is really frustrating to debug so best to avoid it by explicitly using semicolons.
 
 **Please let me know if there are any bugs, there are bound to be plenty. Feel free to create an issue if one doesn't exist**
