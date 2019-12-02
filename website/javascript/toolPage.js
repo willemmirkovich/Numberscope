@@ -57,19 +57,21 @@ var currentSequence = {
         inputValue: this.inputValue,
         parameters: this.parameters
       }))
-      if( ret != true){
+      if (ret != true) {
         ret.forEach(
-          (err) => { this.reportBad(err) }
+          (err) => {
+            this.reportBad(err)
+          }
         )
-      }else{
-        if(this.inputType == "list"){
-          this.reportGood( "List" )
+      } else {
+        if (this.inputType == "list") {
+          this.reportGood("List")
         }
-        if(this.inputType == "OEIS"){
-          this.reportGood( this.inputValue )
+        if (this.inputType == "OEIS") {
+          this.reportGood(this.inputValue)
         }
-        if(this.inputType == "builtIn"){
-          this.reportGood( BuiltInSeqs[this.inputValue].name )
+        if (this.inputType == "builtIn") {
+          this.reportGood(BuiltInSeqs[this.inputValue].name)
         }
       }
 
@@ -80,13 +82,13 @@ var currentSequence = {
     this.inputValue = undefined;
     this.parameters = {};
   },
-  reportBad: function(msg){
+  reportBad: function (msg) {
     prefix = String.fromCharCode(96 + this.ID)
-    logRed( `[${prefix}_n] ${msg}` )
+    logRed(`[${prefix}_n] ${msg}`)
   },
-  reportGood: function(msg){
+  reportGood: function (msg) {
     prefix = String.fromCharCode(96 + this.ID)
-    logGreen( `[${prefix}_n] ${msg}` )
+    logGreen(`[${prefix}_n] ${msg}`)
   }
 }
 
@@ -117,12 +119,13 @@ var currentTool = {
       config: this.config
     }))
     console.log(ret)
-    if( ret != true){
+    if (ret != true) {
       ret.forEach(
-        (err) => { this.reportBad(err) }
+        (err) => {
+          this.reportBad(err)
+        }
       )
-    }
-    else{
+    } else {
       this.reportGood()
     }
   },
@@ -130,19 +133,18 @@ var currentTool = {
     this.moduleKey = undefined;
     this.config = {};
   },
-  reportBad: function(msg){
+  reportBad: function (msg) {
     name = "(" + NScore.modules[this.moduleKey].name + ")"
     prefix = `[tool ${this.ID}]`
-    logRed( `${prefix} ${name} ${msg}` )
+    logRed(`${prefix} ${name} ${msg}`)
   },
-  reportGood: function(msg){
+  reportGood: function (msg) {
     name = "(" + NScore.modules[this.moduleKey].name + ")"
     prefix = `[tool ${this.ID}] `
-    if( msg == undefined){
-      logGreen( `${prefix} ${name}` )
-    }
-    else{
-      logGreen( `${prefix} ${name} ${msg}` )
+    if (msg == undefined) {
+      logGreen(`${prefix} ${name}`)
+    } else {
+      logGreen(`${prefix} ${name} ${msg}`)
 
     }
   }
@@ -330,7 +332,7 @@ function openSeqInputNav(n, m) {
 }
 
 function closeSeqInputNav(n, m) {
-  if( currentSequence.inputType != undefined ){
+  if (currentSequence.inputType != undefined) {
     currentSequence.setValue();
     currentSequence.setParameters(); //this temp, should get it from input box or something
     currentSequence.sendSequence();
@@ -729,10 +731,10 @@ function addSeq() {
       }
     )
   }
-      //We don't want jsonForm to block wrong input, since we want to report it to the user.
-    //Otherwise entering a "string" in a "number" input is the same as not entering anything at all
-    //We have to make a distinction between wrong input and empty input.
-    $(".form-control").each( (i,node) => node.type ="any") 
+  //We don't want jsonForm to block wrong input, since we want to report it to the user.
+  //Otherwise entering a "string" in a "number" input is the same as not entering anything at all
+  //We have to make a distinction between wrong input and empty input.
+  $(".form-control").each((i, node) => node.type = "any")
 
 }
 
@@ -928,12 +930,12 @@ function _draw() {
   document.getElementById("canvasArea").style.width = "100%";
   document.getElementById("canvasArea").style.height = "100%";
   NScore.clear();
-  seqVezPairs = getPairs();
+  seqVizPairs = getPairs();
   document.getElementById("canvasArea").style.width = "100%";
   NScore.begin(seqVizPairs);
 }
 
-function getPairs(){
+function getPairs() {
   let drawSeqList = document.getElementById("drawSeqList").children;
   let drawToolList = document.getElementById("drawToolList").children;
   let seqCount = drawSeqList.length;
@@ -945,7 +947,7 @@ function getPairs(){
     });
   }
   closeNav(n = 3);
-  return seqVezPairs
+  return seqVizPairs
 }
 
 
@@ -954,6 +956,6 @@ addSeq();
 addTool();
 
 LogPanel.clearlog();
-$("#innerLogArea").append( 
-'<p style="color:black;font-weight:500;font-size:1.2em;font-style:italic">This is the log, errors and other information will show up here..</p><br>`' 
+$("#innerLogArea").append(
+  '<p style="color:black;font-weight:500;font-size:1.2em;font-style:italic">This is the log, errors and other information will show up here..</p><br>`'
 )
