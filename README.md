@@ -35,6 +35,53 @@ If you're working on toolpage.js no building is needed, it's included as is in t
 - [Testing](https://github.com/katestange/Numberscope/wiki/Sequences)
 ---
 
+Testing out your code quickly:
+
+Make sure to run "npm run init_module" (or sequence) so that your drawing module is added to the MODULES registry. Then in the sandbox folder there is a *setup.js* file. Here is an example sandbox setup:
+```javascript
+setup ={
+    sequence: 'Fibonacci',
+    seqtype: 'builtIn',
+    parameters: {
+        m: 5 // '' means empty argument
+    },
+    moduleKey: 'Differences',
+    config: {
+        n: 20,
+        Levels: 2
+    },
+}
+```
+Going line by line:
+```javascript
+  sequence: 'Fibonacci',
+```
+We're choosing the fibonacci sequence.
+```javascript
+  seqtype: 'builtIn',
+```
+The fibonacci is a built in sequence, we could alterntaively use *seqtype: "OEIS"* and *sequence: 'A000045'*.
+```javascript
+    parameters: {
+        m: 5 // '' means empty argument
+    },
+```
+Built in sequences sometimes require parameters. Fibonacci has a parameter *m* which specifies a number to mod the sequence by. We can leave it empty by replacing 5 with ''.
+```javascript
+    moduleKey: 'Differences',
+```
+This is where your module key goes, that is the string that in the MODULES registry that identifies your module (MODULES['myModuleKEy]).
+```javascript
+    config: {
+        n: 20,
+        Levels: 2
+    },
+```
+Finally, if your drawing module depends on certain input defined by the schema, you can provide it with the config object.
+
+Once you're satisfied with your setup object, you can open sandbox.html and it'll run the your drawing module with the selected sequence automatically. This makes debugging quick, since you can change the code and just refresh the page to see the change immediately. It's a good idea to use *console.log* to inspect your code state when you're stuck.
+
+---
 # NPM scripts you can run
 
 - "**npm run build**": Build the NScore_bundled.js file.
@@ -46,7 +93,7 @@ If you're working on toolpage.js no building is needed, it's included as is in t
 
 # Testing
 
-Since we're testing code that requires the window, we'll use [mocha](https://mochajs.org/) in the browser. To the run test simply open *tests/tests.html* in any browser. You'll get a checklist of what tests pass and often useful messages if a test fails. This will help you when you write a module or a sequence by eliminating the common errors. Right now the tests only cover drawing modules, tests for sequences will follow soon. 
+Since we're testing code that requires the browser context, we'll use [mocha](https://mochajs.org/) in the browser. To the run test simply open *tests/tests.html* in any browser. You'll get a checklist of what tests pass and often useful messages if a test fails. This will help you when you write a module or a sequence by eliminating the common errors. Right now the tests only cover drawing modules, tests for sequences will follow soon. 
 
 
 ---

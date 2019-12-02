@@ -41,12 +41,12 @@ setup ={
     parameters: {
         m: 5 // '' means empty argument
     },
-    moduleName: 'Differences',
+    moduleKey: 'Differences',
     config: {
         n: 20,
         Levels: 2
     },
-}
+};
 
 // setup = {
 //     sequence: 'A005132', // Recaman
