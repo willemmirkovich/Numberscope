@@ -928,6 +928,12 @@ function _draw() {
   document.getElementById("canvasArea").style.width = "100%";
   document.getElementById("canvasArea").style.height = "100%";
   NScore.clear();
+  seqVezPairs = getPairs();
+  document.getElementById("canvasArea").style.width = "100%";
+  NScore.begin(seqVizPairs);
+}
+
+function getPairs(){
   let drawSeqList = document.getElementById("drawSeqList").children;
   let drawToolList = document.getElementById("drawToolList").children;
   let seqCount = drawSeqList.length;
@@ -939,8 +945,7 @@ function _draw() {
     });
   }
   closeNav(n = 3);
-  document.getElementById("canvasArea").style.width = "100%";
-  NScore.begin(seqVizPairs);
+  return seqVezPairs
 }
 
 
