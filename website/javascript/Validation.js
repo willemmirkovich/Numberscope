@@ -94,7 +94,6 @@ const Validation = function () {
 		let required = (schema[field].required !== undefined) ? schema[field].required : false;
 		let format = (schema[field].format !== undefined) ? schema[field].format : false;
 		let isEmpty = (value === '');
-		console.log(validationResult);
 		if (required && isEmpty) {
 			validationResult.errors.push(requiredError(title));
 		}
