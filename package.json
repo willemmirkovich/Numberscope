@@ -10,7 +10,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "browserify website/javascript/NScore.js -d -o website/javascript/NScore_bundle.js",
     "watch": "watchify website/javascript/NScore.js -d -o website/javascript/NScore_bundle.js -v",
-    "check_module": "python3 ./scripts/check_module.py",
+    "build_test": "browserify tests/SourceChecker.js -d -o tests/SourceChecker_bundle.js -v",
+    "watch_test": "watchify tests/SourceChecker.js -d -o tests/SourceChecker_bundle.js -v",
     "init_module": "python3 ./scripts/init_module.py",
     "init_sequence": "python3 ./scripts/init_sequence.py"
   },
@@ -30,5 +31,8 @@
     "mocha": "^6.2.2",
     "watchify": "^3.11.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "lexical-scope": "^1.2.0",
+    "p5": "^0.10.2"
+  }
 }
