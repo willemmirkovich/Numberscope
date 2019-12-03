@@ -4,10 +4,9 @@ SEQUENCE = require('./sequences/sequences.js');
 MODULES = require('./modules/modules.js');
 Validation = require('./Validation.js');
 
-BuiltInSeqs = SEQUENCE.BuiltInSeqs;
-ListToSeq = SEQUENCE.ListToSeq;
-OEISToSeq = SEQUENCE.OEISToSeq;
-BuiltInNameToSeq = SEQUENCE.BuiltInNameToSeq;
+const ListToSeq = SEQUENCE.ListToSeq;
+const OEISToSeq = SEQUENCE.OEISToSeq;
+const BuiltInNameToSeq = SEQUENCE.BuiltInNameToSeq;
 
 function stringToArray(strArr) {
 	return JSON.parse("[" + strArr + "]");
@@ -15,9 +14,12 @@ function stringToArray(strArr) {
 
 const NScore = function () {
 	const modules = MODULES; //  classes to the drawing modules
+	const BuiltInSeqs = SEQUENCE.BuiltInSeqs;
 	const validOEIS = VALIDOEIS;
 	var preparedSequences = []; // sequenceGenerators to be drawn
 	var preparedTools = []; // chosen drawing modules 
+	var unprocessedSequences = []; //sequences in a saveable format
+	var unprocessedTools = []; //tools in a saveable format
 	var liveSketches = []; // p5 sketches being drawn
 
 	/**
@@ -79,6 +81,7 @@ const NScore = function () {
 				config: moduleObj.config,
 				ID: moduleObj.ID
 			};
+			unprocessedTools[moduleObj.ID] = moduleObj;
 			return true;
 		}
 	};
@@ -99,7 +102,6 @@ const NScore = function () {
 			if (seqObj.inputType == "builtIn") {
 				validationResult = Validation.builtIn(seqObj);
 				if (validationResult.errors.length != 0) {
-					preparedSequences[seqObj.ID] = null;
 					return validationResult.errors;
 				}
 				seqObj.parameters = validationResult.parsedFields;
@@ -108,7 +110,6 @@ const NScore = function () {
 			if (seqObj.inputType == "OEIS") {
 				validationResult = Validation.oeis(seqObj);
 				if (validationResult.errors.length != 0) {
-					preparedSequences[seqObj.ID] = null;
 					return validationResult.errors;
 				}
 				preparedSequences[seqObj.ID] = OEISToSeq(seqObj.ID, seqObj.inputValue);
@@ -116,7 +117,6 @@ const NScore = function () {
 			if (seqObj.inputType == "list") {
 				validationResult = Validation.list(seqObj);
 				if (validationResult.errors.length != 0) {
-					preparedSequences[seqObj.ID] = null;
 					return validationResult.errors;
 				}
 				preparedSequences[seqObj.ID] = ListToSeq(seqObj.ID, seqObj.inputValue);
@@ -125,6 +125,7 @@ const NScore = function () {
 			if (seqObj.inputType == "code") {
 				console.error("Not implemented");
 			}
+			unprocessedSequences[seqObj.ID] = seqObj;
 		}
 		return true;
 	};
@@ -153,11 +154,26 @@ const NScore = function () {
 		for (let pair of seqVizPairs) {
 			let currentSeq = preparedSequences[pair.seqID];
 			let currentTool = preparedTools[pair.toolID];
-			if (currentSeq && currentTool == undefined) {
+			if (currentSeq == undefined || currentTool == undefined) {
 				console.error("undefined ID for tool or sequence");
+			} else {
+				liveSketches.push(generateP5(currentTool.module.viz, currentTool.config, currentSeq, liveSketches.length, individualWidth, individualHeight));
 			}
-			liveSketches.push(generateP5(currentTool.module.viz, currentTool.config, currentSeq, liveSketches.length, individualWidth, individualHeight));
 		}
+	};
+
+	const makeJSON = function (seqVizPairs) {
+		if( unprocessedSequences.length == 0 && unprocessedTools.length == 0 ){
+			return "Nothing to save!";
+		}
+		toShow = [];
+		for (let pair of seqVizPairs) {
+			toShow.push({
+				seq: unprocessedSequences[pair.seqID],
+				tool: unprocessedTools[pair.toolID]
+			});
+		}
+		return JSON.stringify(toShow);
 	};
 
 	const clear = function () {
@@ -198,6 +214,7 @@ const NScore = function () {
 		modules: modules,
 		validOEIS: validOEIS,
 		BuiltInSeqs: BuiltInSeqs,
+		makeJSON: makeJSON,
 		begin: begin,
 		pause: pause,
 		resume: resume,

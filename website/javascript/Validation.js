@@ -27,7 +27,7 @@ const Validation = function () {
 	};
 
 	const builtIn = function (seqObj) {
-		let schema = BuiltInSeqs[seqObj.inputValue].paramsSchema;
+		let schema = SEQUENCE.BuiltInSeqs[seqObj.inputValue].paramsSchema;
 		let receivedParams = seqObj.parameters;
 
 		let validationResult = {
@@ -61,7 +61,7 @@ const Validation = function () {
 			errors: []
 		};
 		try {
-			seqObj.inputValue = JSON.parse(seqObj.inputValue);
+			if (typeof seqObj.inputValue == String) seqObj.inputValue = JSON.parse(seqObj.inputValue);
 		} catch (err) {
 			validationResult.errors.push(listError());
 		}
@@ -98,7 +98,7 @@ const Validation = function () {
 			validationResult.errors.push(requiredError(title));
 		}
 		if (isEmpty) {
-			parsed = null;
+			parsed = '';
 		}
 		if (!isEmpty && (expectedType == "number")) {
 			parsed = parseInt(value);

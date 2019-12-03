@@ -52,7 +52,7 @@ var currentSequence = {
   },
   sendSequence: function () {
     if (this.inputValue == undefined) {
-      console.log("Not setting input since it is undefined for input type: " + this.inputType);
+      console.error("Not setting input since it is undefined for input type: " + this.inputType);
     } else {
       ret = NScore.receiveSequence(Object.assign({}, {
         ID: this.ID,
@@ -74,7 +74,7 @@ var currentSequence = {
           this.reportGood(this.inputValue);
         }
         if (this.inputType == "builtIn") {
-          this.reportGood(BuiltInSeqs[this.inputValue].name);
+          this.reportGood(NScore.BuiltInSeqs[this.inputValue].name);
         }
       }
 
@@ -115,13 +115,11 @@ var currentTool = {
     );
   },
   sendModule: function () {
-    console.log(this);
     let ret = NScore.receiveModule(Object.assign({}, {
       ID: this.ID,
       moduleKey: this.moduleKey,
       config: this.config
     }));
-    console.log(ret);
     if (ret != true) {
       ret.forEach(
         (err) => {
@@ -341,25 +339,27 @@ function closeSeqInputNav(n, m) {
     currentSequence.sendSequence();
     currentSequence.refresh();
   }
+  let outerPanel;
+  let midPanel;
   if (m == 1) {
-    var f = "builtInInputNav" + n;
-    var g = "builtIn" + n;
+    outerPanel = "builtInInputNav" + n;
+    midPanel = "builtIn" + n;
   } else if (m == 2) {
-    var f = "oeisInputNav" + n;
-    var g = "OEIS" + n;
+    outerPanel = "oeisInputNav" + n;
+    midPanel = "OEIS" + n;
   } else if (m == 3) {
-    var f = "listInputNav" + n;
-    var g = "list" + n;
+    outerPanel = "listInputNav" + n;
+    midPanel = "list" + n;
   } else if (m == 4) {
-    var f = "codeInputNav" + n;
-    var g = "code" + n;
+    outerPanel = "codeInputNav" + n;
+    midPanel = "code" + n;
   }
-  document.getElementById(f).style.width = "0";
-  document.getElementById(f).style.padding = "0";
-  document.getElementById(g).style.background = logoColor;
-  document.getElementById(g).style.borderRightColor = logoColor;
-  document.getElementById(g).style.borderTopColor = logoColor;
-  document.getElementById(g).style.borderBottomColor = logoColor;
+  document.getElementById(outerPanel).style.width = "0";
+  document.getElementById(outerPanel).style.padding = "0";
+  document.getElementById(midPanel).style.background = logoColor;
+  document.getElementById(midPanel).style.borderRightColor = logoColor;
+  document.getElementById(midPanel).style.borderTopColor = logoColor;
+  document.getElementById(midPanel).style.borderBottomColor = logoColor;
 }
 
 //Linear Recurrence
@@ -424,7 +424,7 @@ function extendLinRec(n) {
 //Tool Navigation Bars
 function openToolNav(n) {
   for (let i = 1; i <= numTools; i++) {
-    closeToolNav(i);
+    if (i != n) closeToolNav(i);
   }
   let selectedNav = "toolNav" + n;
   document.getElementById(selectedNav).style.width = "20em";
@@ -926,6 +926,112 @@ function removeDraw(n) {
 
     numDraw -= 1;
   }
+}
+
+function downloadPrompt() {
+  $("#uploadText").css("display", "none");
+  seqVizPairsJSON = NScore.makeJSON(getPairs());
+  $("#hider").css("display", "block");
+  $("#loadArea").css("display", "block");
+  $("#downloadText").css("display", "block");
+  $("#downloadText").val(seqVizPairsJSON);
+}
+
+function uploadPrompt() {
+  $("#downloadText").css("display", "none");
+  $("#hider").css("display", "block");
+  $("#loadArea").css("display", "block");
+  $("#uploadText").css("display", "block");
+  $("#loadButton").css("display", "block");
+}
+
+function closePrompt() {
+  $("#downloadText").css("display", "none");
+  $("#uploadText").css("display", "none");
+  $("#loadButton").css("display", "none");
+  $("#loadArea").css("display", "none");
+  $("#hider").css("display", "none");
+}
+
+function loadJSON() {
+  LogPanel.logGreen("Loading from JSON..");
+  LogPanel.logGreen("---------------------------");
+  closePrompt();
+  json = $("#uploadText").val();
+  try {
+    seqVizList = JSON.parse(json);
+  } catch (err) {
+    LogPanel.logRed("Failed to load, JSON not well formatted");
+  }
+  NScore.preparedSequences = [];
+  NScore.preparedTools = [];
+
+  lenOfDrawList = $("#drawSeqList").children().length;
+  for (let i = 2; i <= lenOfDrawList; i++) {
+    removeDraw(i);
+  }
+  console.log(seqVizList);
+  for (let i = 0; i < seqVizList.length; i++) {
+    let seq = seqVizList[i].seq;
+    let tool = seqVizList[i].tool;
+    //Making sure enough slots are available ---------------
+    if (seq !== undefined && i > 0) {
+      addSeq();
+    }
+    if (tool !== undefined && i > 0) {
+      addTool();
+    }
+    if (seq !== undefined && tool !== undefined) {
+      if (i > 0) {
+        addDraw();
+      }
+      $(`#selectSeq${i + 1}`).val(seq.ID);
+      $(`#selectTool${i + 1}`).val(tool.ID);
+    }
+    //sure making done ----------------------
+    if (seq !== undefined && NScore.preparedSequences[seq.ID] === undefined) {
+      //Loading a sequence ----------------------
+      if (seq.inputType == "builtIn") {
+        $(`#builtInSelect${seq.ID}`).val(seq.inputValue);
+        /*jshint ignore:start*/
+        Object.keys(seq.parameters).forEach(function (key) {
+          $(`#${seq.inputValue}ParamsForm${seq.ID}`).find(`[name=${key}]`).val(seq.parameters[key]);
+        });
+        /*jshint ignore:end*/
+      }
+      if (seq.inputType == "OEIS") {
+        $(`#oeisNum${seq.ID}`).val(seq.inputValue);
+      }
+      if (seq.inputType == "list") {
+        $(`#listText${seq.ID}`).val(seq.inputValue);
+      }
+      currentSequence.ID = seq.ID;
+      currentSequence.inputValue = seq.inputValue;
+      currentSequence.inputType = seq.inputType;
+      currentSequence.parameters = seq.parameters;
+      currentSequence.sendSequence();
+      // //Finish loading a sequence ----------------------
+    }
+    if (tool !== undefined && NScore.preparedTools[tool.ID] === undefined) {
+      // //Loading a tool
+      /*jshint ignore:start*/
+      Object.keys(tool.config).forEach(function (key) {
+        $(`#${tool.moduleKey}Config${tool.ID}`).find(`[name=${key}]`).val(tool.config[key]);
+      });
+      /*jshint ignore:end*/
+      currentTool.ID = tool.ID;
+      currentTool.moduleKey = tool.moduleKey;
+      currentTool.config = tool.config;
+      currentTool.sendModule();
+      //Finish loading a tool
+    }
+    currentTool.ID = undefined;
+    currentTool.refresh();
+    currentSequence.ID = undefined;
+    currentSequence.refresh();
+  }
+  LogPanel.logGreen("---------------------------");
+  LogPanel.logGreen("Done! You can click draw right away!");
 }
 
 function _draw() {

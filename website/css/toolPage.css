@@ -94,6 +94,49 @@ header button:hover:not(.active) {
   text-align: justify;
 }
 
+#loadArea {
+  display: none;
+  position: absolute;
+  top: 12.5%;
+  right: 30%;
+  width: 40%;
+  height: 75%;
+  background: rgb(105, 105, 105);
+  border: 2px solid #000000;
+  padding: 10px;
+  z-index: 12;
+}
+
+#loadArea textarea{
+  position: absolute;
+  height: 88%;
+  left: 10%;
+  right: 10%;
+  resize: none;
+}
+
+#loadArea button {
+  display: none;
+  position: absolute;
+  width: 25%;
+  height: 7%;
+  bottom: 1%;
+  left: 10%;
+  background: #416788;
+  border: 0;
+}
+
+#hider {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background: rgba(0,0,0,.5);
+  z-index: 11;
+}
+
 
 
 ::-webkit-scrollbar {
