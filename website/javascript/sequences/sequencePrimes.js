@@ -1,8 +1,6 @@
-
-
 function GEN_Primes() {
     const primes = function (n, cache) {
-        if(cache.length == 0){
+        if (cache.length == 0) {
             cache.push(2);
             cache.push(3);
             cache.push(5);
@@ -28,7 +26,7 @@ function GEN_Primes() {
 }
 
 
-const SCHEMA_Primes= {
+const SCHEMA_Primes = {
     m: {
         type: 'number',
         title: 'Mod',
@@ -40,9 +38,9 @@ const SCHEMA_Primes= {
 
 const SEQ_Primes = {
     generator: GEN_Primes,
-	name: "Primes",
-	description: "",
-	paramsSchema: SCHEMA_Primes
+    name: "Primes",
+    description: "",
+    paramsSchema: SCHEMA_Primes
 };
 
 module.exports = SEQ_Primes;

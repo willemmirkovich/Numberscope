@@ -1,4 +1,3 @@
-
 const SEQ_linearRecurrence = require('./sequenceLinRec.js');
 
 function GEN_Lucas({
@@ -11,7 +10,7 @@ function GEN_Lucas({
     });
 }
 
-const SCHEMA_Lucas= {
+const SCHEMA_Lucas = {
     m: {
         type: 'number',
         title: 'Mod',
@@ -23,9 +22,9 @@ const SCHEMA_Lucas= {
 
 const SEQ_Lucas = {
     generator: GEN_Lucas,
-	name: "Lucas",
-	description: "",
-	paramsSchema: SCHEMA_Lucas
+    name: "Lucas",
+    description: "",
+    paramsSchema: SCHEMA_Lucas
 };
 
 module.exports = SEQ_Lucas;

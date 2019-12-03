@@ -1,4 +1,3 @@
-
 SEQ_linearRecurrence = require('./sequenceLinRec.js');
 
 function GEN_fibonacci({
@@ -11,7 +10,7 @@ function GEN_fibonacci({
     });
 }
 
-const SCHEMA_Fibonacci= {
+const SCHEMA_Fibonacci = {
     m: {
         type: 'number',
         title: 'Mod',
@@ -23,9 +22,9 @@ const SCHEMA_Fibonacci= {
 
 const SEQ_fibonacci = {
     generator: GEN_fibonacci,
-	name: "Fibonacci",
-	description: "",
-	paramsSchema: SCHEMA_Fibonacci
+    name: "Fibonacci",
+    description: "",
+    paramsSchema: SCHEMA_Fibonacci
 };
 
 module.exports = SEQ_fibonacci;

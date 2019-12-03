@@ -55,7 +55,6 @@ class VIZ_Differences {
 		}
 
 	}
-
 	setup() {}
 	draw() {
 		this.drawDifferences(this.n, this.levels, this.seq);

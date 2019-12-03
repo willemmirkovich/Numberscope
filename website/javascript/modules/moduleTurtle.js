@@ -100,11 +100,6 @@ const SCHEMA_Turtle = {
 		default: '#ff0000',
 		required: false
 	},
-	testThing: {
-		type: 'string',
-		title: 'hello',
-		foramt: 'list'
-	}
 };
 
 const MODULE_Turtle = {
