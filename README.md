@@ -1,7 +1,6 @@
 
 
-# **Table of Contents**
-- [**Table of Contents**](#table-of-contents)
+## **Table of Contents**
 - [**Building**](#building)
     - [**Requirements**](#requirements)
     - [**Commands**](#commands)
