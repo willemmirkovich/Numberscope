@@ -16,39 +16,39 @@ class VIZ_Zeta {
                 this.sketch.pixelDensity(1);
                 this.sketch.frameRate(1);
         }
-        //
-        // mappingFunc(x_, y_, iters) {
-        //         let a = x_;
-        //         let b = y_;
-        //         let n_ = 0;
-        //         while(n_ < iters) {
-        //                 const aa = a*a;
-        //                 const bb = b*b;
-        //                 const ab = 2.0 * a * b;
-        //
-        //                 a = aa - bb + x_;
-        //                 b = ab + y_;
-        //                 n_++;
-        //         }
-        //         return this.sketch.dist(a, b, 0, 0);
-        // }
+
 
         mappingFunc(x_, y_, iters) {
                 let a = x_;
+                let b = y_;
                 let n_ = 0;
-                let R = 2.0;
                 while(n_ < iters) {
-                        const next = R * a * (1 - a);
-                        a = next;
-                        n_ ++;
+                        const aa = a*a;
+                        const bb = b*b;
+                        const ab = 2.0 * a * b;
+
+                        a = aa - bb + x_;
+                        b = ab + y_;
+                        n_++;
                 }
-                return a;
+                return this.sketch.dist(a, b, 0, 0);
         }
 
+        // mappingFunc(x_, y_, iters) {
+        //         let a = x_;
+        //         let n_ = 0;
+        //         let R = 2.0;
+        //         while(n_ < iters) {
+        //                 const next = R * a * (1 - a);
+        //                 a = next;
+        //                 n_ ++;
+        //         }
+        //         return a;
+        // }
+        //
 
         drawMap(maxiterations){
 
-                Reset sketch
                 this.sketch.background(0);
                 const w = 4;
                 const h = (w * this.sketch.height) / this.sketch.width;
