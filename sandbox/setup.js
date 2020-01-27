@@ -41,7 +41,7 @@ setup ={
     parameters: {
         m: 5 // '' means empty argument
     },
-    moduleKey: 'Differences',
+    moduleKey: 'Zeta',
     config: {
         n: 20,
         Levels: 2
@@ -66,3 +66,17 @@ setup ={
 //         yourParam2: someValue2
 //     },
 // }
+
+
+// setup ={
+//     sequence: 'Fibonacci',
+//     seqtype: 'builtIn',
+//     parameters: {
+//         m: 5 // '' means empty argument
+//     },
+//     moduleKey: 'Differences',
+//     config: {
+//         n: 20,
+//         Levels: 2
+//     },
+// };
