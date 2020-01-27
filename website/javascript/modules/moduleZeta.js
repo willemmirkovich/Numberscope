@@ -16,14 +16,43 @@ class VIZ_Zeta {
                 this.sketch.pixelDensity(1);
                 this.sketch.frameRate(1);
         }
+        //
+        // mappingFunc(x_, y_, iters) {
+        //         let a = x_;
+        //         let b = y_;
+        //         let n_ = 0;
+        //         while(n_ < iters) {
+        //                 const aa = a*a;
+        //                 const bb = b*b;
+        //                 const ab = 2.0 * a * b;
+        //
+        //                 a = aa - bb + x_;
+        //                 b = ab + y_;
+        //                 n_++;
+        //         }
+        //         return this.sketch.dist(a, b, 0, 0);
+        // }
 
-        drawMandelbrot(maxiterations){
-                
-                // Reset sketch
+        mappingFunc(x_, y_, iters) {
+                let a = x_;
+                let n_ = 0;
+                let R = 2.0;
+                while(n_ < iters) {
+                        const next = R * a * (1 - a);
+                        a = next;
+                        n_ ++;
+                }
+                return a;
+        }
+
+
+        drawMap(maxiterations){
+
+                Reset sketch
                 this.sketch.background(0);
                 const w = 4;
                 const h = (w * this.sketch.height) / this.sketch.width;
-  
+
                 const xmin = -w/2;
                 const ymin = -h/2;
 
@@ -41,49 +70,9 @@ class VIZ_Zeta {
                         let x = xmin;
                         for(let j = 0; j < this.sketch.width; ++j) {
 
-                                let a = x;
-                                let b = y;
-                                let n = 0;
-
+                                let n = this.mappingFunc(x, y, maxiterations);
                                 // Multiply complex numbers maxiterations times
-                                while(n < maxiterations) {
-                                        const aa = a * a;
-                                        const bb = b * b;
-                                        const twoab = 2.0 * a * b;
 
-                                        a = aa - bb + x;
-                                        b = twoab + y;
-                                        n++;
-                                }
-
-                                n = this.sketch.dist(a, b, 0, 0);
-
-                                /*
-                                * This is the heaviest part of the mandelbrot set
-                                * M set defines the set of complex n's while the orbit
-                                * under the quadratic map 
-                                *
-                                * z_(n+1) = z_(n)^2 + c
-                                *
-                                * remains bounded
-                                *
-                                * here, z = x + iy
-                                */
-                                // while (n < maxiterations) {
-                                //         const aa = a * a;
-                                //         const bb = b * b;
-                                //         const twoab = 2.0 * a * b;
-                                //
-                                //         a = aa - bb + x;
-                                //         b = twoab + y;
-                                //
-                                //         // magnitude of vector
-                                //         // 16 is infinity
-                                //         if (dist(aa, bb, 0, 0) > 16) {
-                                //                 break;
-                                //         }
-                                //         n++;
-                                // }
 
                                 // index of the pixel based on i, j (4 spanned array)
                                 const pix = (j + i*this.sketch.width) * 4;
@@ -118,8 +107,8 @@ class VIZ_Zeta {
         }
 
         draw() {
-                this.drawMandelbrot(this.iter);
-                this.iter = (this.iter + 1) % 20;
+                this.drawMap(this.iter);
+                this.iter = (this.iter + 1) % 200;
         }
 
 
